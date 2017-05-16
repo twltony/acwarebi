@@ -1,0 +1,21 @@
+<h2 class="center">{{basicservice.year}}年{{basicservice.month}}集团各项目销售排名情况</h2>
+<clr-datagrid>
+    <clr-dg-column>楼盘名称</clr-dg-column>
+    <clr-dg-column>月计划（万元）</clr-dg-column>
+    <clr-dg-column>月套数（套）</clr-dg-column>
+    <clr-dg-column>月面积（㎡）	</clr-dg-column>
+    <clr-dg-column>月实际金额（万元）</clr-dg-column>
+    <clr-dg-column>完成率</clr-dg-column>
+    <clr-dg-column>排名	</clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let data of datas; let i = index; let isLast=last" [ngClass]="{'row-background': i%2==1}">
+        <clr-dg-cell>{{data.vBuildName}}</clr-dg-cell>
+        <clr-dg-cell>{{data.nPlan}}</clr-dg-cell>
+        <clr-dg-cell>{{data.nNum}}</clr-dg-cell>
+        <clr-dg-cell>{{data.nArea | round}}</clr-dg-cell>
+        <clr-dg-cell>{{data.nMoney | round}}</clr-dg-cell>
+        <clr-dg-cell>{{data.nMoney/data.nPlan | ratePipe}}</clr-dg-cell>
+        <clr-dg-cell>{{i}}</clr-dg-cell>
+
+    </clr-dg-row>
+</clr-datagrid>

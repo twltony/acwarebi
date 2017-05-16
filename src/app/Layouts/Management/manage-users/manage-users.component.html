@@ -1,0 +1,82 @@
+<button class="btn btn-primary" (click)="modalsOpened = true">添加用户</button>
+<clr-modal [(clrModalOpen)]="modalsOpened" [clrModalClosable]="false" [clrModalSize]="lg">
+    <h3 class="modal-title">添加用户</h3>
+    <div class="modal-body">
+        <form (ngSubmit)="onSubmit()">
+            <section class="form-block">
+                <div class="form-group">
+                    <label for="userName">AD域账号：</label>
+                    <input type="text" id="userName" name="userName" [(ngModel)]="user.userName" placeholder="输入AD域账号" size="45" required>
+                </div>
+                <div class="form-group">
+                    <label for="displayName">姓名：</label>
+                    <input type="text" id="displayName" name="displayName" [(ngModel)]="user.displayName" placeholder="输入用户的姓名" size="45" required>
+                </div>
+                <div class="form-group">
+                    <label for="formGroupExampleInput">是否启用：</label>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="isvalid" name="isvalid"  [(ngModel)]="user.isvalid">
+                        <label for="isvalid"></label>
+                    </div>
+                </div>
+
+            </section>
+            <div class="progress loop" *ngIf="isProgressShow"><progress></progress></div>
+            <button type="button" class="btn btn-outline" (click)="modalsOpened = false">取消</button>
+            <button type="button" class="btn btn-primary" type="submit">保存</button>
+        </form>
+    </div>
+</clr-modal>
+
+<clr-modal [(clrModalOpen)]="modalsEditOpened" [clrModalClosable]="false" [clrModalSize]="lg">
+    <h3 class="modal-title">编辑用户</h3>
+    <div class="modal-body">
+        <form (ngSubmit)="onSubmitEdit()">
+            <section class="form-block">
+                <div class="form-group">
+                    <label for="userName">AD域账号：</label>
+                    <input type="text" id="userName" name="userName" [(ngModel)]="user.userName" placeholder="输入AD域账号" size="45" required>
+                </div>
+                <div class="form-group">
+                    <label for="displayName">姓名：</label>
+                    <input type="text" id="displayName" name="displayName" [(ngModel)]="user.displayName" placeholder="输入用户的姓名" size="45" required>
+                </div>
+                <div class="form-group">
+                    <label for="formGroupExampleInput">是否启用：</label>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="isvalid" name="isvalid"  [(ngModel)]="user.isvalid">
+                        <label for="isvalid"></label>
+                    </div>
+                </div>
+
+            </section>
+            <div class="progress loop" *ngIf="isProgressShow"><progress></progress></div>
+            <button type="button" class="btn btn-outline" (click)="modalsEditOpened = false">取消</button>
+            <button type="button" class="btn btn-primary" type="submit">保存</button>
+        </form>
+    </div>
+</clr-modal>
+
+<clr-datagrid>
+    <clr-dg-column>ID</clr-dg-column>
+    <clr-dg-column>名称</clr-dg-column>
+    <clr-dg-column>账号</clr-dg-column>
+    <clr-dg-column>登录次数</clr-dg-column>
+    <clr-dg-column>是否在线</clr-dg-column>
+    <clr-dg-column>是否启用</clr-dg-column>
+    <clr-dg-column>登录时间</clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let user of Users" [clrDgItem]="user">
+        <clr-dg-action-overflow>
+            <button class="action-item" (click)="onEdit(user)">编辑</button>
+            <button class="action-item" (click)="onDelete(user)">删除</button>
+        </clr-dg-action-overflow>
+        <clr-dg-cell>{{user._id}}</clr-dg-cell>
+        <clr-dg-cell>{{user._displayName}}</clr-dg-cell>
+        <clr-dg-cell>{{user._userName}}</clr-dg-cell>
+        <clr-dg-cell>{{user._count}}</clr-dg-cell>
+        <clr-dg-cell>{{user._isalive | isOrNot}}</clr-dg-cell>
+        <clr-dg-cell>{{user._isvalid | isOrNot}}</clr-dg-cell>
+        <clr-dg-cell>{{user._lastLoginDate | date: 'yyyy/MM/dd'}}</clr-dg-cell>
+    </clr-dg-row>
+</clr-datagrid>

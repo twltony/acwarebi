@@ -1,0 +1,67 @@
+.ac-breakline {line-height:2px;background-color: #747474;margin: 5px;}
+h1 > span{
+    font-size: 14px;
+}
+h3 > span{
+    font-size: 12px;
+}
+.phone-breakline{
+    display: none;
+}
+.th-auto{
+    width: auto;
+}
+.th-fix-width{
+        width:110px;
+    }
+.th-fix-120{
+        width:120px;
+    }
+.th-5{
+    width:5%;
+}
+.th-25{
+    width:25%;
+}
+.th-30{
+    width:30%;
+}
+.th-40{
+    width:40%;
+}
+.rank{
+    padding:0px;
+}
+.bottom-right{
+    padding-left: 0px;
+}
+
+.qzyhtable td{
+    line-height: 20px;
+}
+.rank-table td{
+    padding: 6px 0px 6px 0px;
+}
+.sales-table{
+    font-size:18px;
+}
+.row-center{
+    text-align: center;
+}
+
+.sales-table tr{
+    height: 50px;
+}
+.sales-table td{
+    vertical-align: middle;
+}
+
+.yh-title{
+    font-size:18px;
+    margin-top: 10px;
+    font-weight: 500;
+}
+.yh-num{
+    font-size:18px;
+    margin-bottom: 10px;
+}

@@ -1,0 +1,20 @@
+.rate-green{
+    background-color: green;
+            color: #ffffff
+}
+.rate-red{
+    background-color: red;
+    color: #ffffff
+}
+.rate-yellow{
+    background-color: yellow;
+    color: #000000
+}
+
+.card li{
+    padding:5px
+}
+.card-block{
+    padding:2px;
+    font-weight: 600
+}

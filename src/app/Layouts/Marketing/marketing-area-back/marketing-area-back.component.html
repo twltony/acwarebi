@@ -1,0 +1,26 @@
+<h2 class="center">{{area}}回款未回款情况表
+
+</h2>
+<clr-datagrid>
+    <clr-dg-column>区域</clr-dg-column>
+    <clr-dg-column>当月回款金额（万元）①</clr-dg-column>
+    <clr-dg-column>年回款套数（套）</clr-dg-column>
+    <clr-dg-column>年回款金额（万元）②</clr-dg-column>
+    <clr-dg-column>未签约未回款套数（套）</clr-dg-column>
+    <clr-dg-column>未签约未回款金额（万元）③</clr-dg-column>
+    <clr-dg-column>已签约未回款套数（套）</clr-dg-column>
+    <clr-dg-column>已签约未回款金额（万元）④</clr-dg-column>
+    <clr-dg-column>房款金额（万元）</clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let data of datas; let i = index; let isLast=last" [ngClass]="{'row-background': i%2==1,'row-last':isLast}">
+        <clr-dg-cell>{{data.vProjname}}</clr-dg-cell>
+        <clr-dg-cell>{{data.nMhkmoney | round}}</clr-dg-cell>
+        <clr-dg-cell>{{data.nHknum | round}}</clr-dg-cell>
+        <clr-dg-cell>{{data.nHkmoney | round}}</clr-dg-cell>
+        <clr-dg-cell>{{data.nWqynum | round}}</clr-dg-cell>
+        <clr-dg-cell>{{data.nWqywhkmny | round}}</clr-dg-cell>
+        <clr-dg-cell>{{data.nYqynum | round}}</clr-dg-cell>
+        <clr-dg-cell>{{data.nYqywhkmny | round}}</clr-dg-cell>
+        <clr-dg-cell>{{data.nFkmoney | round}}</clr-dg-cell>
+    </clr-dg-row>
+</clr-datagrid>

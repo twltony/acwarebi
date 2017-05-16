@@ -1,0 +1,36 @@
+<nav class="subnav" [clr-nav-level]="2">
+  <ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link" routerLinkActive="active" routerLink="CostingMain">成本首页</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLinkActive="active" routerLink="CostingProjectCompare">成本间项目对比</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLinkActive="active" routerLink="CostingFeeAnalysis">各项目费用情况分析</a>
+    </li>
+    <div>
+      <clr-dropdown [clrMenuPosition]="'bottom-right'">
+        <button class="dropdown-toggle btn btn-link" clrDropdownToggle>
+           板块：
+            <clr-icon shape="caret down"></clr-icon>
+          </button>
+        <div class="dropdown-menu">
+          <a clrDropdownItem (click)="onSelectYear(year)">房产广番</a>
+        </div>
+      </clr-dropdown>
+    </div>
+    <div>
+      <clr-dropdown [clrMenuPosition]="'bottom-right'">
+        <button class="dropdown-toggle btn btn-link" clrDropdownToggle>
+           项目：
+            <clr-icon shape="caret down"></clr-icon>
+          </button>
+        <div class="dropdown-menu">
+          <a clrDropdownItem (click)="onSelectYear(year)">XXXX项目</a>
+        </div>
+      </clr-dropdown>
+    </div>
+  </ul>
+</nav>
+<router-outlet></router-outlet>

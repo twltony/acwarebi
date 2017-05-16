@@ -1,0 +1,58 @@
+<nav class="subnav">
+    <ul class="nav">
+        <li class="nav-item">
+            <clr-dropdown clrMenuPosition="bottom-right">
+                <button class=" btn btn-link" clrDropdownToggle>
+                   片区: {{area}}
+                    <clr-icon shape="caret down"></clr-icon>
+                </button>
+                <clr-dropdown-menu>
+                    <a *ngFor="let a of areas" (click)="changeArea(a)" clrDropdownItem>{{a}}</a>
+                </clr-dropdown-menu>
+            </clr-dropdown>
+        </li>
+        <li class="nav-item">
+            <clr-dropdown clrMenuPosition="bottom-right">
+                <button class=" btn btn-link" clrDropdownToggle>
+                   类型: {{yhType}}
+                    <clr-icon shape="caret down"></clr-icon>
+                </button>
+                <clr-dropdown-menu>
+                    <a *ngFor="let t of yhTypes" (click)="changeType(t)" clrDropdownItem>{{t}}</a>
+                </clr-dropdown-menu>
+            </clr-dropdown>
+        </li>
+    </ul>
+</nav>
+<h2 class="center">{{area}}　{{yhType}}　已取证余货情况统计表</h2>
+<dx-data-grid [dataSource]="datas" style="height:76vh" id="gridContainer" [showColumnLines]="true" [showRowLines]="true"
+    [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="false" [allowColumnResizing]="false" [wordWrapEnabled]="true"
+    [columnAutoWidth]="true" (onRowClick)="goProject($event)" rowTemplate="zyhTemplate" [scrolling]="{mode: 'virtual',useNative: true}">
+    <dxi-column caption="项目" dataField="vProjectname"></dxi-column>
+    <dxi-column caption="类型" dataField="vType"></dxi-column>
+    <dxi-column caption="已推未售">
+        <dxi-column caption="套数（套）" dataField="nYtwsnum"></dxi-column>
+        <dxi-column caption="建筑面积（㎡）" dataField="nYtwsarea" cellTemplate="round"></dxi-column>
+        <dxi-column caption="金额（万元）" dataField="nYtwsmoney" cellTemplate="round"></dxi-column>
+    </dxi-column>
+    <dxi-column caption="明源销控">
+        <dxi-column caption="套数（套）" dataField="nXknum" [width]="90" cellTemplate="round"></dxi-column>
+        <dxi-column caption="建筑面积（㎡）" dataField="nXkarea" [width]="90" cellTemplate="round"></dxi-column>
+    </dxi-column>
+    <div *dxTemplate="let field of 'round'">
+        <span>{{field.value | round}}</span>
+    </div>
+
+    <tbody *dxTemplate="let zyh of 'zyhTemplate'">
+        <tr class="dx-row main-row" [ngClass]="{'row-background': zyh.rowIndex%2==1}">
+            <td>{{zyh.data.vProjectname}}</td>
+            <td>{{zyh.data.vType}}</td>
+            <td>{{zyh.data.nYtwsnum}}</td>
+            <td>{{zyh.data.nYtwsarea | round}}</td>
+            <td>{{zyh.data.nYtwsmoney | round}}</td>
+            <td>{{zyh.data.nXknum}}</td>
+            <td>{{zyh.data.nXkarea | round}}</td>
+        </tr>
+    </tbody>
+
+</dx-data-grid>

@@ -1,0 +1,23 @@
+<div class="row" *ngFor="let row of rowDatas">
+  <div class="col-md-3" *ngFor="let card of row">
+    <a  class="card clickable">
+      <div class="card-block ">
+        {{card.vname}}
+      </div>
+      <div style="text-align:center;width:100%">{{card.unitname}}</div>
+      <div class="card-img">
+        <img src="images/picture_0.png">
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" [ngClass]="{'rate-red': 0>(card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices || (card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices>0.2,
+          'rate-yellow':card.cs24Orprices/10000 ==0,
+          'rate-green': 0<=(card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices || (card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices<=0.2}"> 差异率 {{(card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices | percent:'1.1-2'}}</li>
+        <li class="list-group-item" style="background-color:#f5f5f5">目标成本 {{card.cs24Orprices/10000 | round}} 万</li>
+        <li class="list-group-item" style="background-color:#FFFFFF">动态成本 {{card.dtnnrpelembusinmy/10000 | round}} 万</li>
+        <li class="list-group-item" style="background-color:#f5f5f5">差异金额 {{card.cs24Orprices/10000 - card.dtnnrpelembusinmy/10000 | round}} 万</li>
+        <li class="list-group-item" style="background-color:#FFFFFF">可售单方 {{card.dtnnrpelembusinmy/card.nsalearea | round}} 元</li>
+        <li class="list-group-item" style="background-color:#f5f5f5">建筑单方 {{card.dtnnrpelembusinmy/card.nbuildarea | round}} 元</li>
+      </ul>
+    </a>
+  </div>
+</div>

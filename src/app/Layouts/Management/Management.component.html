@@ -1,0 +1,13 @@
+
+<div class="content-container">
+        <main class="content-area">
+            <router-outlet></router-outlet>
+        </main>
+          <nav class="sidenav" [clr-nav-level]="2">
+            <section class="sidenav-content">
+                <a class="nav-link" routerLinkActive="active" routerLink="ManagementUsers"> 用户管理 </a>
+                <a class="nav-link" routerLinkActive="active" routerLink="ManagementRole"> 角色管理 </a>
+                <a class="nav-link" routerLinkActive="active" routerLink="ManagementSubject"> 主题管理 </a>
+            </section>
+        </nav>
+</div>

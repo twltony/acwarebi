@@ -1,0 +1,46 @@
+<nav class="subnav">
+    <ul class="nav">
+        <li class="nav-item">
+
+            <clr-dropdown clrMenuPosition="bottom-right">
+                <button class=" btn btn-link" clrDropdownToggle>
+                   选择数据月份 {{month}}
+                    <clr-icon shape="caret down"></clr-icon>
+                </button>
+                <clr-dropdown-menu>
+                    <label class="dropdown-header">月份：</label>
+                    <a *ngFor="let mm of months" (click)="changeDate(mm)" clrDropdownItem>{{mm}}</a>
+                </clr-dropdown-menu>
+            </clr-dropdown>
+        </li>
+
+    </ul>
+</nav>
+<h2 class="center">集团{{year}}年{{month}}销售情况表
+    <clr-tooltip [clrTooltipDirection]="'bottom-left'" aria-haspopup="true" [clrTooltipSize]="'md'">
+        <clr-icon shape="help" size="18"></clr-icon>
+        <clr-tooltip-content>
+            <span>点击表格行查看区域维度-月销售情况表</span>
+        </clr-tooltip-content>
+    </clr-tooltip>
+</h2>
+<clr-datagrid>
+    <clr-dg-column>区域</clr-dg-column>
+    <clr-dg-column>计划销售额 （万元）
+    </clr-dg-column>
+    <clr-dg-column>实际销售套数（套）</clr-dg-column>
+    <clr-dg-column>实际销售面 积（㎡）
+    </clr-dg-column>
+    <clr-dg-column>实际销售金额（万元）</clr-dg-column>
+    <clr-dg-column>完成率</clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let data of datas; let i = index; let isLast=last" [ngClass]="{'row-background': i%2==1,'row-last':isLast}"
+        (click)="goProject(data.vAreaName,month)">
+        <clr-dg-cell class="num-button">{{data.vAreaName}}</clr-dg-cell>
+        <clr-dg-cell>{{data.nPlan}}</clr-dg-cell>
+        <clr-dg-cell>{{data.nNum}}</clr-dg-cell>
+        <clr-dg-cell>{{data.nArea}}</clr-dg-cell>
+        <clr-dg-cell>{{data.nMoney}}</clr-dg-cell>
+        <clr-dg-cell>{{data.nMoney/data.nPlan | ratePipe}}</clr-dg-cell>
+    </clr-dg-row>
+</clr-datagrid>

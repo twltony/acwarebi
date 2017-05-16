@@ -1,0 +1,45 @@
+<h3 class="center">集团回款未回款情况表
+    <clr-tooltip [clrTooltipDirection]="'bottom-left'" aria-haspopup="true" [clrTooltipSize]="'md'">
+        <clr-icon shape="help" size="18"></clr-icon>
+        <clr-tooltip-content>
+            <span>点击表格行查看区域维度-回款未回款情况表</span>
+        </clr-tooltip-content>
+    </clr-tooltip>
+</h3>
+<dx-chart id="chart" [dataSource]="chartData" style="height:20vh" (onPointClick)="onPointClick($event)">
+    <dxi-series argumentField="vBuname" valueField="nWhkmoney" name="未回款" type="bar" color="#4E80BD">
+    </dxi-series>
+    <dxi-series argumentField="vBuname" valueField="nHkmoney" name="回款" type="bar" color="#DCE6F0">
+    </dxi-series>
+    <dxo-common-series-settings argumentField="vMm" type="bar" hoverMode="allArgumentPoints" selectionMode="allArgumentPoints">
+        <dxo-label [visible]="true" [format]="{
+                type: 'fixedPoint',
+                precision: '0'
+            }" [font]="{ color: '#000000'}" backgroundColor="transparent" [showForZeroValues]="false">
+        </dxo-label>
+    </dxo-common-series-settings>
+</dx-chart>
+<clr-datagrid>
+    <clr-dg-column>区域</clr-dg-column>
+    <clr-dg-column>当月回款金额（万元）①</clr-dg-column>
+    <clr-dg-column>年回款套数（套）</clr-dg-column>
+    <clr-dg-column>年回款金额（万元）②</clr-dg-column>
+    <clr-dg-column>未签约未回款套数（套）</clr-dg-column>
+    <clr-dg-column>未签约未回款金额（万元）③</clr-dg-column>
+    <clr-dg-column>已签约未回款套数（套）</clr-dg-column>
+    <clr-dg-column>已签约未回款金额（万元）④</clr-dg-column>
+    <clr-dg-column>房款金额（万元）</clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let data of datas; let i = index; let isLast=last" [ngClass]="{'row-background': i%2==1,'row-last':isLast}"
+        (click)="goProject(data.vBuname)">
+        <clr-dg-cell class="num-button">{{data.vBuname}}</clr-dg-cell>
+        <clr-dg-cell>{{data.nMhkmoney | round}}</clr-dg-cell>
+        <clr-dg-cell>{{data.nHknum | round}}</clr-dg-cell>
+        <clr-dg-cell>{{data.nHkmoney | round}}</clr-dg-cell>
+        <clr-dg-cell>{{data.nWqynum | round}}</clr-dg-cell>
+        <clr-dg-cell>{{data.nWqywhkmny | round}}</clr-dg-cell>
+        <clr-dg-cell>{{data.nYqynum | round}}</clr-dg-cell>
+        <clr-dg-cell>{{data.nYqywhkmny | round}}</clr-dg-cell>
+        <clr-dg-cell>{{data.nFkmoney | round}}</clr-dg-cell>
+    </clr-dg-row>
+</clr-datagrid>

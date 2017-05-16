@@ -1,0 +1,31 @@
+<h3 class="center">{{baseService.month}}营销费用明细
+    <clr-tooltip [clrTooltipDirection]="'bottom-left'" aria-haspopup="true" [clrTooltipSize]="'md'">
+        <clr-icon shape="info-standard" size="18"></clr-icon>
+        <clr-tooltip-content>
+            <span>营销费用表数据来源说明：该表数据来源于NC财务系统，取对应的费用科目已入账（即实际已支付）数据</span>
+        </clr-tooltip-content>
+    </clr-tooltip>
+</h3>
+<dx-chart id="chart" [dataSource]="chartDatas" style="height:20vh">
+    <dxi-series argumentField="mm" valueField="fcpaylocal" name="单位：万元" type="bar" color="#4E80BD">
+    </dxi-series>
+    <dxo-common-series-settings argumentField="vMm" type="bar" hoverMode="allArgumentPoints" selectionMode="allArgumentPoints">
+        <dxo-label [visible]="true" [format]="{
+                type: 'fixedPoint',
+                precision: '0'
+            }" [font]="{ color: '#000000'}" backgroundColor="transparent" [showForZeroValues]="false">
+        </dxo-label>
+    </dxo-common-series-settings>
+</dx-chart>
+<clr-datagrid>
+    <clr-dg-column style="width:100px">序号</clr-dg-column>
+    <clr-dg-column style="text-align:center">科目名称</clr-dg-column>
+    <clr-dg-column>房产营销费用（单位：元）</clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let data of datas; let i = index; let isLast=last" [ngClass]="{'row-background': i%2==1,'row-last':isLast}">
+        <clr-dg-cell>{{i}}</clr-dg-cell>
+        <clr-dg-cell>{{data.costname}}</clr-dg-cell>
+        <clr-dg-cell>{{data.fcpaylocal}}</clr-dg-cell>
+
+    </clr-dg-row>
+</clr-datagrid>

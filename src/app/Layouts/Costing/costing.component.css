@@ -1,0 +1,21 @@
+/*:host(market-daysell) {overflow-y: scroll; overflow-x: hidden;}*/
+.card li{
+    padding: 5px;
+}
+
+@media(max-width:768px){
+    .col-md{
+        padding: 0px
+    }
+}
+@media(max-width:768px){
+    .col-md{
+        padding: 2px
+    }
+}
+
+@media (max-width:736px){
+    .col-md{
+        padding: 12px
+    }
+}

@@ -1,0 +1,8 @@
+/*:host(market-daysell) {overflow-y: scroll; overflow-x: hidden;}*/
+/*:host(market-daysell){
+
+}*/
+
+.dx-row .dx-column-lines .dx-header-row {
+    background-color: #000 !important;
+}
