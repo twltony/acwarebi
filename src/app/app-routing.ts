@@ -24,6 +24,7 @@ import { MarketingDayProjectComponent } from "app/Layouts/Marketing/marketing-da
 import { MarketingAreaBackComponent } from "app/Layouts/Marketing/marketing-area-back/marketing-area-back.component";
 import { MarketingYearsalesAreaComponent } from "app/Layouts/Marketing/marketing-yearsales-area/marketing-yearsales-area.component";
 import { CostingMainComponent } from "app/Layouts/Costing/costing-main/costing-main.component";
+import { CostingDtcbPorjectComponent } from "app/Layouts/Costing/costing-dtcb-porject/costing-dtcb-porject.component";
 
 
 
@@ -48,6 +49,7 @@ const appRoutes: Routes = [
     children: [
       { path: '', redirectTo: 'CostingMain', pathMatch: 'full' },
       { path:"CostingMain", component: CostingMainComponent ,canActivate: [AuthGuard] },
+      { path:"CostingDtcbPorject/:vname", component: CostingDtcbPorjectComponent, canActivate: [AuthGuard] },
     ]
   },
   { path:"Tendering", component: Tendering,canActivate: [AuthGuard] },

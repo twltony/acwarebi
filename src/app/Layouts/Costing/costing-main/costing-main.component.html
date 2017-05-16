@@ -1,23 +1,167 @@
-<div class="row" *ngFor="let row of rowDatas">
-  <div class="col-md-3" *ngFor="let card of row">
-    <a  class="card clickable">
-      <div class="card-block ">
-        {{card.vname}}
-      </div>
-      <div style="text-align:center;width:100%">{{card.unitname}}</div>
-      <div class="card-img">
-        <img src="images/picture_0.png">
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item" [ngClass]="{'rate-red': 0>(card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices || (card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices>0.2,
+<div class="myslides" *ngIf="datas">
+  <!--<div class="slider-header">{{area}}</div>-->
+
+  <nav class="subnav">
+    <ul class="nav">
+      <li class="nav-item" *ngFor="let area of slideNavDatas;let i =index"><a class="nav-link"  [ngClass]="{'active':i==slideNavActiveIndex}" (click)="moveTo(area.startIndex)">{{area.name}}</a></li>
+    </ul>
+  </nav>
+
+  <ks-swiper-container [options]="example1SwipeOptions" class="cb-slide">
+    <ks-swiper-slide class="col-md-3" *ngFor="let card of datas" style="padding-bottom:60px;padding-top:0px;margin-top:0px;">
+      <h2 name="area" style="display:none;">{{card.area}}</h2>
+      <a class="card clickable" style="margin-bottom: 20px;">
+        <div class="card-block ">
+          {{card.vname}}
+        </div>
+        <div style="text-align:center;width:100%">{{card.unitname}}</div>
+        <div class="card-img">
+          <img src="images/picture_0.png">
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" [ngClass]="{'rate-red': 0>(card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices || (card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices>0.2,
           'rate-yellow':card.cs24Orprices/10000 ==0,
-          'rate-green': 0<=(card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices || (card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices<=0.2}"> 差异率 {{(card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices | percent:'1.1-2'}}</li>
-        <li class="list-group-item" style="background-color:#f5f5f5">目标成本 {{card.cs24Orprices/10000 | round}} 万</li>
-        <li class="list-group-item" style="background-color:#FFFFFF">动态成本 {{card.dtnnrpelembusinmy/10000 | round}} 万</li>
-        <li class="list-group-item" style="background-color:#f5f5f5">差异金额 {{card.cs24Orprices/10000 - card.dtnnrpelembusinmy/10000 | round}} 万</li>
-        <li class="list-group-item" style="background-color:#FFFFFF">可售单方 {{card.dtnnrpelembusinmy/card.nsalearea | round}} 元</li>
-        <li class="list-group-item" style="background-color:#f5f5f5">建筑单方 {{card.dtnnrpelembusinmy/card.nbuildarea | round}} 元</li>
+          'rate-green': 0<=(card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices || (card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices<=0.2}">
+            差异率 {{(card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices | percent:'1.1-2'}}</li>
+          <li class="list-group-item" style="background-color:#f5f5f5">目标成本 {{card.cs24Orprices/10000 | round}} 万</li>
+          <li class="list-group-item" style="background-color:#FFFFFF">动态成本 {{card.dtnnrpelembusinmy/10000 | round}} 万</li>
+          <li class="list-group-item" style="background-color:#f5f5f5">差异金额 {{card.cs24Orprices/10000 - card.dtnnrpelembusinmy/10000 | round}} 万</li>
+          <li class="list-group-item" style="background-color:#FFFFFF">可售单方 {{card.dtnnrpelembusinmy/card.nsalearea | round}} 元</li>
+          <li class="list-group-item" style="background-color:#f5f5f5">建筑单方 {{card.dtnnrpelembusinmy/card.nbuildarea | round}} 元</li>
+        </ul>
+      </a>
+    </ks-swiper-slide>
+  </ks-swiper-container>
+</div>
+
+<div class="row ac-breakline phone-breakline">
+  <div>　</div>
+</div>
+<!--柱状图-->
+<dx-chart *ngIf="chartDatas" id="chart" [title]="{ 
+          text: '各项目单方对比分析',
+          font: {
+                family: '微软雅黑',
+                size: 20,
+                weight: 400
+            }
+         }" [dataSource]="chartDatas" pathModified="ture" [scrollingMode]="mode" [zoomingMode]="mode" (onPointClick)="onPointClick($event)"
+  style="height:90vh">
+  <dxi-series valueField="salse" name="可售单方"></dxi-series>
+  <dxi-series valueField="build" name="建筑单方"></dxi-series>
+  <dxo-common-series-settings argumentField="vname" type="bar" hoverMode="allArgumentPoints" selectionMode="allArgumentPoints">
+    <dxo-label [visible]="true" [format]="{
+                type: 'fixedPoint',
+                precision: ''
+            }" [font]="{ color: '#000000'}" backgroundColor="transparent">
+    </dxo-label>
+  </dxo-common-series-settings>
+  <dxo-argument-axis>
+    <dxo-label>
+      <dxo-overlapping-behavior mode="rotate" [rotationAngle]="40">
+      </dxo-overlapping-behavior>
+    </dxo-label>
+  </dxo-argument-axis>
+  <dxo-legend verticalAlignment="top" horizontalAlignment="center">
+  </dxo-legend>
+</dx-chart>
+
+<div class="row ac-breakline phone-breakline" style="margin-top:20px">
+  <div>　</div>
+</div>
+
+<div class="row" style="height:90vh">
+  <div class="col-sm-12">
+    <nav class="subnav">
+      <ul class="nav">
+        <div>
+          <clr-dropdown [clrMenuPosition]="'bottom-right'">
+            <button class="dropdown-toggle btn btn-link" clrDropdownToggle>
+           <label>板块：</label>{{unitName}}
+            <clr-icon shape="caret down"></clr-icon>
+          </button>
+            <div class="dropdown-menu">
+              <a clrDropdownItem *ngFor="let unitname of unitNames; let i = index" (click)="onSelectUnit(unitname)">{{i+1}}:{{unitname}}</a>
+            </div>
+          </clr-dropdown>
+        </div>
+        <div>
+          <clr-dropdown [clrMenuPosition]="'bottom-right'">
+            <button class="dropdown-toggle btn btn-link" clrDropdownToggle>
+              <label>项目：</label>{{vName}}
+            <clr-icon shape="caret down"></clr-icon>
+          </button>
+            <div class="dropdown-menu">
+              <a clrDropdownItem *ngFor="let vname of vNames; let i = index" (click)="onSelectProject(vname)">{{i+1}}:{{vname}}</a>
+            </div>
+          </clr-dropdown>
+        </div>
       </ul>
-    </a>
+    </nav>
+  </div>
+  <div class="col-sm-6" #colRight>
+    <!--饼图-->
+    <div class="row">
+      <div class="col-sm-12">
+        <dx-pie-chart id="pie" pathModified="ture" palette="bright" [dataSource]="gcfxPieDatas" (onPointClick)="piePointClick($event)"
+          [resolveLabelOverlapping]="resolveOverlappingTypes[0]" *ngIf="gcfxDatas" style="height:40vh">
+          <dxo-title text="{{vName}}动态成本构成分析">
+            <dxo-font size="20" weight="400" family="微软雅黑"></dxo-font>
+          </dxo-title>
+          <dxi-series argumentField="typeName2" valueField="dtnnrpelembusinmy">
+            <dxo-label [visible]="true" position="column" [radialOffset]="-20" [format]="{
+                            type: 'percent',
+                            precision: '0'
+                        }" [customizeText]="customizeLabel">
+              <dxo-connector [visible]="true" [width]="1"></dxo-connector>
+            </dxo-label>
+          </dxi-series>
+          <dxo-tooltip [enabled]="true" [customizeTooltip]="pieTooltip">
+          </dxo-tooltip>
+          <dxo-legend horizontalAlignment="center" verticalAlignment="bottom">
+          </dxo-legend>
+        </dx-pie-chart>
+      </div>
+      <div class="col-sm-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>费用科目</th>
+              <th>动态成本金额（万元）</th>
+              <th>费用科目建筑单方（元）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of gcfxDatas; let i = index; let isLast=last" [ngClass]="{'row-background': i%2==1,'row-last':isLast}">
+              <td>{{data.typeName2}}</td>
+              <td>{{data.dtnnrpelembusinmy}}</td>
+              <td>{{data.nbuildarea | number:'1.2-2'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!--柱状图-->
+  <div class="col-sm-6" *ngIf="JzdfDatas">
+    <dx-chart id="chart" pathModified="ture" [dataSource]="JzdfDatas" [rotated]="true" style="height:100%">
+      <dxo-size [height]="chatHeight"></dxo-size>
+      <dxo-title text="集团主要项目{{typeName}}的建筑单方对比分析">
+        <dxo-font size="20" weight="400" family="微软雅黑"></dxo-font>
+      </dxo-title>
+      <dxi-series valueField="jzdf" name="建筑单方"></dxi-series>
+      <dxo-common-series-settings argumentField="vname" type="bar" hoverMode="allArgumentPoints" selectionMode="allArgumentPoints">
+        <dxo-label [visible]="true" [format]="{
+                type: 'fixedPoint',
+                precision: '0'
+            }">
+        </dxo-label>
+      </dxo-common-series-settings>
+      <dxo-legend verticalAlignment="bottom" horizontalAlignment="center" [visible]="false">
+      </dxo-legend>
+      <dxo-tooltip [enabled]="true" location="edge" [customizeTooltip]="columnTooltip">
+      </dxo-tooltip>
+    </dx-chart>
+
   </div>
 </div>

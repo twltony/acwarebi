@@ -14,7 +14,7 @@ import { isOrNotPipe } from './Pipes/isOrNot.pipe';
 import { ManageSubjectComponent } from './Layouts/Management/manage-subject/manage-subject.component';
 import { ManageRoleComponent } from './Layouts/Management/manage-role/manage-role.component';
 import { ManageUsersComponent } from './Layouts/Management/manage-users/manage-users.component';
-import { DxChartModule, DxDataGridModule, DxTemplateModule, DxPieChartModule } from 'devextreme-angular';
+import {DxPivotGridModule, DxChartModule,  DxDataGridModule,  DxTemplateModule,  DxPieChartModule} from 'devextreme-angular';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -39,6 +39,9 @@ import { MarketingDayProjectComponent } from "app/Layouts/Marketing/marketing-da
 import { MarketingAreaBackComponent } from "app/Layouts/Marketing/marketing-area-back/marketing-area-back.component";
 import { CostingMainComponent } from "app/Layouts/Costing/costing-main/costing-main.component";
 import { MarketMonthSalesStatus } from "app/Layouts/Marketing/Pages/market-monthsalesstatus.component";
+import { KSSwiperContainer, KSSwiperSlide } from 'angular2-swiper';
+import { CostingDtcbPorjectComponent } from "app/Layouts/Costing/costing-dtcb-porject/costing-dtcb-porject.component";
+
 
 @NgModule({
     declarations: [
@@ -60,6 +63,7 @@ import { MarketMonthSalesStatus } from "app/Layouts/Marketing/Pages/market-month
             MarketingZyhProjectComponent,
         Costing,
             CostingMainComponent,
+            CostingDtcbPorjectComponent,
         Tendering,
         ManagementComponent,
             ManageUsersComponent,
@@ -72,6 +76,7 @@ import { MarketMonthSalesStatus } from "app/Layouts/Marketing/Pages/market-month
         LoginForm,
         RoundPipe,
         isOrNotPipe,
+        KSSwiperContainer, KSSwiperSlide,
         ratePipe
     ],
     imports: [
@@ -84,6 +89,7 @@ import { MarketMonthSalesStatus } from "app/Layouts/Marketing/Pages/market-month
         DxTemplateModule,
         DxChartModule,
         DxPieChartModule,
+        DxPivotGridModule,
         AppRoutingModule
     ],
     providers: [AuthGuard],

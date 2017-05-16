@@ -143,7 +143,7 @@
                 size: 20,
                 weight: 400
             }
-         }" [dataSource]="chartData" (onPointClick)="onPointClick($event)" style="height:40vh">
+         }" [dataSource]="chartData" (onPointClick)="onPointClick($event)" pathModified="ture" style="height:40vh">
         <dxi-series valueField="nPlan" name="计划金额（亿元）"></dxi-series>
         <dxi-series valueField="nMoney" name="销售金额（亿元）"></dxi-series>
         <dxo-common-series-settings argumentField="vMm" type="bar" hoverMode="allArgumentPoints" selectionMode="allArgumentPoints">
@@ -252,7 +252,7 @@
         </div>
         <div class="col-sm-5">
           <!--<piechart [data]="marketingDatas?.pieChart" *ngIf="marketingDatas"></piechart>-->
-          <dx-pie-chart id="pie" palette="bright" [dataSource]="piechartData" (onPointClick)="piePointClick($event)" *ngIf="marketingDatas"
+          <dx-pie-chart id="pie" pathModified="ture" palette="bright" [dataSource]="piechartData" (onPointClick)="piePointClick($event)" *ngIf="marketingDatas"
             style="height:38vh">
             <dxi-series argumentField="name" valueField="value">
               <dxo-label [visible]="true" position="inside" [radialOffset]="20" [format]="{

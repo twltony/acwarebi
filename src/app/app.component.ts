@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
   location: Location;
   selectedYear;
 
+
   constructor(
     location: Location,
     private loginService: LoginService,

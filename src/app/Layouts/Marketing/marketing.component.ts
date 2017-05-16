@@ -51,22 +51,6 @@ export class Marketing implements OnInit{
           for(let pie in this.piechartData){
             (this.piechartData[pie] as any).value = this.piechartData[pie].value / ((this.marketingDatas as any).qzYhmj * 100)
           }
-          // let series = (columndata as any).chartSeries
-          // let chartdatas =  (columndata as any).chartData as Object[]
-          // this.columnChartData.series = series
-          // this.columnChartData.chartTitle = (columndata as any).chartTitle
-          // this.columnChartData.yText ="金额（亿元"
-          // for(let cat in chartdatas){
-          //   this.columnChartData.categories.push((chartdatas[cat] as any).vMm);
-          // }
-          // this.columnChartData.event = 'Costing'
-          // function (event) { 
-          //           alert(
-          //               this.name + ' clicked\n' +
-          //               'Alt: ' + event.point.series.xAxis.categories[event.point.x] + '\n'
-          //           );
-          //           this.router.navigate(['Costing']);
-          //           }
       })
    }
 
@@ -75,12 +59,10 @@ export class Marketing implements OnInit{
     }
 
     navToArg(routepath,arg): void{
-      console.log(arg)
       this.router.navigate([routepath,arg]);
     }
      onSelectYear(year): void {
       this.selectedYear=year;
-      console.log(year);
     } 
 
     columnChatData(){
@@ -93,7 +75,6 @@ export class Marketing implements OnInit{
       this.router.navigate(['/MarketingMonthArea',e.target.argument])
     }
     piePointClick(e){
-      console.log(e.target.argument)
       this.router.navigate(['/MarketingQzyhArea',e.target.argument]);
     }
 }
