@@ -1,3 +1,24 @@
-.costing-dtcb-porject {
-
+.gtid-th td{
+    border-right: 1px solid #ccc;
+    background-color: #4E80BD;
+    color: #fff;
+    vertical-align: middle;
+}
+.gtid-th .span{
+    background-image:none;
+}
+.table{
+    border:none;
+}
+.table td{
+    min-width:100px;
+    max-width:100px;
+    font-size: 8pt;
+}
+.treegrid-indent {
+    width: 10px;
+    height: 10px;
+}
+.num-button{
+    text-decoration: underline;
 }

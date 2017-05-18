@@ -41,6 +41,7 @@ import { CostingMainComponent } from "app/Layouts/Costing/costing-main/costing-m
 import { MarketMonthSalesStatus } from "app/Layouts/Marketing/Pages/market-monthsalesstatus.component";
 import { KSSwiperContainer, KSSwiperSlide } from 'angular2-swiper';
 import { CostingDtcbPorjectComponent } from "app/Layouts/Costing/costing-dtcb-porject/costing-dtcb-porject.component";
+import { TreeTableModule } from "primeng/primeng";
 
 
 @NgModule({
