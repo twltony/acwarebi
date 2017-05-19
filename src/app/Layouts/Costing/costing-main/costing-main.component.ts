@@ -177,8 +177,8 @@ export class CostingMainComponent implements OnInit {
     }
 
     //穿透到动态成本报表
-    goDtTable(projectname){
-        this.router.navigate(['/Costing/CostingDtcbPorject',projectname])
+    goDtTable(unitname,projectname){
+        this.router.navigate(['/Costing/CostingDtcbPorject',unitname,projectname])
     }
 
     //设置区域图片滚动下标

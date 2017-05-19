@@ -1,136 +1,253 @@
-<h3 class="center">{{vname}}项目动态成本报表
-  <clr-tooltip [clrTooltipDirection]="'bottom-left'" aria-haspopup="true" [clrTooltipSize]="'md'">
-    <clr-icon shape="info-standard" size="18"></clr-icon>
-    <clr-tooltip-content>
-      <span>当动态成本超出目标成本时，显示红色底色，低于目标成本20%时，显示蓝色底色；点击末级成本科目名称可穿透至下级。</span>
-    </clr-tooltip-content>
-  </clr-tooltip>
-</h3>
+<div class="loading-cover-black" *ngIf="isLoading">
+  <span class="spinner spinner-inline">
+    Loading...
+</span>
+  <span>
+    数据加载中，请稍候...
+</span>
+</div>
+<nav class="subnav" [clr-nav-level]="2">
+  <ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link" routerLinkActive="active" routerLink="/Costing/CostingDtcbPorject">项目动态报表</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link">合同台账表</a>
+    </li>
+    <div>
+      <clr-dropdown [clrMenuPosition]="'bottom-right'">
+        <button class="dropdown-toggle btn btn-link" clrDropdownToggle>
+           <label>板块：</label>{{unitName}}
+            <clr-icon shape="caret down"></clr-icon>
+          </button>
+        <div class="dropdown-menu">
+          <a clrDropdownItem *ngFor="let unitname of unitNames; let i = index" (click)="onSelectUnit(unitname)">{{i+1}}:{{unitname}}</a>
+        </div>
+      </clr-dropdown>
+    </div>
+    <div>
+      <clr-dropdown [clrMenuPosition]="'bottom-right'">
+        <button class="dropdown-toggle btn btn-link" clrDropdownToggle>
+              <label>项目：</label>{{vName}}
+            <clr-icon shape="caret down"></clr-icon>
+          </button>
+        <div class="dropdown-menu">
+          <a clrDropdownItem *ngFor="let vname of vNames; let i = index" (click)="onSelectProject(vname)">{{i+1}}:{{vname}}</a>
+        </div>
+      </clr-dropdown>
+    </div>
+  </ul>
+</nav>
 
-<clr-modal [(clrModalOpen)]="isDetailShow" [clrModalSize]="'xl'">
-  <h3 class="modal-title">{{detailTitle}}项目动态合同</h3>
-  <div class="modal-body" style="overflow:scroll">
-
-    <table class="table" style="width:100%">
-      <thead>
-        <tr class="gtid-th">
-          <td>合同类型</td>
-          <td>合同名称</td>
-          <td>合同乙方</td>
-          <td>合同签约时间</td>
-          <td>原始目标金额</td>
-          <td>合同签订金额</td>
-          <td>资源规划余额</td>
-          <td>无合同费用</td>
-        </tr>
-      </thead>
-      <tbody *ngIf="contractDatas">
-        <tr *ngFor="let detail of contractDatas">
-          <td>{{detail.vbilltypename}}</td>
-          <td>{{detail.vbillnoandname}}</td>
-          <td>{{detail.vcusname}}</td>
-          <td>{{detail.dsigndate}}</td>
-          <td>{{detail.cs24Orprices | number:'.0-2'}}</td>
-          <td>{{detail.nmnyb3 | number:'.0-2'}}</td>
-          <td>{{detail.nrpelembusinmy | number:'.0-2'}}</td>
-          <td>{{detail.nmnya3 | number:'.0-2' }}</td>
-        </tr>
-        <tr class="row-last">
-          <td colspan="5">合计</td>
-          <td>{{nmnyb3Sum | number:'.0-2' }}</td>
-          <td>{{nrpelembusinmySum | number:'.0-2' }}</td>
-          <td>{{nmnya3Sum | number:'.0-2' }}</td>
-        </tr>
-    </table>
-    <!--<clr-datagrid *ngIf="contractDatas">
-      <clr-dg-column style="width:100px;">合同类型</clr-dg-column>
-      <clr-dg-column>合同名称</clr-dg-column>
-      <clr-dg-column>合同乙方</clr-dg-column>
-      <clr-dg-column>合同签约时间</clr-dg-column>
-      <clr-dg-column>原始目标金额</clr-dg-column>
-      <clr-dg-column>合同签订金额</clr-dg-column>
-      <clr-dg-column>资源规划余额</clr-dg-column>
-      <clr-dg-column>无合同费用</clr-dg-column>
-
-      <clr-dg-row *ngFor="let detail of contractDatas">
-        <clr-dg-cell>{{detail.vbilltypename}}</clr-dg-cell>
-        <clr-dg-cell>{{detail.vbillnoandname}}</clr-dg-cell>
-        <clr-dg-cell>{{detail.vcusname}}</clr-dg-cell>
-        <clr-dg-cell>{{detail.dsigndate}}</clr-dg-cell>
-        <clr-dg-cell>{{detail.cs24Orprices | number:'.0-2'}}</clr-dg-cell>
-        <clr-dg-cell>{{detail.nmnyb3 | number:'.0-2'}}</clr-dg-cell>
-        <clr-dg-cell>{{detail.nrpelembusinmy | number:'.0-2'}}</clr-dg-cell>
-        <clr-dg-cell>{{detail.nmnya3 | number:'.0-2' }}</clr-dg-cell>
-      </clr-dg-row>
-      <clr-dg-row>
-        <clr-dg-cell colspan="4">1</clr-dg-cell>
-        <clr-dg-cell>1</clr-dg-cell>
-        <clr-dg-cell>1</clr-dg-cell>
-        <clr-dg-cell>1</clr-dg-cell>
-        <clr-dg-cell>1</clr-dg-cell>
-        <clr-dg-cell>1</clr-dg-cell>
-        <clr-dg-cell>1</clr-dg-cell>
-        <clr-dg-cell>1</clr-dg-cell>
-      </clr-dg-row>
-
-    </clr-datagrid>-->
+<div class="row" style="margin-bottom:-20px">
+  <div class="col-sm-3">
+    <h4 class="center" style="margin-bottom:0px;padding-top:10px">{{vName}}
+      <clr-tooltip [clrTooltipDirection]="'bottom-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
+        <clr-icon shape="info-standard" size="18"></clr-icon>
+        <clr-tooltip-content>
+          <span>当动态成本超出目标成本时，显示红色底色，低于目标成本20%时，显示蓝色底色；点击末级成本科目名称可穿透至下级。</span>
+        </clr-tooltip-content>
+      </clr-tooltip>
+    </h4>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline" (click)="isDetailShow = false">关闭</button>
-  </div>
-</clr-modal>
+  <div class="col-sm-9" style="height:60px;overflow:hidden">
 
-<div class="row">
-  <div class="col-sm-12" style="padding:0;">
-    <table class="tree table" #tree style="display:block; overflow:scroll">
-      <thead style="display: inline-block;">
-        <tr class="treegrid-0 gtid-th">
-          <td rowspan="2" style="text-align:left;min-width:114px;max-width:114px">成本科目编码</td>
-          <td rowspan="2" style="width:100px">成本科目名称</td>
-          <td colspan="4" style="text-align:center">详细目标成本</td>
-          <td colspan="3" style="text-align:center">已发生费用成本</td>
-          <td style="text-align:center">待发生成本</td>
-          <td rowspan="2">动态成本</td>
-          <td rowspan="2" style="min-width:60px;max-width:60px">建筑单方</td>
-          <td rowspan="2" style="min-width:60px;max-width:60px">可售单方</td>
-          <td rowspan="2">节余</td>
-          <td rowspan="2" style="min-width:40px;max-width:40px">节余率</td>
-        </tr>
-        <tr class="gtid-th">
-          <td>原始目标成本</td>
-          <td>执行版目标成本</td>
-          <td style="min-width:60px;max-width:60px">执行版可售单方</td>
-          <td style="min-width:60px;max-width:60px">执行版建筑单方</td>
-          <td>已发生合同成本</td>
-          <td>已发生费用成本</td>
-          <td>合同变更签证成本汇总</td>
-          <td>待发生合同费用</td>
-        </tr>
-      </thead>
-      <tbody class="tablebody" *ngIf="datas">
-        <tr *ngFor="let data of datas; let i = index; let isLast=last" [ngClass]="{'row-background': i%2==1}" class="treegrid-{{data.velemcode}} treegrid-parent-{{data.fathercode}}">
-          <td style="text-align:left;min-width:114px;max-width:114px;font-size:7pt">{{data.velemcode}}</td>
-          <td style="text-align:left;" *ngIf="data.lastChildDetail" class="num-button" (click)="getDetial(data.velemname,data.pkCorp,data.pkProject1,data.pkElem)">
-            {{data.velemname}}
-          </td>
-          <td style="text-align:left;" *ngIf="!(data.lastChildDetail )" class="">
-            {{data.velemname}}
-          </td>
-          <td>{{data.cs24Orprices | number:'.0-1' }}</td>
-          <td>{{data.nmnysum3 | number:'.0-1' }}</td>
-          <td style="min-width:60px;max-width:60px">{{data.nmnysum3/data.nsalearea | number:'.0-1'}}</td>
-          <td style="min-width:60px;max-width:60px">{{data.nmnysum3/data.nbuildarea | number:'.0-1'}}</td>
-          <td>{{data.nmnyb3 | number:'.0-1'}}</td>
-          <td>{{data.nmnya3 | number:'.0-1'}}</td>
-          <td>{{data.qzcontactcosttol | number:'.0-1'}}</td>
-          <td>{{data.nrpelembusinmy | number:'.0-1' }}</td>
-          <td>{{data.dtnnrpelembusinmy | number:'.0-1'}}</td>
-          <td style="min-width:60px;max-width:60px">{{data.dtnnrpelembusinmy/data.nbuildarea | number:'.0-1'}}</td>
-          <td style="min-width:60px;max-width:60px">{{data.dtnnrpelembusinmy/data.nsalearea | number:'.0-1'}}</td>
-          <td>{{data.dtnnrpelembusinmy - data.nmnysum3 | number:'.0-1'}}</td>
-          <td style="min-width:40px;max-width:40px">{{(data.dtnnrpelembusinmy - data.nmnysum3)/data.nmnysum3 | ratePipe:'1.0-2'}}</td>
-        </tr>
-      </tbody>
-
-    </table>
+    <ks-swiper-container [options]="SwipeOptions" style="height:100px" *ngIf="summary" (click)="isSumDetailShow = true">
+      <div class="swiper-slide">
+        <table class="table table-compact table-noborder">
+          <thead class="header-table">
+            <tr>
+              <th>目标成本 (执行版)</th>
+              <th>动态成本</th>
+              <th>建筑面积</th>
+              <th>可售面积</th>
+              <th>差异率</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{summary.nmnysum3/10000 | number:'.0-1' }}万元</td>
+              <td>{{summary.dtnnrpelembusinmy/10000 | number:'.0-1' }}万元</td>
+              <td>{{summary.nbuildarea | number:'.0-1' }}m²</td>
+              <td>{{summary.nsalearea | number:'.0-1' }}m²</td>
+              <td [ngSwitch]="summary.nmnysum3">
+                <div *ngSwitchCase="0">-</div>
+                <div *ngSwitchDefault>{{(summary.dtnnrpelembusinmy - summary.nmnysum3)/summary.nmnysum3 | percent:'1.0-2'}}</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="swiper-slide">
+        <table class="table table-compact table-noborder">
+          <thead class="header-table">
+            <tr>
+              <th>目标建筑单方</th>
+              <th>目标可售单方</th>
+              <th>动态建筑单方</th>
+              <th>动态可售单方</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{summary.cs24FinllyPrice/summary.nbuildarea | round}}</td>
+              <td>{{summary.cs24FinllyPrice/summary.nsalearea | round}}</td>
+              <td>{{summary.dtnnrpelembusinmy/summary.nbuildarea | round}}</td>
+              <td>{{summary.dtnnrpelembusinmy/summary.nsalearea | round}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ks-swiper-container>
   </div>
+
+  <clr-modal [(clrModalOpen)]="isSumDetailShow" [clrModalSize]="'xl'" *ngIf="summary" id="SumDetail">
+    <h3 class="modal-title">{{vName}}&nbsp;汇总</h3>
+    <div class="modal-body" style="overflow:scroll">
+      <table class="table table-compact table-noborder">
+        <thead class="header-table">
+          <tr>
+            <th>目标成本 (执行版)</th>
+            <th>动态成本</th>
+            <th>建筑面积</th>
+            <th>可售面积</th>
+            <th>差异率</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{summary.nmnysum3/10000 | number:'.0-1' }}万元</td>
+            <td>{{summary.dtnnrpelembusinmy/10000 | number:'.0-1' }}万元</td>
+            <td>{{summary.nbuildarea | number:'.0-1' }}m²</td>
+            <td>{{summary.nsalearea | number:'.0-1' }}m²</td>
+            <td [ngSwitch]="summary.nmnysum3">
+              <div *ngSwitchCase="0">-</div>
+              <div *ngSwitchDefault>{{(summary.dtnnrpelembusinmy - summary.nmnysum3)/summary.nmnysum3 | percent:'1.0-2'}}</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="table table-compact table-noborder">
+        <thead class="header-table">
+          <tr>
+            <th>目标建筑单方</th>
+            <th>目标可售单方</th>
+            <th>动态建筑单方</th>
+            <th>动态可售单方</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{summary.cs24FinllyPrice/summary.nbuildarea | round}}</td>
+            <td>{{summary.cs24FinllyPrice/summary.nsalearea | round}}</td>
+            <td>{{summary.dtnnrpelembusinmy/summary.nbuildarea | round}}</td>
+            <td>{{summary.dtnnrpelembusinmy/summary.nsalearea | round}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="isSumDetailShow = false">关闭</button>
+    </div>
+
+  </clr-modal>
+
+  <clr-modal [(clrModalOpen)]="isDetailShow" [clrModalSize]="'xl'">
+    <h3 class="modal-title">{{detailTitle}}项目动态合同</h3>
+    <div class="modal-body" style="overflow:scroll">
+
+      <table class="table" style="width:100%">
+        <thead>
+          <tr class="gtid-th">
+            <td>合同类型</td>
+            <td>合同名称</td>
+            <td>合同乙方</td>
+            <td>合同签约时间</td>
+            <td>原始目标金额</td>
+            <td>合同签订金额</td>
+            <td>资源规划余额</td>
+            <td>无合同费用</td>
+          </tr>
+        </thead>
+        <tbody *ngIf="contractDatas">
+          <tr *ngFor="let detail of contractDatas">
+            <td>{{detail.vbilltypename}}</td>
+            <td>{{detail.vbillnoandname}}</td>
+            <td>{{detail.vcusname}}</td>
+            <td>{{detail.dsigndate}}</td>
+            <td>{{detail.cs24Orprices | number:'.0-2'}}</td>
+            <td>{{detail.nmnyb3 | number:'.0-2'}}</td>
+            <td>{{detail.nrpelembusinmy | number:'.0-2'}}</td>
+            <td>{{detail.nmnya3 | number:'.0-2' }}</td>
+          </tr>
+          <tr class="row-last">
+            <td colspan="5">合计</td>
+            <td>{{nmnyb3Sum | number:'.0-2' }}</td>
+            <td>{{nrpelembusinmySum | number:'.0-2' }}</td>
+            <td>{{nmnya3Sum | number:'.0-2' }}</td>
+          </tr>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="isDetailShow = false">关闭</button>
+    </div>
+  </clr-modal>
+
+  <div class="row" style="overflow: scroll;">
+    <div class="col-sm-12" style="padding:0;">
+      <table class="tree table" #tree style="display:block; overflow:scroll">
+        <thead style="display: inline-block;">
+          <tr class="treegrid-0 gtid-th">
+            <td rowspan="2" style="text-align:left;min-width:114px;max-width:114px">成本科目编码</td>
+            <td rowspan="2" style="width:100px">成本科目名称</td>
+            <td colspan="4" style="text-align:center">详细目标成本</td>
+            <td colspan="3" style="text-align:center">已发生费用成本</td>
+            <td style="text-align:center">待发生成本</td>
+            <td rowspan="2">动态成本</td>
+            <td rowspan="2" style="min-width:60px;max-width:60px">建筑单方</td>
+            <td rowspan="2" style="min-width:60px;max-width:60px">可售单方</td>
+            <td rowspan="2">节余</td>
+            <td rowspan="2" style="min-width:40px;max-width:40px">节余率</td>
+          </tr>
+          <tr class="gtid-th">
+            <td>原始目标成本</td>
+            <td>执行版目标成本</td>
+            <td style="min-width:60px;max-width:60px">执行版可售单方</td>
+            <td style="min-width:60px;max-width:60px">执行版建筑单方</td>
+            <td>已发生合同成本</td>
+            <td>已发生费用成本</td>
+            <td>合同变更签证成本汇总</td>
+            <td>待发生合同费用</td>
+          </tr>
+        </thead>
+        <tbody class="tablebody" *ngIf="datas">
+          <tr *ngFor="let data of datas; let i = index; let isLast=last" [ngClass]="{'row-background': i%2==1,'background-blue': data.nmnysum3!=0&&(data.dtnnrpelembusinmy - data.nmnysum3)/data.nmnysum3 >0.2}" class="treegrid-{{data.velemcode}} treegrid-parent-{{data.fathercode}}">
+            <td style="text-align:left;min-width:114px;max-width:114px;font-size:7pt">{{data.velemcode}}</td>
+            <td style="text-align:left;" *ngIf="data.lastChildDetail" class="num-button" (click)="getDetial(data.velemname,data.pkCorp,data.pkProject1,data.pkElem)">
+              <clr-icon shape="plus-circle" size="12"></clr-icon>
+              {{data.velemname}}
+            </td>
+            <td style="text-align:left;" *ngIf="!(data.lastChildDetail )" class="">
+              {{data.velemname}}
+            </td>
+            <td>{{data.cs24Orprices | number:'.0-1' }}</td>
+            <td>{{data.nmnysum3 | number:'.0-1' }}</td>
+            <td style="min-width:60px;max-width:60px">{{data.nmnysum3/data.nsalearea | number:'.0-1'}}</td>
+            <td style="min-width:60px;max-width:60px">{{data.nmnysum3/data.nbuildarea | number:'.0-1'}}</td>
+            <td>{{data.nmnyb3 | number:'.0-1'}}</td>
+            <td>{{data.nmnya3 | number:'.0-1'}}</td>
+            <td>{{data.qzcontactcosttol | number:'.0-1'}}</td>
+            <td>{{data.nrpelembusinmy | number:'.0-1' }}</td>
+            <td>{{data.dtnnrpelembusinmy | number:'.0-1'}}</td>
+            <td style="min-width:60px;max-width:60px">{{data.dtnnrpelembusinmy/data.nbuildarea | number:'.0-1'}}</td>
+            <td style="min-width:60px;max-width:60px">{{data.dtnnrpelembusinmy/data.nsalearea | number:'.0-1'}}</td>
+            <td>{{data.dtnnrpelembusinmy - data.nmnysum3 | number:'.0-1'}}</td>
+            <td style="min-width:60px;max-width:60px" [ngSwitch]="data.nmnysum3">
+              <div *ngSwitchDefault>{{(data.dtnnrpelembusinmy - data.nmnysum3)/data.nmnysum3 | percent:'1.0-2'}}</div>
+              <div *ngSwitchCase="0">-</div>
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+    </div>

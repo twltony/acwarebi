@@ -49,7 +49,7 @@ const appRoutes: Routes = [
     children: [
       { path: '', redirectTo: 'CostingMain', pathMatch: 'full' },
       { path:"CostingMain", component: CostingMainComponent ,canActivate: [AuthGuard] },
-      { path:"CostingDtcbPorject/:vname", component: CostingDtcbPorjectComponent, canActivate: [AuthGuard] },
+      { path:"CostingDtcbPorject/:unitname/:vname", component: CostingDtcbPorjectComponent, canActivate: [AuthGuard] },
     ]
   },
   { path:"Tendering", component: Tendering,canActivate: [AuthGuard] },

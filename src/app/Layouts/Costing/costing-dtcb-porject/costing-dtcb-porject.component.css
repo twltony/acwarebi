@@ -20,7 +20,8 @@
     height: 10px;
 }
 .num-button{
-    text-decoration: underline;
+    color:#fff;
+    background-color:#0F1E82;
 }
 .tablebody{
     border:none; 
@@ -30,8 +31,28 @@
     overflow-x: hidden;
 }
 .background-blue{
-    background-color:#0094D2;
+    background-color:#89CBDF;
 }
 .background-red{
     background-color:#EBAFA6;
+}
+.card-text{
+    font-size: 8pt
+}
+.header-table th{
+         border-right: none; 
+     color: #565656; 
+}
+.swiper-slide td{
+    font-size: 16px;
+    color:#E46C0A;
+    font-weight: 600;
+}
+.modal-body th{
+    font-size:16px;
+}
+#SumDetail td{
+    font-size:16px;
+        color:#E46C0A;
+    font-weight: 600;
 }
