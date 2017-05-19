@@ -15,10 +15,17 @@ declare var $: any;
 
 export class CostingDtcbPorjectComponent implements OnInit {
 	datas;
+	contractDatas;
 	el: ElementRef;
+	isDetailShow = false;
+	detailTitle;
 	vname;
 	dataSource: any;
 	@ViewChild('tree') tree: ElementRef;
+	nmnyb3Sum = 0;
+	nmnya3Sum = 0;
+	nrpelembusinmySum = 0;
+
 
 	constructor(
 		private router: Router,
@@ -57,8 +64,20 @@ export class CostingDtcbPorjectComponent implements OnInit {
 	}
 
 	//动态成本明细
-	getDetial(){
-		console.log(1)
+	getDetial(name,PK_CORP,PK_PROJECT,PK_ELEM) {
+		this.detailTitle = name;
+		this.isDetailShow = true;
+		this.costingServices.getDtContract(PK_CORP,PK_PROJECT,PK_ELEM).then(response => {
+			this.contractDatas = response as any;
+			this.nmnyb3Sum =0;
+			this.nmnya3Sum =0;
+			this.nrpelembusinmySum=0;
+			for(var x in response){
+				this.nmnyb3Sum += response[x].nmnyb3=null?0:response[x].nmnyb3;
+				this.nmnya3Sum += response[x].nmnya3=null?0:response[x].nmnya3;
+				this.nrpelembusinmySum += response[x].nrpelembusinmy=null?0:response[x].nrpelembusinmy;
+			}
+		})
 	}
 
 }

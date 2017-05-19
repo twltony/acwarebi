@@ -1,26 +1,84 @@
-<!--<div class="long-title"><h3>Sales Amount by Region</h3></div>
-<dx-pivot-grid id="sales"
-  [allowSortingBySummary]="true"
-  [allowSorting]="true"
-  [allowFiltering]="true"
-  [allowExpandAll]="true"
-  [showBorders]="true"
-  (onCellPrepared)="onCellPrepared($event)"
-  [texts] = "{grandTotal:'合计'}"
-  [dataSource]="dataSource">
-  <dxo-field-chooser [enabled]="false"></dxo-field-chooser>
-</dx-pivot-grid>-->
+<h3 class="center">{{vname}}项目动态成本报表
+  <clr-tooltip [clrTooltipDirection]="'bottom-left'" aria-haspopup="true" [clrTooltipSize]="'md'">
+    <clr-icon shape="info-standard" size="18"></clr-icon>
+    <clr-tooltip-content>
+      <span>当动态成本超出目标成本时，显示红色底色，低于目标成本20%时，显示蓝色底色；点击末级成本科目名称可穿透至下级。</span>
+    </clr-tooltip-content>
+  </clr-tooltip>
+</h3>
 
-<!--<p-treeTable [value]="datas" *ngIf="datas">
-    <p-column field="velemcode" header="成本科目编码"></p-column>
-    <p-column field="velemname" header="成本科目名称"></p-column>
-    <p-column field="cs24Orprices" header="原始目标成本"></p-column>
-    <p-column field="cs24FinllyPrice" header="执行版目标成本"></p-column>
-    <p-column field="nsalearea" header="执行版可售单方"></p-column>
+<clr-modal [(clrModalOpen)]="isDetailShow" [clrModalSize]="'xl'">
+  <h3 class="modal-title">{{detailTitle}}项目动态合同</h3>
+  <div class="modal-body" style="overflow:scroll">
 
-    <p-column field="velemname" header="原始目标成本"></p-column>
-</p-treeTable>-->
+    <table class="table" style="width:100%">
+      <thead>
+        <tr class="gtid-th">
+          <td>合同类型</td>
+          <td>合同名称</td>
+          <td>合同乙方</td>
+          <td>合同签约时间</td>
+          <td>原始目标金额</td>
+          <td>合同签订金额</td>
+          <td>资源规划余额</td>
+          <td>无合同费用</td>
+        </tr>
+      </thead>
+      <tbody *ngIf="contractDatas">
+        <tr *ngFor="let detail of contractDatas">
+          <td>{{detail.vbilltypename}}</td>
+          <td>{{detail.vbillnoandname}}</td>
+          <td>{{detail.vcusname}}</td>
+          <td>{{detail.dsigndate}}</td>
+          <td>{{detail.cs24Orprices | number:'.0-2'}}</td>
+          <td>{{detail.nmnyb3 | number:'.0-2'}}</td>
+          <td>{{detail.nrpelembusinmy | number:'.0-2'}}</td>
+          <td>{{detail.nmnya3 | number:'.0-2' }}</td>
+        </tr>
+        <tr class="row-last">
+          <td colspan="5">合计</td>
+          <td>{{nmnyb3Sum | number:'.0-2' }}</td>
+          <td>{{nrpelembusinmySum | number:'.0-2' }}</td>
+          <td>{{nmnya3Sum | number:'.0-2' }}</td>
+        </tr>
+    </table>
+    <!--<clr-datagrid *ngIf="contractDatas">
+      <clr-dg-column style="width:100px;">合同类型</clr-dg-column>
+      <clr-dg-column>合同名称</clr-dg-column>
+      <clr-dg-column>合同乙方</clr-dg-column>
+      <clr-dg-column>合同签约时间</clr-dg-column>
+      <clr-dg-column>原始目标金额</clr-dg-column>
+      <clr-dg-column>合同签订金额</clr-dg-column>
+      <clr-dg-column>资源规划余额</clr-dg-column>
+      <clr-dg-column>无合同费用</clr-dg-column>
 
+      <clr-dg-row *ngFor="let detail of contractDatas">
+        <clr-dg-cell>{{detail.vbilltypename}}</clr-dg-cell>
+        <clr-dg-cell>{{detail.vbillnoandname}}</clr-dg-cell>
+        <clr-dg-cell>{{detail.vcusname}}</clr-dg-cell>
+        <clr-dg-cell>{{detail.dsigndate}}</clr-dg-cell>
+        <clr-dg-cell>{{detail.cs24Orprices | number:'.0-2'}}</clr-dg-cell>
+        <clr-dg-cell>{{detail.nmnyb3 | number:'.0-2'}}</clr-dg-cell>
+        <clr-dg-cell>{{detail.nrpelembusinmy | number:'.0-2'}}</clr-dg-cell>
+        <clr-dg-cell>{{detail.nmnya3 | number:'.0-2' }}</clr-dg-cell>
+      </clr-dg-row>
+      <clr-dg-row>
+        <clr-dg-cell colspan="4">1</clr-dg-cell>
+        <clr-dg-cell>1</clr-dg-cell>
+        <clr-dg-cell>1</clr-dg-cell>
+        <clr-dg-cell>1</clr-dg-cell>
+        <clr-dg-cell>1</clr-dg-cell>
+        <clr-dg-cell>1</clr-dg-cell>
+        <clr-dg-cell>1</clr-dg-cell>
+        <clr-dg-cell>1</clr-dg-cell>
+      </clr-dg-row>
+
+    </clr-datagrid>-->
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="isDetailShow = false">关闭</button>
+  </div>
+</clr-modal>
 
 <div class="row">
   <div class="col-sm-12" style="padding:0;">
@@ -49,15 +107,14 @@
           <td>待发生合同费用</td>
         </tr>
       </thead>
-      <tbody style="border:none; height: 500px;display: inline-block;    overflow-y: scroll;
-    overflow-x: hidden;" *ngIf="datas">
+      <tbody class="tablebody" *ngIf="datas">
         <tr *ngFor="let data of datas; let i = index; let isLast=last" [ngClass]="{'row-background': i%2==1}" class="treegrid-{{data.velemcode}} treegrid-parent-{{data.fathercode}}">
           <td style="text-align:left;min-width:114px;max-width:114px;font-size:7pt">{{data.velemcode}}</td>
-          <td style="text-align:left;" *ngIf="data.isLastChild&&data.dtnnrpelembusinmy-data.nmnysum3!=0&&data.dtnnrpelembusinmy!=0" class="num-button" (click)="getDetial()">
-              {{data.velemname}}
+          <td style="text-align:left;" *ngIf="data.lastChildDetail" class="num-button" (click)="getDetial(data.velemname,data.pkCorp,data.pkProject1,data.pkElem)">
+            {{data.velemname}}
           </td>
-          <td style="text-align:left;" *ngIf="!(data.isLastChild&&data.dtnnrpelembusinmy-data.nmnysum3!=0&&data.dtnnrpelembusinmy!=0)" class="">
-              {{data.velemname}}
+          <td style="text-align:left;" *ngIf="!(data.lastChildDetail )" class="">
+            {{data.velemname}}
           </td>
           <td>{{data.cs24Orprices | number:'.0-1' }}</td>
           <td>{{data.nmnysum3 | number:'.0-1' }}</td>

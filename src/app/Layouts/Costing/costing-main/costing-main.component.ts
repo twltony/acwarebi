@@ -176,6 +176,11 @@ export class CostingMainComponent implements OnInit {
         this.getGcfx(vName);
     }
 
+    //穿透到动态成本报表
+    goDtTable(projectname){
+        this.router.navigate(['/Costing/CostingDtcbPorject',projectname])
+    }
+
     //设置区域图片滚动下标
     setAreaIndex(res) {
         let array = new Array();

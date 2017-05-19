@@ -22,3 +22,16 @@
 .num-button{
     text-decoration: underline;
 }
+.tablebody{
+    border:none; 
+    height: 60vh;
+    display: inline-block;    
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.background-blue{
+    background-color:#0094D2;
+}
+.background-red{
+    background-color:#EBAFA6;
+}
