@@ -3,7 +3,7 @@
 
   <nav class="subnav">
     <ul class="nav">
-      <li class="nav-item" *ngFor="let area of slideNavDatas;let i =index"><a class="nav-link"  [ngClass]="{'active':i==slideNavActiveIndex}" (click)="moveTo(area.startIndex)">{{area.name}}</a></li>
+      <li class="nav-item" *ngFor="let area of slideNavDatas;let i =index"><a class="nav-link" [ngClass]="{'active':i==slideNavActiveIndex}" (click)="moveTo(area.startIndex)">{{area.name}}</a></li>
     </ul>
   </nav>
 
@@ -45,10 +45,12 @@
                 size: 20,
                 weight: 400
             }
-         }" [dataSource]="chartDatas" pathModified="ture" [scrollingMode]="mode" [zoomingMode]="mode" (onPointClick)="onPointClick($event)"
+         }" [dataSource]="chartDatas" pathModified="ture" [scrollingMode]="mode" [zoomingMode]="mode" (onPointClick)="columnClick($event)"
   style="height:90vh">
-  <dxi-series valueField="salse" name="可售单方"></dxi-series>
-  <dxi-series valueField="build" name="建筑单方"></dxi-series>
+  <dxi-series valueField="salse" name="可售单方(元)"></dxi-series>
+  <dxi-series valueField="build" name="建筑单方(元)"></dxi-series>
+  <dxo-tooltip [enabled]="true" [customizeTooltip]="columnTooltip">
+  </dxo-tooltip>
   <dxo-common-series-settings argumentField="vname" type="bar" hoverMode="allArgumentPoints" selectionMode="allArgumentPoints">
     <dxo-label [visible]="true" [format]="{
                 type: 'fixedPoint',
@@ -96,6 +98,10 @@
             </div>
           </clr-dropdown>
         </div>
+        <div (click)="goDtTable(unitName,vName)">
+          <button class="btn btn-primary btn-sm"> <clr-icon shape="plus-circle" class="is-inverse"></clr-icon>查看动态成本</button>
+         
+        </div>
       </ul>
     </nav>
   </div>
@@ -105,7 +111,7 @@
       <div class="col-sm-12">
         <dx-pie-chart id="pie" pathModified="ture" palette="bright" [dataSource]="gcfxPieDatas" (onPointClick)="piePointClick($event)"
           [resolveLabelOverlapping]="resolveOverlappingTypes[0]" *ngIf="gcfxDatas" style="height:40vh">
-          <dxo-title text="{{vName}}动态成本构成分析">
+          <dxo-title text="{{vName}}动态成本构成分析" >
             <dxo-font size="20" weight="400" family="微软雅黑"></dxo-font>
           </dxo-title>
           <dxi-series argumentField="typeName2" valueField="dtnnrpelembusinmy">
@@ -134,7 +140,7 @@
           <tbody>
             <tr *ngFor="let data of gcfxDatas; let i = index; let isLast=last" [ngClass]="{'row-background': i%2==1,'row-last':isLast}">
               <td>{{data.typeName2}}</td>
-              <td>{{data.dtnnrpelembusinmy}}</td>
+              <td>{{data.dtnnrpelembusinmy | number:'1.2-2'}}</td>
               <td>{{data.nbuildarea | number:'1.2-2'}}</td>
             </tr>
           </tbody>

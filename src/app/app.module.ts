@@ -38,10 +38,10 @@ import { LoginForm } from "app/Layouts/login/app.component.login";
 import { MarketingDayProjectComponent } from "app/Layouts/Marketing/marketing-day-project/marketing-day-project.component";
 import { MarketingAreaBackComponent } from "app/Layouts/Marketing/marketing-area-back/marketing-area-back.component";
 import { CostingMainComponent } from "app/Layouts/Costing/costing-main/costing-main.component";
-import { MarketMonthSalesStatus } from "app/Layouts/Marketing/Pages/market-monthsalesstatus.component";
-import { KSSwiperContainer, KSSwiperSlide } from 'angular2-swiper';
+import {KSSwiperContainer, KSSwiperSlide,  KSSwiperModule} from 'angular2-swiper';
 import { CostingDtcbPorjectComponent } from "app/Layouts/Costing/costing-dtcb-porject/costing-dtcb-porject.component";
-import { TreeTableModule } from "primeng/primeng";
+import { CostingHttzPorjectComponent } from "app/Layouts/Costing/costing-httz-porject/costing-httz-porject.component";
+import { LoadingComponent } from "app/components/loading/loading.component";
 
 
 @NgModule({
@@ -65,6 +65,7 @@ import { TreeTableModule } from "primeng/primeng";
         Costing,
             CostingMainComponent,
             CostingDtcbPorjectComponent,
+            CostingHttzPorjectComponent,
         Tendering,
         ManagementComponent,
             ManageUsersComponent,
@@ -77,6 +78,7 @@ import { TreeTableModule } from "primeng/primeng";
         LoginForm,
         RoundPipe,
         isOrNotPipe,
+        LoadingComponent,
         KSSwiperContainer, KSSwiperSlide,
         ratePipe
     ],

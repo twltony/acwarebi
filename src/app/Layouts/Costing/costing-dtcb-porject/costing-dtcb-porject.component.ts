@@ -162,5 +162,9 @@ export class CostingDtcbPorjectComponent implements OnInit {
 		}, 100);
 
 	}
+	//优化循环相应速度
+	trackByIndex(index) {
+    return index;
+}
 
 }

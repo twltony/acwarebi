@@ -53,23 +53,24 @@ export class CostingMainComponent implements OnInit {
             onSlideChangeEnd: (slider) => {
                 this.slideActiveIndex = slider.activeIndex
                 //this.area = slider.slides[slider.activeIndex].getElementsByTagName("h2").area.innerHTML
-                for(var i=0;i<this.slideNavDatas.length;i++){
-                    if(!this.slideNavDatas[i].lastIndex){
+                for (var i = 0; i < this.slideNavDatas.length; i++) {
+                    if (!this.slideNavDatas[i].lastIndex) {
                         this.slideNavDatas[i].lastIndex = 999
                     }
                     var a = this.slideNavDatas[i].startIndex;
-                    var b =this.slideActiveIndex;
-                    var c =this.slideNavDatas[i].lastIndex;
-                    if(a<=b && b<c){
+                    var b = this.slideActiveIndex;
+                    var c = this.slideNavDatas[i].lastIndex;
+                    if (a <= b && b < c) {
                         this.slideNavActiveIndex = i;
                         break;
                     }
-                   
+
                 }
             },
             paginationClickable: 'true',
             paginationBulletRender: (swiper, index, className) => {
-                var text = swiper.slides[index].getElementsByClassName('card-block')[0].innerText.substr(0, 1);
+                // var text = swiper.slides[index].getElementsByClassName('card-block')[0].innerText.substr(0, 1);
+                 var text = index + 1
                 return '<span class="' + className + '" style="width:30px;height:30px;text-align: center;line-height: 30px;font-size: 12px;color:#FFF;opacity: 1">' + text + '</span>';
             },
             coverflow: {
@@ -160,9 +161,18 @@ export class CostingMainComponent implements OnInit {
         this.chartDatas = array;
     }
 
+    //点击饼图
     piePointClick(e) {
         this.typeName = e.target.argument;
         this.getJzdf(e.target.argument)
+    }
+
+    //点击柱状图
+    columnClick(e) {
+        this.typeName = e.target.argument;
+        console.log(this.typeName);
+        this.getGcfx(e.target.argument);
+        this.vName = e.target.argument;
     }
 
     //构成分析改变板块
@@ -176,9 +186,11 @@ export class CostingMainComponent implements OnInit {
         this.getGcfx(vName);
     }
 
+
+
     //穿透到动态成本报表
-    goDtTable(unitname,projectname){
-        this.router.navigate(['/Costing/CostingDtcbPorject',unitname,projectname])
+    goDtTable(unitname, projectname) {
+        this.router.navigate(['/Costing/CostingDtcbPorject', unitname, projectname])
     }
 
     //设置区域图片滚动下标
@@ -186,13 +198,13 @@ export class CostingMainComponent implements OnInit {
         let array = new Array();
 
         let tempArea = '~!@#';
-        for (var i=0;i<res.length;i++) {
+        for (var i = 0; i < res.length; i++) {
             if (res[i].area.indexOf(tempArea) < 0) {
                 let obj = new Object() as any;
                 tempArea = res[i].area;
                 obj.name = res[i].area;
                 obj.startIndex = i
-                if(i>0){
+                if (i > 0) {
                     array[array.length - 1].lastIndex = i;
                 }
                 array.push(obj);
@@ -201,7 +213,7 @@ export class CostingMainComponent implements OnInit {
         this.slideNavDatas = array;
     }
 
-    areaNavStyle(){
+    areaNavStyle() {
         return true;
     }
 
@@ -237,7 +249,7 @@ export class CostingMainComponent implements OnInit {
 
     columnTooltip(arg: any) {
         return {
-            text: arg.seriesName + ' <br>' + arg.argument + ': ' + Math.round(arg.value)
+            text: arg.seriesName + ' <br>' + arg.argument + ': ' + Math.round(arg.value) + '元'
         };
     }
     pieTooltip(arg: any) {
@@ -245,6 +257,10 @@ export class CostingMainComponent implements OnInit {
             text: arg.argumentText + "<br/>" + arg.valueText
         };
     }
+    chartTitleClick(){
+        alert(1);
+    }
+    
 
     //滚动窗事件
     moveTo(index) {

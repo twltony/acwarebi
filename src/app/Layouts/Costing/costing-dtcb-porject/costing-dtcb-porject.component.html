@@ -6,13 +6,13 @@
     数据加载中，请稍候...
 </span>
 </div>
-<nav class="subnav" [clr-nav-level]="2">
+<nav class="subnav">
   <ul class="nav">
     <li class="nav-item">
-      <a class="nav-link" routerLinkActive="active" routerLink="/Costing/CostingDtcbPorject">项目动态报表</a>
+      <a class="nav-link" routerLinkActive="active" routerLink="/Costing/CostingDtcbPorject/{{unitName}}/{{vName}}">项目动态报表</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link">合同台账表</a>
+      <a class="nav-link"  routerLinkActive="active" routerLink="/Costing/CostingHttz/{{unitName}}/{{vName}}">合同台账表</a>
     </li>
     <div>
       <clr-dropdown [clrMenuPosition]="'bottom-right'">
@@ -101,9 +101,9 @@
     </ks-swiper-container>
   </div>
 
-  <clr-modal [(clrModalOpen)]="isSumDetailShow" [clrModalSize]="'xl'" *ngIf="summary" id="SumDetail">
+  <clr-modal [(clrModalOpen)]="isSumDetailShow" [clrModalSize]="'xl'" id="SumDetail">
     <h3 class="modal-title">{{vName}}&nbsp;汇总</h3>
-    <div class="modal-body" style="overflow:scroll">
+    <div class="modal-body" style="overflow:scroll" *ngIf="summary">
       <table class="table table-compact table-noborder">
         <thead class="header-table">
           <tr>
@@ -138,10 +138,10 @@
         </thead>
         <tbody>
           <tr>
-            <td>{{summary.cs24FinllyPrice/summary.nbuildarea | round}}</td>
-            <td>{{summary.cs24FinllyPrice/summary.nsalearea | round}}</td>
-            <td>{{summary.dtnnrpelembusinmy/summary.nbuildarea | round}}</td>
-            <td>{{summary.dtnnrpelembusinmy/summary.nsalearea | round}}</td>
+            <td>{{summary.cs24FinllyPrice/summary.nbuildarea | round}}元</td>
+            <td>{{summary.cs24FinllyPrice/summary.nsalearea | round}}元</td>
+            <td>{{summary.dtnnrpelembusinmy/summary.nbuildarea | round}}元</td>
+            <td>{{summary.dtnnrpelembusinmy/summary.nsalearea | round}}元</td>
           </tr>
         </tbody>
       </table>
@@ -186,6 +186,7 @@
             <td>{{nrpelembusinmySum | number:'.0-2' }}</td>
             <td>{{nmnya3Sum | number:'.0-2' }}</td>
           </tr>
+        </tbody>
       </table>
     </div>
     <div class="modal-footer">
@@ -198,16 +199,16 @@
       <table class="tree table" #tree style="display:block; overflow:scroll">
         <thead style="display: inline-block;">
           <tr class="treegrid-0 gtid-th">
-            <td rowspan="2" style="text-align:left;min-width:114px;max-width:114px">成本科目编码</td>
-            <td rowspan="2" style="width:100px">成本科目名称</td>
-            <td colspan="4" style="text-align:center">详细目标成本</td>
-            <td colspan="3" style="text-align:center">已发生费用成本</td>
-            <td style="text-align:center">待发生成本</td>
+            <td rowspan="2" style="text-align:left;min-width:114px;max-width:30vw">成本科目编码</td>
+            <td rowspan="2" style="min-width:114px;max-width:30vw">成本科目名称</td>
+            <td colspan="4" style="text-align:center;min-width:114px;max-width:30vw">详细目标成本（元）</td>
+            <td colspan="3" style="text-align:center;min-width:114px;max-width:30vw">已发生费用成本（元）</td>
+            <td style="text-align:center;min-width:114px;max-width:30vw">待发生成本（元）</td>
             <td rowspan="2">动态成本</td>
-            <td rowspan="2" style="min-width:60px;max-width:60px">建筑单方</td>
-            <td rowspan="2" style="min-width:60px;max-width:60px">可售单方</td>
+            <td rowspan="2" style="min-width:60px;max-width:60px">建筑单方（元）</td>
+            <td rowspan="2" style="min-width:60px;max-width:60px">可售单方（元）</td>
             <td rowspan="2">节余</td>
-            <td rowspan="2" style="min-width:40px;max-width:40px">节余率</td>
+            <td rowspan="2" style="min-width:60px;max-width:60px">节余率</td>
           </tr>
           <tr class="gtid-th">
             <td>原始目标成本</td>
@@ -221,13 +222,14 @@
           </tr>
         </thead>
         <tbody class="tablebody" *ngIf="datas">
-          <tr *ngFor="let data of datas; let i = index; let isLast=last" [ngClass]="{'row-background': i%2==1,'background-blue': data.nmnysum3!=0&&(data.dtnnrpelembusinmy - data.nmnysum3)/data.nmnysum3 >0.2}" class="treegrid-{{data.velemcode}} treegrid-parent-{{data.fathercode}}">
-            <td style="text-align:left;min-width:114px;max-width:114px;font-size:7pt">{{data.velemcode}}</td>
-            <td style="text-align:left;" *ngIf="data.lastChildDetail" class="num-button" (click)="getDetial(data.velemname,data.pkCorp,data.pkProject1,data.pkElem)">
+          <tr *ngFor="let data of datas; let i = index; let isLast=last;trackBy: trackByIndex" [ngClass]="{'row-background': i%2==1,'background-blue': data.nmnysum3!=0&&(data.dtnnrpelembusinmy - data.nmnysum3)/data.nmnysum3 >0.2,'background-red': ((data.dtnnrpelembusinmy - data.nmnysum3)/data.nmnysum3==0&&data.dtnnrpelembusinmy!=0&&data.nmnysum3==0)||(data.dtnnrpelembusinmy - data.nmnysum3)/data.nmnysum3<0}" 
+          class="treegrid-{{data.velemcode}} treegrid-parent-{{data.fathercode}}">
+            <td style="text-align:left;min-width:114px;max-width:30vw;font-size:7pt">{{data.velemcode}}</td>
+            <td style="text-align:left;min-width:114px;max-width:30vw" *ngIf="data.lastChildDetail" class="num-button" (click)="getDetial(data.velemname,data.pkCorp,data.pkProject1,data.pkElem)" >
               <clr-icon shape="plus-circle" size="12"></clr-icon>
               {{data.velemname}}
             </td>
-            <td style="text-align:left;" *ngIf="!(data.lastChildDetail )" class="">
+            <td style="text-align:left;min-width:114px;max-width:30vw" *ngIf="!(data.lastChildDetail )" class="">
               {{data.velemname}}
             </td>
             <td>{{data.cs24Orprices | number:'.0-1' }}</td>

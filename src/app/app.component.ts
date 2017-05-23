@@ -10,7 +10,7 @@ import { CostingServices } from "app/Layouts/Costing/costing.service";
 @Component({
     selector: 'my-app',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
+    styleUrls: ['./app.component.css'],
     providers:[MarketingService,LoginService,BaseDataService,CostingServices]
 })
 export class AppComponent implements OnInit {
