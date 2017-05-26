@@ -19,15 +19,28 @@
           <img src="images/picture_0.png">
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item" [ngClass]="{'rate-red': 0>(card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices || (card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices>0.2,
-          'rate-yellow':card.cs24Orprices/10000 ==0,
-          'rate-green': 0<=(card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices || (card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices<=0.2}">
-            差异率 {{(card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices | percent:'1.1-2'}}</li>
-          <li class="list-group-item" style="background-color:#f5f5f5">目标成本 {{card.cs24Orprices/10000 | round}} 万</li>
-          <li class="list-group-item" style="background-color:#FFFFFF">动态成本 {{card.dtnnrpelembusinmy/10000 | round}} 万</li>
-          <li class="list-group-item" style="background-color:#f5f5f5">差异金额 {{card.cs24Orprices/10000 - card.dtnnrpelembusinmy/10000 | round}} 万</li>
-          <li class="list-group-item" style="background-color:#FFFFFF">可售单方 {{card.dtnnrpelembusinmy/card.nsalearea | round}} 元</li>
-          <li class="list-group-item" style="background-color:#f5f5f5">建筑单方 {{card.dtnnrpelembusinmy/card.nbuildarea | round}} 元</li>
+          <li class="list-group-item" [ngClass]="{'rate-red': 0>(card.nmnysum3-card.dtnnrpelembusinmy/10000)/card.nmnysum3 || (card.nmnysum3-card.dtnnrpelembusinmy/10000)/card.nmnysum3>0.2,
+          'rate-yellow':card.nmnysum3 ==0,
+          'rate-green': ((card.nmnysum3-card.dtnnrpelembusinmy/10000)/card.nmnysum3)>=0 || ((card.nmnysum3-card.dtnnrpelembusinmy/10000)/card.nmnysum3)<=0.2}"
+            [ngSwitch]="card.nmnysum3">
+            <div *ngSwitchDefault>
+              <div>差异率 {{(card.nmnysum3-card.dtnnrpelembusinmy/10000 )/card.nmnysum3 | percent:'1.1-2'}} &nbsp; (原始版 {{ (card.cs24Orprices!=null?(card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices : 0) | percent:'1.1-2'}})</div>
+            </div>
+            <div *ngSwitchCase="0">
+              <div>差异率 -  &nbsp; (原始版 {{ (card.cs24Orprices==null?0:((card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices)) | percent:'1.1-2'}})</div>
+            </div>
+          </li>
+          <li class="list-group-item" style="background-color:#f5f5f5" [ngSwitch]="card.nmnysum3">
+            <div *ngSwitchDefault>目标成本 {{card.nmnysum3 | number:'.0-0'}} 万</div>
+            <div *ngSwitchCase="0">目标成本 -</div>
+          </li>
+          <li class="list-group-item" style="background-color:#FFFFFF" [ngSwitch]="card.dtnnrpelembusinmy">
+            <div *ngSwitchDefault> 动态成本 {{card.dtnnrpelembusinmy/10000 | number:'.0-0'}} 万</div>
+            <div *ngSwitchCase="0"> 动态成本 -</div>
+          </li>
+          <li class="list-group-item" style="background-color:#f5f5f5">差异金额 {{card.nmnysum3 - card.dtnnrpelembusinmy/10000 | number:'.0-0'}} 万</li>
+          <li class="list-group-item" style="background-color:#FFFFFF">可售单方 {{card.dtnnrpelembusinmy/card.nsalearea | number:'.0-0'}} 元</li>
+          <li class="list-group-item" style="background-color:#f5f5f5">建筑单方 {{card.dtnnrpelembusinmy/card.nbuildarea | number:'.0-0'}} 元</li>
         </ul>
       </a>
     </ks-swiper-slide>
@@ -100,7 +113,7 @@
         </div>
         <div (click)="goDtTable(unitName,vName)">
           <button class="btn btn-primary btn-sm"> <clr-icon shape="plus-circle" class="is-inverse"></clr-icon>查看动态成本</button>
-         
+
         </div>
       </ul>
     </nav>
@@ -111,7 +124,7 @@
       <div class="col-sm-12">
         <dx-pie-chart id="pie" pathModified="ture" palette="bright" [dataSource]="gcfxPieDatas" (onPointClick)="piePointClick($event)"
           [resolveLabelOverlapping]="resolveOverlappingTypes[0]" *ngIf="gcfxDatas" style="height:40vh">
-          <dxo-title text="{{vName}}动态成本构成分析" >
+          <dxo-title text="{{vName}}动态成本构成分析">
             <dxo-font size="20" weight="400" family="微软雅黑"></dxo-font>
           </dxo-title>
           <dxi-series argumentField="typeName2" valueField="dtnnrpelembusinmy">

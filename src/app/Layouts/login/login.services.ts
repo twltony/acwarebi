@@ -8,7 +8,8 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class LoginService {
     user: User;
-    private url = 'http://172.22.31.36:8080/login/loginauth';
+    private url = GlobalVariable.ServerAddress+'login/loginauth'
+   // private url = 'http://172.22.31.36:8080/login/loginauth';
     private handleError(error:any): Promise<any>{
         console.error("登陆服务错误:",error);
         return Promise.reject(error.message || error);

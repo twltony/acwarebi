@@ -11,7 +11,8 @@
     border:none;
 }
 .table td{
-    min-width:100px;
+    min-width:114px;
+    width:114px;
     font-size: 8pt;
 }
 .treegrid-indent {
@@ -21,6 +22,12 @@
 .num-button{
     color:#fff;
     background-color:#0F1E82;
+}
+.num-button:hover{
+    color:#fff;
+    background-color:#318700;
+    cursor:pointer;
+
 }
 .tablebody{
     border:none; 
@@ -39,7 +46,7 @@
     font-size: 8pt
 }
 .header-table th{
-         border-right: none; 
+    border-right: none; 
      color: #565656; 
 }
 .swiper-slide td{
@@ -52,6 +59,13 @@
 }
 #SumDetail td{
     font-size:16px;
-        color:#E46C0A;
     font-weight: 600;
+}
+.summary{
+    height:60px;
+    overflow:hidden;
+}
+.summary:hover{
+    cursor:pointer;
+    background-color: #FAF9F5;
 }

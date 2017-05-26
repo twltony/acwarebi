@@ -111,6 +111,7 @@ export class CostingDtcbPorjectComponent implements OnInit {
 				this.nmnya3Sum += response[x].nmnya3 = null ? 0 : response[x].nmnya3;
 				this.nrpelembusinmySum += response[x].nrpelembusinmy = null ? 0 : response[x].nrpelembusinmy;
 			}
+			this.isLoading = false;
 		})
 	}
 

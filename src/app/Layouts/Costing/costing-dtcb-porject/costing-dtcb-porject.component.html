@@ -50,9 +50,8 @@
       </clr-tooltip>
     </h4>
   </div>
-  <div class="col-sm-9" style="height:60px;overflow:hidden">
-
-    <ks-swiper-container [options]="SwipeOptions" style="height:100px" *ngIf="summary" (click)="isSumDetailShow = true">
+  <div class="col-sm-9 summary" (click)="isLoading=true"  (click)="isSumDetailShow = true">
+    <ks-swiper-container [options]="SwipeOptions" style="height:100px" *ngIf="summary">
       <div class="swiper-slide">
         <table class="table table-compact table-noborder">
           <thead class="header-table">
@@ -199,22 +198,22 @@
       <table class="tree table" #tree style="display:block; overflow:scroll">
         <thead style="display: inline-block;">
           <tr class="treegrid-0 gtid-th">
-            <td rowspan="2" style="text-align:left;min-width:114px;max-width:30vw">成本科目编码</td>
-            <td rowspan="2" style="min-width:114px;max-width:30vw">成本科目名称</td>
-            <td colspan="4" style="text-align:center;min-width:114px;max-width:30vw">详细目标成本（元）</td>
-            <td colspan="3" style="text-align:center;min-width:114px;max-width:30vw">已发生费用成本（元）</td>
-            <td style="text-align:center;min-width:114px;max-width:30vw">待发生成本（元）</td>
+            <td rowspan="2" style="text-align:left;">成本科目编码</td>
+            <td rowspan="2" style="width: 100%;">成本科目名称</td>
+            <td colspan="4" style="text-align:center; ">详细目标成本（元）</td>
+            <td colspan="3" style="text-align:center; ">已发生费用成本（元）</td>
+            <td style="text-align:center; ">待发生成本（元）</td>
             <td rowspan="2">动态成本</td>
-            <td rowspan="2" style="min-width:60px;max-width:60px">建筑单方（元）</td>
-            <td rowspan="2" style="min-width:60px;max-width:60px">可售单方（元）</td>
+            <td rowspan="2" style=" ">建筑单方（元）</td>
+            <td rowspan="2" style=" ">可售单方（元）</td>
             <td rowspan="2">节余</td>
-            <td rowspan="2" style="min-width:60px;max-width:60px">节余率</td>
+            <td rowspan="2" style=" ">节余率</td>
           </tr>
           <tr class="gtid-th">
             <td>原始目标成本</td>
             <td>执行版目标成本</td>
-            <td style="min-width:60px;max-width:60px">执行版可售单方</td>
-            <td style="min-width:60px;max-width:60px">执行版建筑单方</td>
+            <td style=" ">执行版可售单方</td>
+            <td style=" ">执行版建筑单方</td>
             <td>已发生合同成本</td>
             <td>已发生费用成本</td>
             <td>合同变更签证成本汇总</td>
@@ -224,27 +223,27 @@
         <tbody class="tablebody" *ngIf="datas">
           <tr *ngFor="let data of datas; let i = index; let isLast=last;trackBy: trackByIndex" [ngClass]="{'row-background': i%2==1,'background-blue': data.nmnysum3!=0&&(data.dtnnrpelembusinmy - data.nmnysum3)/data.nmnysum3 >0.2,'background-red': ((data.dtnnrpelembusinmy - data.nmnysum3)/data.nmnysum3==0&&data.dtnnrpelembusinmy!=0&&data.nmnysum3==0)||(data.dtnnrpelembusinmy - data.nmnysum3)/data.nmnysum3<0}" 
           class="treegrid-{{data.velemcode}} treegrid-parent-{{data.fathercode}}">
-            <td style="text-align:left;min-width:114px;max-width:30vw;font-size:7pt">{{data.velemcode}}</td>
-            <td style="text-align:left;min-width:114px;max-width:30vw" *ngIf="data.lastChildDetail" class="num-button" (click)="getDetial(data.velemname,data.pkCorp,data.pkProject1,data.pkElem)" >
+            <td style="text-align:left; ;font-size:7pt">{{data.velemcode}}</td>
+            <td style="text-align:left;width: 100%; " *ngIf="data.lastChildDetail" class="num-button" (click)="isLoading=true" (click)="getDetial(data.velemname,data.pkCorp,data.pkProject1,data.pkElem)" >
               <clr-icon shape="plus-circle" size="12"></clr-icon>
               {{data.velemname}}
             </td>
-            <td style="text-align:left;min-width:114px;max-width:30vw" *ngIf="!(data.lastChildDetail )" class="">
+            <td style="text-align:left;width: 100%;" *ngIf="!(data.lastChildDetail )" class="">
               {{data.velemname}}
             </td>
             <td>{{data.cs24Orprices | number:'.0-1' }}</td>
             <td>{{data.nmnysum3 | number:'.0-1' }}</td>
-            <td style="min-width:60px;max-width:60px">{{data.nmnysum3/data.nsalearea | number:'.0-1'}}</td>
-            <td style="min-width:60px;max-width:60px">{{data.nmnysum3/data.nbuildarea | number:'.0-1'}}</td>
+            <td style=" ">{{data.nmnysum3/data.nsalearea | number:'.0-1'}}</td>
+            <td style=" ">{{data.nmnysum3/data.nbuildarea | number:'.0-1'}}</td>
             <td>{{data.nmnyb3 | number:'.0-1'}}</td>
             <td>{{data.nmnya3 | number:'.0-1'}}</td>
             <td>{{data.qzcontactcosttol | number:'.0-1'}}</td>
             <td>{{data.nrpelembusinmy | number:'.0-1' }}</td>
             <td>{{data.dtnnrpelembusinmy | number:'.0-1'}}</td>
-            <td style="min-width:60px;max-width:60px">{{data.dtnnrpelembusinmy/data.nbuildarea | number:'.0-1'}}</td>
-            <td style="min-width:60px;max-width:60px">{{data.dtnnrpelembusinmy/data.nsalearea | number:'.0-1'}}</td>
+            <td style=" ">{{data.dtnnrpelembusinmy/data.nbuildarea | number:'.0-1'}}</td>
+            <td style=" ">{{data.dtnnrpelembusinmy/data.nsalearea | number:'.0-1'}}</td>
             <td>{{data.dtnnrpelembusinmy - data.nmnysum3 | number:'.0-1'}}</td>
-            <td style="min-width:60px;max-width:60px" [ngSwitch]="data.nmnysum3">
+            <td style=" " [ngSwitch]="data.nmnysum3">
               <div *ngSwitchDefault>{{(data.dtnnrpelembusinmy - data.nmnysum3)/data.nmnysum3 | percent:'1.0-2'}}</div>
               <div *ngSwitchCase="0">-</div>
             </td>
