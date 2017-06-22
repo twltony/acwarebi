@@ -29,7 +29,12 @@
         <div class="col-sm-12 col-md-12">
           <div style="text-align: center">
             <h3>销售情况<span>(含认购及签约)
-              </span></h3>
+              </span>
+              <clr-tooltip [clrTooltipDirection]="'bottom-left'" aria-haspopup="true" [clrTooltipSize]="'md'">
+                <clr-icon shape="help" size="18"></clr-icon>
+                <clr-tooltip-content><span>从明源销售系统中统计年度月度销售目标以及完成情况的数据。</span></clr-tooltip-content>
+              </clr-tooltip>
+            </h3>
           </div>
         </div>
         <div class="col-sm-12 col-md-12">
@@ -84,7 +89,7 @@
             <clr-tooltip [clrTooltipDirection]="'top-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
               <clr-icon shape="help" size="18"></clr-icon>
               <clr-tooltip-content>
-                <span>点击数字可下钻到销售明细表</span>
+                <span>从明源系统统计当日所有项目销售数据，每1小时刷新一次最新数据</span>
               </clr-tooltip-content>
             </clr-tooltip>
             <div class="memo">
@@ -95,11 +100,11 @@
               </label>
             </div>
           </h4>
-          <h4 class="h2-title">{{basicService?.month}}营销费用　 <span class="num-button" (click)="navTo('MarketingMonthFee')">{{marketingDatas?.yxFee}}万元</span>
+          <h4 class="h2-title">{{basicService?.month}}营销费用 <span class="num-button" (click)="navTo('MarketingMonthFee')">{{marketingDatas?.yxFee}}万元</span>
             <clr-tooltip [clrTooltipDirection]="'top-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
               <clr-icon shape="help" size="18"></clr-icon>
               <clr-tooltip-content>
-                <span>点击数字可下钻到营销费用明细表；</span>
+                <span>统计本月截止当日已入NC财务账的营销费相关科目的金额（实际已支付的营销费用）。</span>
               </clr-tooltip-content>
             </clr-tooltip>
 
@@ -107,11 +112,11 @@
 
         </div>
         <div class="col-xs-5">
-          <h4 class="h2-title">{{basicService?.month}}回款　 <span class="num-button" (click)="navTo('MarketingYearBack')">{{marketingDatas?.hkMonth}}亿</span>
+          <h4 class="h2-title">{{basicService?.month}}回款 <span class="num-button" (click)="navTo('MarketingYearBack')">{{marketingDatas?.hkMonth}}亿</span>
             <clr-tooltip [clrTooltipDirection]="'top-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
               <clr-icon shape="help" size="18"></clr-icon>
               <clr-tooltip-content>
-                <span>点击数字查看集团回款明细表</span>
+                <span>从明源销售系统中统计年度月度销售回款（未回款）的情况。</span>
               </clr-tooltip-content>
             </clr-tooltip>
             <div class="memo">
@@ -119,7 +124,7 @@
                       </label>
             </div>
           </h4>
-          <h4 class="h2-title">年回款　 <span class="num-button" (click)="navTo('MarketingYearBack')">{{marketingDatas?.hkYear}}亿</span>
+          <h4 class="h2-title">年回款 <span class="num-button" (click)="navTo('MarketingYearBack')">{{marketingDatas?.hkYear}}亿</span>
             <clr-tooltip [clrTooltipDirection]="'top-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
               <clr-icon shape="help" size="18"></clr-icon>
               <clr-tooltip-content>
@@ -137,7 +142,7 @@
     <div class="col-sm-6 " *ngIf="marketingDatas">
       <!--<columnchart [data]="columnChartData" ></columnchart>-->
       <dx-chart id="chart" [title]="{ 
-          text: '销售柱图（按月份）',
+          text: '销售柱图（按月份) ',
           font: {
                 family: '微软雅黑',
                 size: 20,
@@ -172,7 +177,7 @@
               <clr-tooltip [clrTooltipDirection]="'top-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
                 <clr-icon shape="help" size="18"></clr-icon>
                 <clr-tooltip-content>
-                  <span>点击数字查看集团销售总余货统计表</span>
+                  <span>集团各项目汇总统计的余货总套数、总面积及预估货值（包含在售、在建及规划在建）。</span>
                 </clr-tooltip-content>
               </clr-tooltip>
             </h3>
@@ -210,8 +215,7 @@
               <clr-tooltip [clrTooltipDirection]="'top-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
                 <clr-icon shape="help" size="18"></clr-icon>
                 <clr-tooltip-content>
-                  <span>数字：点击数字查看集团已取证余货统计表。
-                    <br>图形：点击饼图可查看分类已取证余货统计表。
+                  <span>余货中已取得预售证的套数、面积及预估货值（明源系统中房源状态为销控与待售）。
                   </span>
                 </clr-tooltip-content>
               </clr-tooltip>
@@ -252,8 +256,8 @@
         </div>
         <div class="col-sm-5">
           <!--<piechart [data]="marketingDatas?.pieChart" *ngIf="marketingDatas"></piechart>-->
-          <dx-pie-chart id="pie" pathModified="ture" palette="bright" [dataSource]="piechartData" (onPointClick)="piePointClick($event)" *ngIf="marketingDatas"
-            style="height:38vh">
+          <dx-pie-chart id="pie" pathModified="ture" palette="bright" [dataSource]="piechartData" (onPointClick)="piePointClick($event)"
+            *ngIf="marketingDatas" style="height:38vh">
             <dxi-series argumentField="name" valueField="value">
               <dxo-label [visible]="true" position="inside" [radialOffset]="20" [format]="{
                             type: 'fixedPoint',
@@ -278,7 +282,7 @@
             <clr-icon shape="help" size="18"></clr-icon>
             <clr-tooltip-content>
               (含认购及签约)<br>
-              <span>点击表格可查看具体销售排行情况。
+              <span>统计集团当月销售完成率排行榜前十的项目。
                   </span>
             </clr-tooltip-content>
           </clr-tooltip>

@@ -70,7 +70,7 @@ export class CostingMainComponent implements OnInit {
             paginationClickable: 'true',
             paginationBulletRender: (swiper, index, className) => {
                 // var text = swiper.slides[index].getElementsByClassName('card-block')[0].innerText.substr(0, 1);
-                 var text = index + 1
+                var text = index + 1
                 return '<span class="' + className + '" style="width:30px;height:30px;text-align: center;line-height: 30px;font-size: 12px;color:#FFF;opacity: 1">' + text + '</span>';
             },
             coverflow: {
@@ -199,10 +199,22 @@ export class CostingMainComponent implements OnInit {
 
         let tempArea = '~!@#';
         for (var i = 0; i < res.length; i++) {
-            if (res[i].area.indexOf(tempArea) < 0) {
+            // if (res[i].area == null) {
+            //     res[i].area == "其他片区"
+            // }
+            if (res[i].area != null && res[i].area.indexOf(tempArea) < 0) {
                 let obj = new Object() as any;
-                tempArea = res[i].area;
+                tempArea = res[i].area == null ? "其他片区" : res[i].area;
                 obj.name = res[i].area;
+                obj.startIndex = i
+                if (i > 0) {
+                    array[array.length - 1].lastIndex = i;
+                }
+                array.push(obj);
+            } else if(res[i].area==null && "其他片区".indexOf(tempArea) < 0){
+                let obj = new Object() as any;
+                tempArea = "其他片区";
+                obj.name = "其他片区";
                 obj.startIndex = i
                 if (i > 0) {
                     array[array.length - 1].lastIndex = i;
@@ -257,10 +269,10 @@ export class CostingMainComponent implements OnInit {
             text: arg.argumentText + "<br/>" + arg.valueText
         };
     }
-    chartTitleClick(){
+    chartTitleClick() {
         alert(1);
     }
-    
+
 
     //滚动窗事件
     moveTo(index) {

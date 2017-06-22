@@ -1,7 +1,7 @@
- <nav class="subnav">
+<nav class="subnav">
     <ul class="nav">
         <li class="nav-item">
-           
+
             <clr-dropdown clrMenuPosition="bottom-right">
                 <button class=" btn btn-link" clrDropdownToggle>
                    类型 {{yhType}}
@@ -15,42 +15,37 @@
 
     </ul>
 </nav>
- <h2 class="center">集团已取证余货情况统计表</h2>
- <dx-data-grid #grid 
-      style="max-height:80%"
-      id="gridContainer"
-      [showColumnLines]="true"
-      [showRowLines]="true"
-      [showBorders]="true"
-      [rowAlternationEnabled]="true"
-      [dataSource]="datas"
-      [allowColumnReordering]="false"
-      [allowColumnResizing]="false"
-      [wordWrapEnabled]="true"
-      [columnAutoWidth]="true"
-      (onRowClick)= "goProject($event)"
-      (onRowPrepared)= "getLastRow($event)"
-      rowTemplate="zyhTemplate"
-      [scrolling]="{mode: 'virtual',useNative: true}"
-      >
+<h2 class="center">集团已取证余货情况统计表
+
+    <clr-tooltip [clrTooltipDirection]="'bottom-left'" aria-haspopup="true" [clrTooltipSize]="'md'">
+        <clr-icon shape="help" size="18"></clr-icon>
+        <clr-tooltip-content>
+            <span>余货中已取得预售证的套数、面积及预估货值（明源系统中房源状态为销控与待售），点击片区可穿透查看片区下各项目的详细余货数据。</span>
+        </clr-tooltip-content>
+    </clr-tooltip>
+</h2>
+<dx-data-grid #grid style="max-height:80%" id="gridContainer" [showColumnLines]="true" [showRowLines]="true" [showBorders]="true"
+    [rowAlternationEnabled]="true" [dataSource]="datas" [allowColumnReordering]="false" [allowColumnResizing]="false" [wordWrapEnabled]="true"
+    [columnAutoWidth]="true" (onRowClick)="goProject($event)" (onRowPrepared)="getLastRow($event)" rowTemplate="zyhTemplate"
+    [scrolling]="{mode: 'virtual',useNative: true}">
     <dxo-paging [pageSize]="30"></dxo-paging>
-      <dxi-column caption="区域名称" dataField="vBuname" ></dxi-column>
-      <dxi-column  alignment='center' caption="类型" dataField="vType"></dxi-column>
-      <dxi-column  alignment='center' caption="总套数" dataField="nYcznum"></dxi-column>
-      <dxi-column  alignment='center' caption="总建筑面积" dataField="nYczarea" ></dxi-column>
-      <dxi-column  alignment='center' caption="总预估货值" dataField="nYczmoney"></dxi-column>
-      <dxi-column  alignment='center' caption="已推未售">
-        <dxi-column alignment='center' caption="套数（套）" dataField="nYtwsnum" ></dxi-column>
-        <dxi-column  alignment='center' caption="建筑面积（㎡）" dataField="nYtwsarea"></dxi-column>
-        <dxi-column  alignment='center' caption="金额（万元）" dataField="nYtwsmoney" ></dxi-column>
-      </dxi-column>
-      <dxi-column  alignment='center'  caption="明源销控">
-        <dxi-column  alignment='center' caption="套数（套）" dataField="nXknum"></dxi-column>
-        <dxi-column  alignment='center' caption="建筑面积（㎡）" dataField="nXkarea"></dxi-column>
-      </dxi-column>
-     <div *dxTemplate="let field of 'round'">
+    <dxi-column caption="区域名称" dataField="vBuname"></dxi-column>
+    <dxi-column alignment='center' caption="类型" dataField="vType"></dxi-column>
+    <dxi-column alignment='center' caption="总套数" dataField="nYcznum"></dxi-column>
+    <dxi-column alignment='center' caption="总建筑面积" dataField="nYczarea"></dxi-column>
+    <dxi-column alignment='center' caption="总预估货值" dataField="nYczmoney"></dxi-column>
+    <dxi-column alignment='center' caption="已推未售">
+        <dxi-column alignment='center' caption="套数（套）" dataField="nYtwsnum"></dxi-column>
+        <dxi-column alignment='center' caption="建筑面积（㎡）" dataField="nYtwsarea"></dxi-column>
+        <dxi-column alignment='center' caption="金额（万元）" dataField="nYtwsmoney"></dxi-column>
+    </dxi-column>
+    <dxi-column alignment='center' caption="明源销控">
+        <dxi-column alignment='center' caption="套数（套）" dataField="nXknum"></dxi-column>
+        <dxi-column alignment='center' caption="建筑面积（㎡）" dataField="nXkarea"></dxi-column>
+    </dxi-column>
+    <div *dxTemplate="let field of 'round'">
         <span>{{field.value | round}}</span>
-      </div>
+    </div>
 
     <tbody *dxTemplate="let zyh of 'zyhTemplate'">
         <tr class="dx-row main-row" [ngClass]="{'row-background': zyh.rowIndex%2==1}">
@@ -67,4 +62,4 @@
         </tr>
     </tbody>
 
-    </dx-data-grid>
+</dx-data-grid>

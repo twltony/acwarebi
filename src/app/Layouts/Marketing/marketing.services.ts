@@ -25,6 +25,9 @@ export class MarketingService {
     private marketProjectDaySales = GlobalVariable.ServerAddress+'salesplan/getProjectDaySales';//日销售情况-按区域-项目
     private marketAreaList = GlobalVariable.ServerAddress+'salesplan/getAreaList';//获取区域列表
     
+    private time1;
+    private time0;
+    private username = localStorage.currentUser;
     private MarketMainData;
 
     private yhTypes = [];
@@ -34,11 +37,21 @@ export class MarketingService {
     }
 
     constructor(private http:Http){
+        this.time0 = new Date();
     }
     
+    newTime(){
+        var date = new Date()
+        var t0 = this.time0
+        this.time1 = this.time0;
+        this.time0 = Date.parse(date as any);
+        console.log("time0"+t0);
+        console.log(this.time1);
+    }
     //首页数据
     getMarketingMainData(): Promise<MarketingDatas[]>{
-        return this.http.get(this.marketUrl)
+        this.newTime();
+        return this.http.get(this.marketUrl +'?time='+this.time1+'&username='+this.username)
                     .toPromise()
                     .then(response => {
                         this.MarketMainData = response.json();
@@ -49,7 +62,8 @@ export class MarketingService {
     }
 
     getSalesStatusData():  Promise<MarketingDatas[]>{
-        return this.http.get(this.marketUrl)
+        this.newTime();
+        return this.http.get(this.marketUrl +'?time='+this.time1+'&username='+this.username)
                     .toPromise()
                     .then(response => {
                         return response.json() as MarketingDatas[]
@@ -59,7 +73,8 @@ export class MarketingService {
     }
     //年度销售情况表数据
     getYearMarketData():  Promise<MarketingDatas[]>{
-        return this.http.get(this.marketYearUrl)
+        this.newTime();
+        return this.http.get(this.marketYearUrl +'?time='+this.time1+'&username='+this.username)
                     .toPromise()
                     .then(response => {
                         return response.json() as MarketingDatas[]
@@ -69,7 +84,8 @@ export class MarketingService {
     }
     //年度销售情况表数据-按区域
     getYearMarketByArea(area):  Promise<MarketingDatas[]>{
-        return this.http.get(this.marketYearByArea + "?area="+area)
+        this.newTime();
+        return this.http.get(this.marketYearByArea + "?area="+area +'&time='+this.time1+'&username='+this.username)
                     .toPromise()
                     .then(response => {
                         return response.json() as MarketingDatas[]
@@ -79,7 +95,8 @@ export class MarketingService {
     }
     //月度销售情况表数据
     getAreaMonthStatusData(year,month):  Promise<Object>{
-        return this.http.get(this.marketMonthUrl+"?year="+year+"&month="+month)
+        this.newTime();
+        return this.http.get(this.marketMonthUrl+"?year="+year+"&month="+month+'&time='+this.time1+'&username='+this.username)
                     .toPromise()
                     .then(response => {
                         return response.json() as Object
@@ -89,7 +106,8 @@ export class MarketingService {
     }
     //日销售情况表数据
     getAreaDayStatusData():  Promise<Object>{
-        return this.http.get(this.marketDayUrl)
+        this.newTime(); 
+        return this.http.get(this.marketDayUrl+'?time='+this.time1+'&username='+this.username)
                     .toPromise()
                     .then(response => {
                         return response.json() as Object
@@ -99,7 +117,8 @@ export class MarketingService {
     }
     //月营销费用
     getMonthSalesFee(mm): Promise<Object>{
-        return this.http.get(this.marketMonthFeeUrl+"?month="+mm)
+        this.newTime();          
+        return this.http.get(this.marketMonthFeeUrl+"?month="+mm+'&time='+this.time1+'&username='+this.username)
                     .toPromise()
                     .then(response => {
                         return response.json() as Object
@@ -109,7 +128,8 @@ export class MarketingService {
     }
     //月营销费用 - 每月汇总
     getAllMonthFeeSum(): Promise<Object>{
-        return this.http.get(this.marketAllMonthFeeSum)
+        this.newTime();          
+        return this.http.get(this.marketAllMonthFeeSum+'?time='+this.time1+'&username='+this.username)
                     .toPromise()
                     .then(response => {
                         return response.json() as Object
@@ -119,7 +139,8 @@ export class MarketingService {
     }
     //集团回款
     getYearBack(year): Promise<Object>{
-        return this.http.get(this.marketYearBackUrl+"?year="+year)
+        this.newTime();          
+        return this.http.get(this.marketYearBackUrl+"?year="+year+'&time='+this.time1+'&username='+this.username)
                     .toPromise()
                     .then(response => {
                         return response.json() as Object
@@ -129,7 +150,8 @@ export class MarketingService {
     }
     //区域回款
     getAreaBack(area): Promise<Object>{
-        return this.http.get(this.marketAreaBackUrl+"?area="+area)
+        this.newTime();          
+        return this.http.get(this.marketAreaBackUrl+"?area="+area+'&time='+this.time1+'&username='+this.username)
                     .toPromise()
                     .then(response => {
                         return response.json() as Object
@@ -139,7 +161,8 @@ export class MarketingService {
     }
     //集团总余货
     getZyh(): Promise<Object>{
-        return this.http.get(this.marketZyhUrl)
+        this.newTime();          
+        return this.http.get(this.marketZyhUrl+'?time='+this.time1+'&username='+this.username)
                     .toPromise()
                     .then(response => {
                         return response.json() as Object
@@ -149,7 +172,8 @@ export class MarketingService {
     }
     //集团总余货
     getZyhByArea(area): Promise<Object>{
-        return this.http.get(this.marketZyhByArea+ "?area="+area)
+        this.newTime();          
+        return this.http.get(this.marketZyhByArea+ "?area="+area+'&time='+this.time1+'&username='+this.username)
                     .toPromise()
                     .then(response => {
                         return response.json() as Object
@@ -159,7 +183,8 @@ export class MarketingService {
     }
     //集团已取证余货区域汇总情况
     getQzyhArea(type): Promise<Object>{
-        return this.http.get(this.marketQzyhAreaUrl + "?type="+type)
+        this.newTime();          
+        return this.http.get(this.marketQzyhAreaUrl + "?type="+type+'&time='+this.time1+'&username='+this.username)
                     .toPromise()
                     .then(response => {
                         return response.json() as Object
@@ -169,7 +194,8 @@ export class MarketingService {
     }
     //项目已取证余货-按区域
     getProjectQzyhByArea(area,type): Promise<Object>{
-        return this.http.get(this.marketProjectQzyhbyAreal + "?area="+area +"&type="+type)
+        this.newTime();          
+        return this.http.get(this.marketProjectQzyhbyAreal + "?area="+area +"&type="+type+'&time='+this.time1+'&username='+this.username)
                     .toPromise()
                     .then(response => {
                         return response.json() as Object
@@ -179,7 +205,8 @@ export class MarketingService {
     }
     //销售情况明细表
     getSalesRankDetail(year,month): Promise<Object>{
-        return this.http.get(this.marketSalesRankDetail + "?year="+year+"&month="+month)
+        this.newTime();          
+        return this.http.get(this.marketSalesRankDetail + "?year="+year+"&month="+month+'&time='+this.time1+'&username='+this.username)
                     .toPromise()
                     .then(response => {
                         return response.json() as Object
@@ -189,7 +216,8 @@ export class MarketingService {
     }
     //项目月销售情况
     getProjectMonthSales(area,month): Promise<Object>{
-        return this.http.get(this.marketProjectMonthSales + "?area="+area+"&month="+month)
+        this.newTime();          
+        return this.http.get(this.marketProjectMonthSales + "?area="+area+"&month="+month+'&time='+this.time1+'&username='+this.username)
                     .toPromise()
                     .then(response => {
                         return response.json() as Object
@@ -199,7 +227,8 @@ export class MarketingService {
     }
     //项目日销售情况
     getProjectDaySales(area): Promise<Object>{
-        return this.http.get(this.marketProjectDaySales + "?area="+area)
+        this.newTime();          
+        return this.http.get(this.marketProjectDaySales + "?area="+area+'&time='+this.time1+'&username='+this.username)
                     .toPromise()
                     .then(response => {
                         return response.json() as Object
@@ -209,7 +238,8 @@ export class MarketingService {
     }
     //获取区域列表
     getAreaList(): Promise<Object>{
-        return this.http.get(this.marketAreaList).toPromise().then(response=>{
+        this.newTime();         
+        return this.http.get(this.marketAreaList+'?time='+this.time1+'&username='+this.username).toPromise().then(response=>{
             return response.json() as Object
         }).catch(this.handleError);
     }

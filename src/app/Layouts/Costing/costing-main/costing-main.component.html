@@ -4,11 +4,29 @@
   <nav class="subnav">
     <ul class="nav">
       <li class="nav-item" *ngFor="let area of slideNavDatas;let i =index"><a class="nav-link" [ngClass]="{'active':i==slideNavActiveIndex}" (click)="moveTo(area.startIndex)">{{area.name}}</a></li>
+      <li>
+        <clr-tooltip [clrTooltipDirection]="'bottom-left'" aria-haspopup="true" [clrTooltipSize]="'lg'">
+          <clr-icon shape="help" size="14"></clr-icon>
+          <clr-tooltip-content>
+            <span>
+              目标成本：原目标成本<br>
+              动态成本:	<br>（已发生合同+费用成本+合同变更签证）+待发生规划余量<br>
+              差异金额:	原目标成本-项目动态成本<br>
+              差异率:	（原目标成本-项目动态成本）/ 原目标成本<br>
+              可售单方:	动态可售单方=项目动态成本/项目可售面积<br>
+              建筑单方:	动态建筑单方=项目动态成本/项目建筑面积<br>
+              红绿灯：【绿灯】：动态成本正常；<br>
+              【红灯】：动态成本超控；<br>
+              【黄色】：目标成本未审批
+            </span>
+          </clr-tooltip-content>
+        </clr-tooltip>
+      </li>
     </ul>
   </nav>
 
   <ks-swiper-container [options]="example1SwipeOptions" class="cb-slide">
-    <ks-swiper-slide class="col-md-3" *ngFor="let card of datas" style="padding-bottom:60px;padding-top:0px;margin-top:0px;">
+    <ks-swiper-slide class="col-md-3" *ngFor="let card of datas; let i=index" style="padding-bottom:60px;padding-top:0px;margin-top:0px;">
       <h2 name="area" style="display:none;">{{card.area}}</h2>
       <a class="card clickable" style="margin-bottom: 20px;" (click)="goDtTable(card.unitname,card.vname)">
         <div class="card-block ">
@@ -16,7 +34,7 @@
         </div>
         <div style="text-align:center;width:100%">{{card.unitname}}</div>
         <div class="card-img">
-          <img src="images/picture_0.png">
+          <img src="images/picture_{{i}}.png" onerror="if (this.src != 'error.jpg') this.src = 'images/picture_0.png';">
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item" [ngClass]="{'rate-red': 0>(card.nmnysum3-card.dtnnrpelembusinmy/10000)/card.nmnysum3 || (card.nmnysum3-card.dtnnrpelembusinmy/10000)/card.nmnysum3>0.2,
@@ -24,10 +42,14 @@
           'rate-green': ((card.nmnysum3-card.dtnnrpelembusinmy/10000)/card.nmnysum3)>=0 || ((card.nmnysum3-card.dtnnrpelembusinmy/10000)/card.nmnysum3)<=0.2}"
             [ngSwitch]="card.nmnysum3">
             <div *ngSwitchDefault>
-              <div>差异率 {{(card.nmnysum3-card.dtnnrpelembusinmy/10000 )/card.nmnysum3 | percent:'1.1-2'}} &nbsp; (原始版 {{ (card.cs24Orprices!=null?(card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices : 0) | percent:'1.1-2'}})</div>
+              <div>差异率 {{(card.nmnysum3-card.dtnnrpelembusinmy/10000 )/card.nmnysum3 | percent:'1.1-2'}} &nbsp; (原始版 {{ (card.cs24Orprices!=null?(card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices
+                : 0) | percent:'1.1-2'}})
+              </div>
             </div>
             <div *ngSwitchCase="0">
-              <div>差异率 -  &nbsp; (原始版 {{ (card.cs24Orprices==null?0:((card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices)) | percent:'1.1-2'}})</div>
+              <div>差异率 - &nbsp; (原始版 {{ (card.cs24Orprices==null?0:((card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices))
+                | percent:'1.1-2'}})
+              </div>
             </div>
           </li>
           <li class="list-group-item" style="background-color:#f5f5f5" [ngSwitch]="card.nmnysum3">
@@ -113,8 +135,17 @@
         </div>
         <div (click)="goDtTable(unitName,vName)">
           <button class="btn btn-primary btn-sm"> <clr-icon shape="plus-circle" class="is-inverse"></clr-icon>查看动态成本</button>
-
         </div>
+        <clr-tooltip [clrTooltipDirection]="'bottom-left'" aria-haspopup="true" [clrTooltipSize]="'lg'">
+          <clr-icon shape="help" size="18"></clr-icon>
+          <clr-tooltip-content><span>
+              饼图:	<br>
+              选择项目后展示了该项目动态成本中主要费用各自占比情况<br>
+              明细表:	统计了该项目主要费用的金额以及单方数据<br>
+              横向柱图:	点击饼图区域，<br>
+              展示该费用在各项目动态成本中所占单方的对比情况
+              </span></clr-tooltip-content>
+        </clr-tooltip>
       </ul>
     </nav>
   </div>

@@ -1,7 +1,7 @@
 export const GlobalVariable = Object.freeze({
      show_nav: false,
-    // ServerAddress: "http://172.22.31.36:8080/",
-     ServerAddress: "http://172.16.0.25:8180/bi/",
+     ServerAddress: "http://172.22.31.36:8080/",
+    // ServerAddress: "http://172.16.0.25:8180/bi/",
  //    ServerAddress: "http://172.16.0.177:8180/bi/",
      offsetTop: ""
  });

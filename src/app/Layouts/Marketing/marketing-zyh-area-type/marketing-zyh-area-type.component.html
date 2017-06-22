@@ -1,117 +1,112 @@
-<h2 class="center">集团总余货情况统计表</h2>
+<h2 class="center">集团总余货情况统计表
 
-<dx-data-grid #grid 
-      style="height:76vh"
-      id="gridContainer"
-      [showColumnLines]="true"
-      [showRowLines]="true"
-      [showBorders]="true"
-      [rowAlternationEnabled]="true"
-      [dataSource]="datas"
-      [allowColumnReordering]="false"
-      [allowColumnResizing]="false"
-      [wordWrapEnabled]="true"
-      [columnAutoWidth]="true"
-      (onRowClick)= "goProject($event)"
-      rowTemplate="zyhTemplate"
-      [scrolling]="{mode: 'virtual',useNative: true}"
-      >
+  <clr-tooltip [clrTooltipDirection]="'bottom-left'" aria-haspopup="true" [clrTooltipSize]="'md'">
+    <clr-icon shape="help" size="18"></clr-icon>
+    <clr-tooltip-content>
+      <span>集团各项目汇总统计的余货总套数、总面积及预估货值（包含在售、在建及规划在建），点击片区可穿透查看片区下各项目的详细余货数据。（此数据为营销部门手工汇总报表导入总裁桌面系统，半月导入一次）</span>
+    </clr-tooltip-content>
+  </clr-tooltip>
+</h2>
 
-      <dxi-column  caption="区域" dataField="vBuname"></dxi-column>
-      <dxi-column  caption="类别" dataField="vType"></dxi-column>
+<dx-data-grid #grid style="height:76vh" id="gridContainer" [showColumnLines]="true" [showRowLines]="true" [showBorders]="true"
+  [rowAlternationEnabled]="true" [dataSource]="datas" [allowColumnReordering]="false" [allowColumnResizing]="false" [wordWrapEnabled]="true"
+  [columnAutoWidth]="true" (onRowClick)="goProject($event)" rowTemplate="zyhTemplate" [scrolling]="{mode: 'virtual',useNative: true}">
 
-      <dxi-column  caption="余货总货量（货值）①+②+③+④">
-        <dxi-column  caption="余货总套数（套）" dataField="nYcznum"></dxi-column>
-        <dxi-column  caption="余货总面积（㎡）" dataField="nYczarea" ></dxi-column>
-        <dxi-column  caption="市场预估总货值(万)" dataField="nYczmoney"></dxi-column>
-      </dxi-column>
-      <dxi-column  caption="已出证余货货量货值【可售+销控】=①+②">
-        <dxi-column  caption="余货总套数（套）" dataField="nYcznum"></dxi-column>
-        <dxi-column  caption="余货总面积（㎡）" dataField="nYczarea" ></dxi-column>
-        <dxi-column  caption="市场预估总货值(万)" dataField="nYczmoney"></dxi-column>
-      </dxi-column>
-      <dxi-column  caption="已推未售可售货量货值（已出证）①">
-        <dxi-column  caption="余货总套数（套）" dataField="nYcznum"></dxi-column>
-        <dxi-column  caption="余货总面积（㎡）" dataField="nYczarea" ></dxi-column>
-        <dxi-column  caption="市场预估总货值(万)" dataField="nYczmoney"></dxi-column>
-      </dxi-column>
-      <dxi-column  caption="明源系统 销控单位②">
-          <dxi-column  caption="销控货量">
-            <dxi-column caption="套数（套）" dataField="nYtwsnum" ></dxi-column>
-            <dxi-column caption="面积（㎡）" dataField="nYtwsarea"></dxi-column>
-          </dxi-column>
-          <dxi-column  caption="A：样板房销控">
-            <dxi-column caption="套数（套）" dataField="nYtwsnum" ></dxi-column>
-            <dxi-column caption="面积（㎡）" dataField="nYtwsarea"></dxi-column>
-          </dxi-column>
-          <dxi-column  caption="B：谭总/E类销控">
-            <dxi-column caption="套数（套）" dataField="nYtwsnum" ></dxi-column>
-            <dxi-column caption="面积（㎡）" dataField="nYtwsarea"></dxi-column>
-          </dxi-column>
-          <dxi-column  caption="C：带花园/带露台/夹层/首层/顶层销控">
-            <dxi-column caption="套数（套）" dataField="nYtwsnum" ></dxi-column>
-            <dxi-column caption="面积（㎡）" dataField="nYtwsarea"></dxi-column>
-          </dxi-column>
-          <dxi-column  caption="D：超面积(含层高不明确）销控">
-            <dxi-column caption="套数（套）" dataField="nYtwsnum" ></dxi-column>
-            <dxi-column caption="面积（㎡）" dataField="nYtwsarea"></dxi-column>
-          </dxi-column>
-          <dxi-column  caption="E：销售中心/幼儿园/物业管理用房/办公室/电费/注册地址等销控">
-            <dxi-column caption="套数（套）" dataField="nYtwsnum" ></dxi-column>
-            <dxi-column caption="面积（㎡）" dataField="nYtwsarea"></dxi-column>
-          </dxi-column>
-          <dxi-column  caption="F：销售节点销控（含已出证未推售/厕所单位/置换房/查封）">
-            <dxi-column caption="套数（套）" dataField="nYtwsnum" ></dxi-column>
-            <dxi-column caption="面积（㎡）" dataField="nYtwsarea"></dxi-column>
-          </dxi-column>
-      </dxi-column>
-      <dxi-column  caption="未确权车位/出证时间待定产品③">
-        <dxi-column  caption="套数（套）" dataField="nYcznum"></dxi-column>
-        <dxi-column  caption="面积（㎡）" dataField="nYczarea" ></dxi-column>
-        <dxi-column  caption="货值(万)" dataField="nYczmoney"></dxi-column>
-      </dxi-column>
-      <dxi-column  caption="3个月内达预售节点④（含已出证暂未建明源房间资料）">
-        <dxi-column  caption="套数（套）" dataField="nYcznum"></dxi-column>
-        <dxi-column  caption="面积（㎡）" dataField="nYczarea" ></dxi-column>
-        <dxi-column  caption="货值(万)" dataField="nYczmoney"></dxi-column>
-      </dxi-column>
+  <dxi-column caption="区域" dataField="vBuname"></dxi-column>
+  <dxi-column caption="类别" dataField="vType"></dxi-column>
 
-    <tbody *dxTemplate="let zyh of 'zyhTemplate'">
-        <tr class="dx-row main-row" [ngClass]="{'row-background': zyh.rowIndex%2==1}">
-            <td>{{zyh.data.vBuname}}</td>
-            <td>{{zyh.data.vType}}</td>
-            <td>{{zyh.data.nZnum}}</td>
-            <td>{{zyh.data.nZarea | round}}</td>
-            <td>{{zyh.data.nZmoney | round}}</td>
-            <td>{{zyh.data.nYcznum}}</td>
-            <td>{{zyh.data.nYczarea | round}}</td>
-            <td>{{zyh.data.nYczmoney | round}}</td>
-            <td>{{zyh.data.nYtwsnum}}</td>
-            <td>{{zyh.data.nYtwsarea | round}}</td>
-            <td>{{zyh.data.nYtwsmoney | round}}</td>
-            <td>{{zyh.data.nXknum}}</td>
-            <td>{{zyh.data.nXkarea | round}}</td>
-            <td>{{zyh.data.nXkanum}}</td>
-            <td>{{zyh.data.nXkaarea | round}}</td>
-            <td>{{zyh.data.nXkbnum}}</td>
-            <td>{{zyh.data.nXkbarea | round}}</td>
-            <td>{{zyh.data.nXkcnum}}</td>
-            <td>{{zyh.data.nXkcarea | round}}</td>
-            <td>{{zyh.data.nXkdnum}}</td>
-            <td>{{zyh.data.nXkdarea | round}}</td>
-            <td>{{zyh.data.nXkenum}}</td>
-            <td>{{zyh.data.nXkearea | round}}</td>
-            <td>{{zyh.data.nXkfnum}}</td>
-            <td>{{zyh.data.nXkfarea | round}}</td>
-            <td>{{zyh.data.nGhzcwnum}}</td>
-            <td>{{zyh.data.nGhzcwarea | round}}</td>
-            <td>{{zyh.data.nGhzcwmoney | round}}</td>
-            <td>{{zyh.data.nGhzsyksnum}}</td>
-            <td>{{zyh.data.nGhzsyksarea | round}}</td>
-            <td>{{zyh.data.nGhzsyksmoney | round}}</td>
-        </tr>
-    </tbody>
-    </dx-data-grid>
+  <dxi-column caption="余货总货量（货值）①+②+③+④">
+    <dxi-column caption="余货总套数（套）" dataField="nYcznum"></dxi-column>
+    <dxi-column caption="余货总面积（㎡）" dataField="nYczarea"></dxi-column>
+    <dxi-column caption="市场预估总货值(万)" dataField="nYczmoney"></dxi-column>
+  </dxi-column>
+  <dxi-column caption="已出证余货货量货值【可售+销控】=①+②">
+    <dxi-column caption="余货总套数（套）" dataField="nYcznum"></dxi-column>
+    <dxi-column caption="余货总面积（㎡）" dataField="nYczarea"></dxi-column>
+    <dxi-column caption="市场预估总货值(万)" dataField="nYczmoney"></dxi-column>
+  </dxi-column>
+  <dxi-column caption="已推未售可售货量货值（已出证）①">
+    <dxi-column caption="余货总套数（套）" dataField="nYcznum"></dxi-column>
+    <dxi-column caption="余货总面积（㎡）" dataField="nYczarea"></dxi-column>
+    <dxi-column caption="市场预估总货值(万)" dataField="nYczmoney"></dxi-column>
+  </dxi-column>
+  <dxi-column caption="明源系统 销控单位②">
+    <dxi-column caption="销控货量">
+      <dxi-column caption="套数（套）" dataField="nYtwsnum"></dxi-column>
+      <dxi-column caption="面积（㎡）" dataField="nYtwsarea"></dxi-column>
+    </dxi-column>
+    <dxi-column caption="A：样板房销控">
+      <dxi-column caption="套数（套）" dataField="nYtwsnum"></dxi-column>
+      <dxi-column caption="面积（㎡）" dataField="nYtwsarea"></dxi-column>
+    </dxi-column>
+    <dxi-column caption="B：谭总/E类销控">
+      <dxi-column caption="套数（套）" dataField="nYtwsnum"></dxi-column>
+      <dxi-column caption="面积（㎡）" dataField="nYtwsarea"></dxi-column>
+    </dxi-column>
+    <dxi-column caption="C：带花园/带露台/夹层/首层/顶层销控">
+      <dxi-column caption="套数（套）" dataField="nYtwsnum"></dxi-column>
+      <dxi-column caption="面积（㎡）" dataField="nYtwsarea"></dxi-column>
+    </dxi-column>
+    <dxi-column caption="D：超面积(含层高不明确）销控">
+      <dxi-column caption="套数（套）" dataField="nYtwsnum"></dxi-column>
+      <dxi-column caption="面积（㎡）" dataField="nYtwsarea"></dxi-column>
+    </dxi-column>
+    <dxi-column caption="E：销售中心/幼儿园/物业管理用房/办公室/电费/注册地址等销控">
+      <dxi-column caption="套数（套）" dataField="nYtwsnum"></dxi-column>
+      <dxi-column caption="面积（㎡）" dataField="nYtwsarea"></dxi-column>
+    </dxi-column>
+    <dxi-column caption="F：销售节点销控（含已出证未推售/厕所单位/置换房/查封）">
+      <dxi-column caption="套数（套）" dataField="nYtwsnum"></dxi-column>
+      <dxi-column caption="面积（㎡）" dataField="nYtwsarea"></dxi-column>
+    </dxi-column>
+  </dxi-column>
+  <dxi-column caption="未确权车位/出证时间待定产品③">
+    <dxi-column caption="套数（套）" dataField="nYcznum"></dxi-column>
+    <dxi-column caption="面积（㎡）" dataField="nYczarea"></dxi-column>
+    <dxi-column caption="货值(万)" dataField="nYczmoney"></dxi-column>
+  </dxi-column>
+  <dxi-column caption="3个月内达预售节点④（含已出证暂未建明源房间资料）">
+    <dxi-column caption="套数（套）" dataField="nYcznum"></dxi-column>
+    <dxi-column caption="面积（㎡）" dataField="nYczarea"></dxi-column>
+    <dxi-column caption="货值(万)" dataField="nYczmoney"></dxi-column>
+  </dxi-column>
+
+  <tbody *dxTemplate="let zyh of 'zyhTemplate'">
+    <tr class="dx-row main-row" [ngClass]="{'row-background': zyh.rowIndex%2==1}">
+      <td class="num-button">{{zyh.data.vBuname}}</td>
+      <td>{{zyh.data.vType}}</td>
+      <td>{{zyh.data.nZnum}}</td>
+      <td>{{zyh.data.nZarea | round}}</td>
+      <td>{{zyh.data.nZmoney | round}}</td>
+      <td>{{zyh.data.nYcznum}}</td>
+      <td>{{zyh.data.nYczarea | round}}</td>
+      <td>{{zyh.data.nYczmoney | round}}</td>
+      <td>{{zyh.data.nYtwsnum}}</td>
+      <td>{{zyh.data.nYtwsarea | round}}</td>
+      <td>{{zyh.data.nYtwsmoney | round}}</td>
+      <td>{{zyh.data.nXknum}}</td>
+      <td>{{zyh.data.nXkarea | round}}</td>
+      <td>{{zyh.data.nXkanum}}</td>
+      <td>{{zyh.data.nXkaarea | round}}</td>
+      <td>{{zyh.data.nXkbnum}}</td>
+      <td>{{zyh.data.nXkbarea | round}}</td>
+      <td>{{zyh.data.nXkcnum}}</td>
+      <td>{{zyh.data.nXkcarea | round}}</td>
+      <td>{{zyh.data.nXkdnum}}</td>
+      <td>{{zyh.data.nXkdarea | round}}</td>
+      <td>{{zyh.data.nXkenum}}</td>
+      <td>{{zyh.data.nXkearea | round}}</td>
+      <td>{{zyh.data.nXkfnum}}</td>
+      <td>{{zyh.data.nXkfarea | round}}</td>
+      <td>{{zyh.data.nGhzcwnum}}</td>
+      <td>{{zyh.data.nGhzcwarea | round}}</td>
+      <td>{{zyh.data.nGhzcwmoney | round}}</td>
+      <td>{{zyh.data.nGhzsyksnum}}</td>
+      <td>{{zyh.data.nGhzsyksarea | round}}</td>
+      <td>{{zyh.data.nGhzsyksmoney | round}}</td>
+    </tr>
+  </tbody>
+</dx-data-grid>
 
 
 <!--<div class="table-container">

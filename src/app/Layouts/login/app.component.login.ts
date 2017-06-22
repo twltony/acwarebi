@@ -40,7 +40,7 @@ export class LoginForm implements AfterViewChecked {
           let status = (result as any).status;
           if(status=="success"){
             //localStorage.setItem('currentUser', JSON.stringify(user));
-            localStorage.setItem('currentUser', "user");
+            localStorage.setItem('currentUser', this.user.userName);
             this.router.navigate(['/Marketing']);
           }else{
             this.errorMessage = (result as any).errMsg;

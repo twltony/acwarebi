@@ -1,4 +1,11 @@
-<h2 class="center">集团{{baseservice.year}}年{{baseservice.month}}{{baseservice.day}}集团销售情况统计表</h2>
+<h2 class="center">集团{{baseservice.year}}年{{baseservice.month}}{{baseservice.day}}日集团销售情况统计表
+          <clr-tooltip [clrTooltipDirection]="'bottom-left'" aria-haspopup="true" [clrTooltipSize]="'md'">
+              <clr-icon shape="help" size="18"></clr-icon>
+              <clr-tooltip-content>
+                <span>从明源系统统计当日所有项目销售数据，每1小时刷新一次最新数据，点击片区可穿透查看片区各项目的当日销售情况</span>
+              </clr-tooltip-content>
+            </clr-tooltip>
+</h2>
 <clr-datagrid>
     <clr-dg-column>区域</clr-dg-column>
     <clr-dg-column>认购套数（套）</clr-dg-column>
@@ -10,7 +17,7 @@
     <clr-dg-column>日回款金额（万元）</clr-dg-column>
 
     <clr-dg-row *clrDgItems="let data of datas; let i = index; let isLast=last" [ngClass]="{'row-background': i%2==1,'row-last':isLast}" (click)="goProject(data.vAreaname)">
-        <clr-dg-cell>{{data.vAreaname}}</clr-dg-cell>
+        <clr-dg-cell class="num-button">{{data.vAreaname}}</clr-dg-cell>
         <clr-dg-cell>{{data.nHousenumber}}</clr-dg-cell>
         <clr-dg-cell>{{data.nArea}}</clr-dg-cell>
         <clr-dg-cell>{{data.nXsamount}}</clr-dg-cell>

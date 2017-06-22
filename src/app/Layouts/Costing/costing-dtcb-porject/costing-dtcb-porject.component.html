@@ -12,7 +12,7 @@
       <a class="nav-link" routerLinkActive="active" routerLink="/Costing/CostingDtcbPorject/{{unitName}}/{{vName}}">项目动态报表</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link"  routerLinkActive="active" routerLink="/Costing/CostingHttz/{{unitName}}/{{vName}}">合同台账表</a>
+      <a class="nav-link" routerLinkActive="active" routerLink="/Costing/CostingHttz/{{unitName}}/{{vName}}">合同台账表</a>
     </li>
     <div>
       <clr-dropdown [clrMenuPosition]="'bottom-right'">
@@ -42,15 +42,9 @@
 <div class="row" style="margin-bottom:-20px">
   <div class="col-sm-3">
     <h4 class="center" style="margin-bottom:0px;padding-top:10px">{{vName}}
-      <clr-tooltip [clrTooltipDirection]="'bottom-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
-        <clr-icon shape="info-standard" size="18"></clr-icon>
-        <clr-tooltip-content>
-          <span>当动态成本超出目标成本时，显示红色底色，低于目标成本20%时，显示蓝色底色；点击末级成本科目名称可穿透至下级。</span>
-        </clr-tooltip-content>
-      </clr-tooltip>
     </h4>
   </div>
-  <div class="col-sm-9 summary" (click)="isLoading=true"  (click)="isSumDetailShow = true">
+  <div class="col-sm-9 summary" (click)="isSumDetailShow = true">
     <ks-swiper-container [options]="SwipeOptions" style="height:100px" *ngIf="summary">
       <div class="swiper-slide">
         <table class="table table-compact table-noborder">
@@ -58,7 +52,8 @@
             <tr>
               <th>目标成本 (执行版)</th>
               <th>动态成本</th>
-              <th>建筑面积</th>
+              <th>建筑面积
+              </th>
               <th>可售面积</th>
               <th>差异率</th>
             </tr>
@@ -106,10 +101,31 @@
       <table class="table table-compact table-noborder">
         <thead class="header-table">
           <tr>
-            <th>目标成本 (执行版)</th>
+            <th>目标成本 (执行版)
+              <clr-tooltip [clrTooltipDirection]="'top-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
+                <clr-icon shape="help" size="18"></clr-icon>
+                <clr-tooltip-content>
+                  <span>执行版目标成本（原目标成本+目标成本调整）</span>
+                </clr-tooltip-content>
+              </clr-tooltip>
+            </th>
             <th>动态成本</th>
-            <th>建筑面积</th>
-            <th>可售面积</th>
+            <th>建筑面积
+              <clr-tooltip [clrTooltipDirection]="'top-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
+                <clr-icon shape="help" size="18"></clr-icon>
+                <clr-tooltip-content>
+                  <span>项目规划指标中的建筑面积</span>
+                </clr-tooltip-content>
+              </clr-tooltip>
+            </th>
+            <th>可售面积
+              <clr-tooltip [clrTooltipDirection]="'top-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
+                <clr-icon shape="help" size="18"></clr-icon>
+                <clr-tooltip-content>
+                  <span>项目规划指标中的可售面积</span>
+                </clr-tooltip-content>
+              </clr-tooltip>
+            </th>
             <th>差异率</th>
           </tr>
         </thead>
@@ -129,10 +145,38 @@
       <table class="table table-compact table-noborder">
         <thead class="header-table">
           <tr>
-            <th>目标建筑单方</th>
-            <th>目标可售单方</th>
-            <th>动态建筑单方</th>
-            <th>动态可售单方</th>
+            <th>目标建筑单方
+              <clr-tooltip [clrTooltipDirection]="'top-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
+                <clr-icon shape="help" size="18"></clr-icon>
+                <clr-tooltip-content>
+                  <span>目标建筑单方=执行版目标成本/项目建筑面积</span>
+                </clr-tooltip-content>
+              </clr-tooltip>
+            </th>
+            <th>目标可售单方
+              <clr-tooltip [clrTooltipDirection]="'top-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
+                <clr-icon shape="help" size="18"></clr-icon>
+                <clr-tooltip-content>
+                  <span>目标可售单方=执行版目标成本/项目可售面积</span>
+                </clr-tooltip-content>
+              </clr-tooltip>
+            </th>
+            <th>动态建筑单方
+              <clr-tooltip [clrTooltipDirection]="'top-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
+                <clr-icon shape="help" size="18"></clr-icon>
+                <clr-tooltip-content>
+                  <span>动态建筑单方=项目动态成本/项目建筑面积</span>
+                </clr-tooltip-content>
+              </clr-tooltip>
+            </th>
+            <th>动态可售单方
+              <clr-tooltip [clrTooltipDirection]="'top-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
+                <clr-icon shape="help" size="18"></clr-icon>
+                <clr-tooltip-content>
+                  <span>动态可售单方=项目动态成本/项目可售面积</span>
+                </clr-tooltip-content>
+              </clr-tooltip>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -198,33 +242,96 @@
       <table class="tree table" #tree style="display:block; overflow:scroll">
         <thead style="display: inline-block;">
           <tr class="treegrid-0 gtid-th">
-            <td rowspan="2" style="text-align:left;">成本科目编码</td>
-            <td rowspan="2" style="width: 100%;">成本科目名称</td>
-            <td colspan="4" style="text-align:center; ">详细目标成本（元）</td>
-            <td colspan="3" style="text-align:center; ">已发生费用成本（元）</td>
-            <td style="text-align:center; ">待发生成本（元）</td>
-            <td rowspan="2">动态成本</td>
-            <td rowspan="2" style=" ">建筑单方（元）</td>
-            <td rowspan="2" style=" ">可售单方（元）</td>
-            <td rowspan="2">节余</td>
-            <td rowspan="2" style=" ">节余率</td>
+            <td rowspan="2" style="text-align:left;">成本科目编码
+            </td>
+            <td rowspan="2" style="width: 100%;">成本科目名称
+            </td>
+            <td colspan="4" style="text-align:center; ">详细目标成本（元）
+            </td>
+            <td colspan="3" style="text-align:center; ">已发生费用成本（元）
+              <clr-tooltip [clrTooltipDirection]="'bottom-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
+                <clr-icon shape="info-standard" size="18"></clr-icon>
+                <clr-tooltip-content><span>项目已发生无合同费用金额</span></clr-tooltip-content>
+              </clr-tooltip>
+            </td>
+            <td style="text-align:center; ">待发生成本（元）
+
+            </td>
+            <td rowspan="2">动态成本
+            </td>
+            <td rowspan="2">建筑单方（元）
+            </td>
+            <td rowspan="2">可售单方（元）
+            </td>
+            <td rowspan="2">节余
+              <clr-tooltip [clrTooltipDirection]="'bottom-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
+                <clr-icon shape="info-standard" size="18"></clr-icon>
+                <clr-tooltip-content><span>（执行版目标成本-项目动态成本</span></clr-tooltip-content>
+              </clr-tooltip>
+            </td>
+            <td rowspan="2">节余率
+              <clr-tooltip [clrTooltipDirection]="'bottom-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
+                <clr-icon shape="info-standard" size="18"></clr-icon>
+                <clr-tooltip-content><span>（执行版目标成本-项目动态成本）/执行版目标成本</span></clr-tooltip-content>
+              </clr-tooltip>
+            </td>
           </tr>
           <tr class="gtid-th">
-            <td>原始目标成本</td>
-            <td>执行版目标成本</td>
-            <td style=" ">执行版可售单方</td>
-            <td style=" ">执行版建筑单方</td>
-            <td>已发生合同成本</td>
-            <td>已发生费用成本</td>
-            <td>合同变更签证成本汇总</td>
-            <td>待发生合同费用</td>
+            <td>原始目标成本
+              <clr-tooltip [clrTooltipDirection]="'bottom-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
+                <clr-icon shape="info-standard" size="18"></clr-icon>
+                <clr-tooltip-content><span>审批通过定案版目标成本</span></clr-tooltip-content>
+              </clr-tooltip>
+            </td>
+            <td>执行版目标成本
+              <clr-tooltip [clrTooltipDirection]="'bottom-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
+                <clr-icon shape="info-standard" size="18"></clr-icon>
+                <clr-tooltip-content><span>执行版目标成本（原目标成本+目标成本调整）</span></clr-tooltip-content>
+              </clr-tooltip>
+            </td>
+            <td>执行版可售单方
+              <clr-tooltip [clrTooltipDirection]="'bottom-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
+                <clr-icon shape="info-standard" size="18"></clr-icon>
+                <clr-tooltip-content><span>执行版可售单方=执行版目标成本/项目可售面积</span></clr-tooltip-content>
+              </clr-tooltip>
+            </td>
+            <td>执行版建筑单方
+              <clr-tooltip [clrTooltipDirection]="'bottom-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
+                <clr-icon shape="info-standard" size="18"></clr-icon>
+                <clr-tooltip-content><span>执行版建筑单方=执行版目标成本/项目建筑面积</span></clr-tooltip-content>
+              </clr-tooltip>
+            </td>
+            <td>已发生合同成本
+              <clr-tooltip [clrTooltipDirection]="'bottom-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
+                <clr-icon shape="info-standard" size="18"></clr-icon>
+                <clr-tooltip-content><span>项目已发生合同签订金额</span></clr-tooltip-content>
+              </clr-tooltip>
+            </td>
+            <td>已发生费用成本
+              <clr-tooltip [clrTooltipDirection]="'bottom-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
+                <clr-icon shape="info-standard" size="18"></clr-icon>
+                <clr-tooltip-content><span>项目已发生无合同费用金额</span></clr-tooltip-content>
+              </clr-tooltip>
+            </td>
+            <td>合同变更签证成本汇总
+              <clr-tooltip [clrTooltipDirection]="'bottom-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
+                <clr-icon shape="info-standard" size="18"></clr-icon>
+                <clr-tooltip-content><span>项目已发生的合同变更签证金额</span></clr-tooltip-content>
+              </clr-tooltip>
+            </td>
+            <td>待发生合同费用
+              <clr-tooltip [clrTooltipDirection]="'bottom-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
+                <clr-icon shape="info-standard" size="18"></clr-icon>
+                <clr-tooltip-content><span>待发生合约规划余量</span></clr-tooltip-content>
+              </clr-tooltip>
+            </td>
           </tr>
         </thead>
         <tbody class="tablebody" *ngIf="datas">
-          <tr *ngFor="let data of datas; let i = index; let isLast=last;trackBy: trackByIndex" [ngClass]="{'row-background': i%2==1,'background-blue': data.nmnysum3!=0&&(data.dtnnrpelembusinmy - data.nmnysum3)/data.nmnysum3 >0.2,'background-red': ((data.dtnnrpelembusinmy - data.nmnysum3)/data.nmnysum3==0&&data.dtnnrpelembusinmy!=0&&data.nmnysum3==0)||(data.dtnnrpelembusinmy - data.nmnysum3)/data.nmnysum3<0}" 
-          class="treegrid-{{data.velemcode}} treegrid-parent-{{data.fathercode}}">
+          <tr *ngFor="let data of datas; let i = index; let isLast=last;trackBy: trackByIndex" [ngClass]="{'row-background': i%2==1,'background-blue': data.nmnysum3!=0&&(data.dtnnrpelembusinmy - data.nmnysum3)/data.nmnysum3 >0.2,'background-red': ((data.dtnnrpelembusinmy - data.nmnysum3)/data.nmnysum3==0&&data.dtnnrpelembusinmy!=0&&data.nmnysum3==0)||(data.dtnnrpelembusinmy - data.nmnysum3)/data.nmnysum3<0}"
+            class="treegrid-{{data.velemcode}} treegrid-parent-{{data.fathercode}}">
             <td style="text-align:left; ;font-size:7pt">{{data.velemcode}}</td>
-            <td style="text-align:left;width: 100%; " *ngIf="data.lastChildDetail" class="num-button" (click)="isLoading=true" (click)="getDetial(data.velemname,data.pkCorp,data.pkProject1,data.pkElem)" >
+            <td style="text-align:left;width: 100%; " *ngIf="data.lastChildDetail" class="num-button" (click)="isLoading=true" (click)="getDetial(data.velemname,data.pkCorp,data.pkProject1,data.pkElem)">
               <clr-icon shape="plus-circle" size="12"></clr-icon>
               {{data.velemname}}
             </td>
