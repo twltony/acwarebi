@@ -39,7 +39,9 @@
   </ul>
 </nav>
 
-<div class="row" style="margin-bottom:-20px">
+
+
+<div class="row" style="margin-bottom:0px">
   <div class="col-sm-3">
     <h4 class="center" style="margin-bottom:0px;padding-top:10px">{{vName}}
     </h4>
@@ -94,6 +96,35 @@
       </div>
     </ks-swiper-container>
   </div>
+</div>
+<dx-tree-list
+    id="datas"
+    [dataSource]="datas"
+    itemsExpr="children"
+    dataStructure="tree"
+    autoExpandAll="true"
+    [showRowLines]="true"
+    [columnAutoWidth]="true"
+    (onCellPrepared)="cellPrepared($event)"
+    height = "75vh"
+    [expandedRowKeys]="[1]">
+    <dxi-column dataField="velemcode" caption="成本科目编码" sortOrder="asc"></dxi-column>
+    <dxi-column dataField="velemname" caption="成本科目名称"></dxi-column>
+    <dxi-column dataField="cs24Orprices" caption="原始目标成本"></dxi-column>
+    <dxi-column dataField="nmnysum3" caption="执行版目标成本"></dxi-column>
+    <dxi-column dataField="zxbksdf" caption="执行版可售单方"></dxi-column>
+    <dxi-column dataField="zxbjzdf" caption="执行版建筑单方"></dxi-column>
+    <dxi-column dataField="nmnyb3" caption="已发生合同成本"></dxi-column>
+    <dxi-column dataField="nmnya3" caption="已发生费用成本"></dxi-column>
+    <dxi-column dataField="qzcontactcosttol" caption="合同变更签证成本汇总"></dxi-column>
+    <dxi-column dataField="nrpelembusinmy" caption="待发生合同费用"></dxi-column>
+    <dxi-column dataField="dtnnrpelembusinmy" caption="动态成本"></dxi-column>
+    <dxi-column dataField="jzdf" caption="建筑单方（元）"></dxi-column>
+    <dxi-column dataField="ksdf" caption="可售单方（元）"></dxi-column>
+    <dxi-column dataField="jy" caption="节余"></dxi-column>
+    <dxi-column dataField="jyl" caption="节余率"></dxi-column>
+
+</dx-tree-list>
 
   <clr-modal [(clrModalOpen)]="isSumDetailShow" [clrModalSize]="'xl'" id="SumDetail">
     <h3 class="modal-title">{{vName}}&nbsp;汇总</h3>
@@ -237,6 +268,11 @@
     </div>
   </clr-modal>
 
+
+
+
+
+<!--
   <div class="row" style="overflow: scroll;">
     <div class="col-sm-12" style="padding:0;">
       <table class="tree table" #tree style="display:block; overflow:scroll">
@@ -359,3 +395,10 @@
 
       </table>
     </div>
+-->
+
+
+
+
+
+

@@ -115,7 +115,9 @@ export class CostingMainComponent implements OnInit {
 
     //项目列表
     getProjectList(unitName) {
-        this.costingServices.getVnames(unitName).then(response => {
+        let params = new URLSearchParams();
+        params.append('unitName', unitName)
+        this.costingServices.getVnames(params).then(response => {
             this.vNames = response as any;
             if (this.vNames) {
                 this.vName = this.vNames[0]
@@ -211,7 +213,7 @@ export class CostingMainComponent implements OnInit {
                     array[array.length - 1].lastIndex = i;
                 }
                 array.push(obj);
-            } else if(res[i].area==null && "其他片区".indexOf(tempArea) < 0){
+            } else if (res[i].area == null && "其他片区".indexOf(tempArea) < 0) {
                 let obj = new Object() as any;
                 tempArea = "其他片区";
                 obj.name = "其他片区";

@@ -81,7 +81,9 @@ export class CostingHttzPorjectComponent implements OnInit {
 
 	//项目列表
 	getProjectList(unitName) {
-		this.costingServices.getVnames(unitName).then(response => {
+		let params = new URLSearchParams();
+		params.append('unitName', unitName)
+		this.costingServices.getVnames(params).then(response => {
 			this.vNames = response as any;
 			if (this.vNames) {
 				this.vName = this.vNames[0]

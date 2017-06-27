@@ -1,11 +1,12 @@
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { GlobalVariable } from '../../const'
+import { UserInfo } from "app/Utils/UserInfo";
 
 @Injectable()
 export class CostingServices {
     private costVnamesUrl = GlobalVariable.ServerAddress + 'costing/getVnames';//项目名称
-    private costUnitNamesUrl= GlobalVariable.ServerAddress + 'costing/getUnitNames';//区域名称
+    private costUnitNamesUrl = GlobalVariable.ServerAddress + 'costing/getUnitNames';//区域名称
     private costMainUrl = GlobalVariable.ServerAddress + 'costing/getCostMain';//成本首页数据
     private costGcfxUrl = GlobalVariable.ServerAddress + 'costing/getGcfx';//构成分析数据
     private costJzdfUrl = GlobalVariable.ServerAddress + 'costing/getJzdf';//建筑单方数据
@@ -18,12 +19,18 @@ export class CostingServices {
         return Promise.reject(error.message || error);
     }
 
+    private headers: Headers;
+
     constructor(private http: Http) {
+        this.headers = new Headers();
+        this.headers.append('Content-Type', 'application/x-www-form-urlencoded');
     }
 
     //项目列表
-    getVnames(unitName): Promise<Object> {
-        return this.http.get(this.costVnamesUrl+"?unitName="+unitName)
+    getVnames(params): Promise<Object> {
+        let hasUserInfo = new UserInfo().checkUserInfo();
+        console.log(hasUserInfo);
+        return this.http.post(this.costVnamesUrl, params.toString(), { headers: this.headers })
             .toPromise()
             .then(response => {
                 return response.json() as Object
@@ -55,7 +62,7 @@ export class CostingServices {
     }
     //构成分析
     getGcfx(vname): Promise<Object> {
-        return this.http.get(this.costGcfxUrl+"?vname="+vname)
+        return this.http.get(this.costGcfxUrl + "?vname=" + vname)
             .toPromise()
             .then(response => {
                 return response.json() as Object
@@ -65,7 +72,7 @@ export class CostingServices {
     }
     //建筑单方
     getJzdf(typename2): Promise<Object> {
-        return this.http.get(this.costJzdfUrl+"?typename2="+typename2)
+        return this.http.get(this.costJzdfUrl + "?typename2=" + typename2)
             .toPromise()
             .then(response => {
                 return response.json() as Object
@@ -76,18 +83,19 @@ export class CostingServices {
 
     //动态成本
     getDtcb(vname): Promise<Object> {
-        return this.http.get(this.costDtcbUrl+"?vname="+vname)
+        return this.http.get(this.costDtcbUrl + "?vname=" + vname)
             .toPromise()
             .then(response => {
-                return response.json() as Object
+                console.log(response)
+                return response.json() as Object[]
             }
             )
             .catch(this.handleError);
     }
 
     //动态成本合同
-    getDtContract(PK_CORP,PK_PROJECT,PK_ELEM): Promise<Object> {
-        return this.http.get(this.costDtcbContractUrl+"?PK_CORP="+PK_CORP+"&PK_PROJECT="+PK_PROJECT+"&PK_ELEM="+PK_ELEM)
+    getDtContract(PK_CORP, PK_PROJECT, PK_ELEM): Promise<Object> {
+        return this.http.get(this.costDtcbContractUrl + "?PK_CORP=" + PK_CORP + "&PK_PROJECT=" + PK_PROJECT + "&PK_ELEM=" + PK_ELEM)
             .toPromise()
             .then(response => {
                 return response.json() as Object
@@ -98,7 +106,7 @@ export class CostingServices {
 
     //合同台账
     getHttz(vname): Promise<Object> {
-        return this.http.get(this.costHttzUrl+"?vname="+vname)
+        return this.http.get(this.costHttzUrl + "?vname=" + vname)
             .toPromise()
             .then(response => {
                 return response.json() as Object

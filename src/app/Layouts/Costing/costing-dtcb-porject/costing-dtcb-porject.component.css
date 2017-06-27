@@ -19,11 +19,11 @@
     width: 10px;
     height: 10px;
 }
-.num-button{
+.grid-button{
     color:#fff;
     background-color:#0F1E82;
 }
-.num-button:hover{
+.grid-button:hover{
     color:#fff;
     background-color:#318700;
     cursor:pointer;

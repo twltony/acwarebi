@@ -63,7 +63,7 @@ export class CostingDtcbPorjectComponent implements OnInit {
 				this.unitName = (params as any).unitname
 			}
 		});
-		this.isLoading = true;
+		//this.isLoading = true;
 		this.getDatas(this.vName);
 		this.getUnits();
 	}
@@ -72,31 +72,32 @@ export class CostingDtcbPorjectComponent implements OnInit {
 	getDatas(vname) {
 		this.costingServices.getDtcb(vname).then(response => {
 			this.datas = response as any;
-			this.getSummary(response);
-			this.initGrid();
+			this.summary = this.datas[0].data;
+			console.log(this.datas)
+			//this.initGrid();
 		})
 	}
 
 	//获取汇总数据
-	getSummary(res){
-		for(var i in res){
-			if(res[i].fathercode.indexOf("0")==0){
-				this.summary = res[i];
-				console.log(this.summary)
-				break;
-			}
-		}
-	}
+	// getSummary(res){
+	// 	for(var i in res){
+	// 		if(res[i].fathercode.indexOf("0")==0){
+	// 			this.summary = res[i];
+	// 			console.log(this.summary)
+	// 			break;
+	// 		}
+	// 	}
+	// }
 
 	//初始化动态报表
-	initGrid() {
-		setTimeout(() => {
-			(jQuery(this.tree.nativeElement).treegrid())
-		}, 100);
-		setTimeout(() => {
-			this.isLoading = false
-		}, 500);
-	}
+	// initGrid() {
+	// 	setTimeout(() => {
+	// 		(jQuery(this.tree.nativeElement).treegrid())
+	// 	}, 100);
+	// 	setTimeout(() => {
+	// 		this.isLoading = false
+	// 	}, 500);
+	// }
 	//动态成本明细
 	getDetial(name, PK_CORP, PK_PROJECT, PK_ELEM) {
 		this.detailTitle = name;
@@ -130,7 +131,9 @@ export class CostingDtcbPorjectComponent implements OnInit {
 
 	//项目列表
 	getProjectList(unitName) {
-		this.costingServices.getVnames(unitName).then(response => {
+		let params = new URLSearchParams();
+		params.append('unitName', unitName)
+		this.costingServices.getVnames(params).then(response => {
 			this.vNames = response as any;
 			if (!this.vName) {
 				this.vName = this.vNames[0]
@@ -139,12 +142,14 @@ export class CostingDtcbPorjectComponent implements OnInit {
 	}
 	//项目列表并加装数据
 	getProjectListAndLoad(unitName) {
-		this.costingServices.getVnames(unitName).then(response => {
+		let params = new URLSearchParams();
+		params.append('unitName', unitName)
+		this.costingServices.getVnames(params).then(response => {
 			this.vNames = response as any;
 			if (this.vNames) {
 				this.vName = this.vNames[0]
 			}
-			this.isLoading = true;
+			//this.isLoading = true;
 			this.getDatas(this.vName)
 		})
 	}
@@ -156,7 +161,7 @@ export class CostingDtcbPorjectComponent implements OnInit {
 	}
 	//构成分析改变项目
 	onSelectProject(vName) {
-		this.isLoading = true;
+		//this.isLoading = true;
 		this.vName = vName;
 		setTimeout(() => {
 			this.getDatas(this.vName);
@@ -165,7 +170,29 @@ export class CostingDtcbPorjectComponent implements OnInit {
 	}
 	//优化循环相应速度
 	trackByIndex(index) {
-    return index;
-}
+		return index;
+	}
+	cellPrepared(e) {
+		if (e.data) {
+
+			if (e.cellElement[0].parentElement) {
+				//低于目标成本20%时，显示蓝色
+				if (e.data.nmnysum3 != 0 && e.data.jyl > 0.2) {
+					e.cellElement[0].parentElement.style.backgroundColor = "#89CBDF"
+				}
+				//	当动态成本超出目标成本时，显示红色
+				if ((((e.data.dtnnrpelembusinmy - e.data.nmnysum3) / e.data.nmnysum3) == 0
+					&& e.data.dtnnrpelembusinmy != 0
+					&& e.data.nmnysum3 == 0)
+					|| ((e.data.dtnnrpelembusinmy - e.data.nmnysum3) / e.data.nmnysum3) < 0) {
+					e.cellElement[0].parentElement.style.backgroundColor = "#EBAFA6"
+				}
+			}
+			if (e.data.data && e.data.data.lastChildDetail == true) {
+				console.log(e)
+				e.cellElement[0].className += "grid-button"
+			}
+		}
+	}
 
 }

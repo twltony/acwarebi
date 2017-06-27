@@ -14,7 +14,7 @@ import { isOrNotPipe } from './Pipes/isOrNot.pipe';
 import { ManageSubjectComponent } from './Layouts/Management/manage-subject/manage-subject.component';
 import { ManageRoleComponent } from './Layouts/Management/manage-role/manage-role.component';
 import { ManageUsersComponent } from './Layouts/Management/manage-users/manage-users.component';
-import {DxPivotGridModule, DxChartModule,  DxDataGridModule,  DxTemplateModule,  DxPieChartModule} from 'devextreme-angular';
+import {DxPivotGridModule, DxChartModule,  DxDataGridModule,  DxTemplateModule,  DxPieChartModule, DxTreeListModule} from 'devextreme-angular';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -92,6 +92,7 @@ import { LoadingComponent } from "app/components/loading/loading.component";
         DxTemplateModule,
         DxChartModule,
         DxPieChartModule,
+        DxTreeListModule,
         DxPivotGridModule,
         AppRoutingModule
     ],
