@@ -261,10 +261,10 @@ clr-dg-cell{
 
 .grid-button{
     color:#fff;
-    background-color:#0F1E82;
+    background-color:#0F1E82 !important;
 }
 .grid-button:hover{
     color:#fff;
-    background-color:#318700;
+    background-color:#318700 !important;
     cursor:pointer;
 }

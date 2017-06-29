@@ -101,7 +101,7 @@ export class CostingDtcbPorjectComponent implements OnInit {
 	//动态成本明细
 	getDetial(name, PK_CORP, PK_PROJECT, PK_ELEM) {
 		this.detailTitle = name;
-		
+
 		this.costingServices.getDtContract(PK_CORP, PK_PROJECT, PK_ELEM).then(response => {
 			this.contractDatas = response as any;
 			this.nmnyb3Sum = 0;
@@ -176,6 +176,10 @@ export class CostingDtcbPorjectComponent implements OnInit {
 	cellPrepared(e) {
 		if (e.data) {
 			if (e.cellElement[0].parentElement) {
+				//间隔行底色
+				if (e.rowIndex % 2 == 1) {
+					e.cellElement[0].parentElement.style.backgroundColor = "#f5f5f5";
+				}
 				//低于目标成本20%时，显示蓝色
 				if (e.data.nmnysum3 != 0 && e.data.jyl > 0.2) {
 					e.cellElement[0].parentElement.style.backgroundColor = "#89CBDF"
