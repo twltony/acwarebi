@@ -258,3 +258,13 @@ clr-dg-cell{
         text-align: center;
     padding: 30%;
 }
+
+.grid-button{
+    color:#fff;
+    background-color:#0F1E82;
+}
+.grid-button:hover{
+    color:#fff;
+    background-color:#318700;
+    cursor:pointer;
+}

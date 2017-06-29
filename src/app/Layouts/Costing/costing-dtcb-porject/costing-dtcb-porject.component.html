@@ -106,6 +106,7 @@
     [showRowLines]="true"
     [columnAutoWidth]="true"
     (onCellPrepared)="cellPrepared($event)"
+    (onCellClick)="cellClick($event)"
     height = "75vh"
     [expandedRowKeys]="[1]">
     <dxi-column dataField="velemcode" caption="成本科目编码" sortOrder="asc"></dxi-column>
