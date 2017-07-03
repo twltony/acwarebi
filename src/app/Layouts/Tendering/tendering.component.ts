@@ -18,7 +18,8 @@ export class Tendering implements OnInit{
     }
 
     ngOnInit() {
-
+    //  var frame = document.getElementById('frame') as any;
+    //  frame.src = "http://172.16.0.25:28080/Nimble1/login.jsp"
   }
 
   createModalMarketSum(){

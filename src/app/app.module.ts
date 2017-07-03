@@ -6,6 +6,7 @@ import { MarketingRankingComponent } from './Layouts/Marketing/marketing-ranking
 import { MarketingQzyhAreaComponent } from './Layouts/Marketing/marketing-qzyh-area/marketing-qzyh-area.component';
 import { MarketingZyhAreaTypeComponent } from './Layouts/Marketing/marketing-zyh-area-type/marketing-zyh-area-type.component';
 import { ratePipe } from './Pipes/rate.pipe';
+import { SafePipe } from './Pipes/safe.pipe';
 import { MarketingMonthFeeComponent } from './Layouts/Marketing/marketing-month-fee/marketing-month-fee.component';
 import { MarketingYearBackComponent } from './Layouts/Marketing/marketing-year-back/marketing-year-back.component';
 import { MarketingDayAreaComponent } from './Layouts/Marketing/marketing-day-area/marketing-day-area.component';
@@ -78,6 +79,7 @@ import { LoadingComponent } from "app/components/loading/loading.component";
         LoginForm,
         RoundPipe,
         isOrNotPipe,
+        SafePipe,
         LoadingComponent,
         KSSwiperContainer, KSSwiperSlide,
         ratePipe
