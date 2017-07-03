@@ -4,17 +4,21 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { Http } from '@angular/http'
 
+
 @Component({
     selector: 'tendering-subject',
-    styles:['.ac-breakline {line-height: 2px;background-color: #747474;margin: 5px;}th {font-size:16px} :host(ac-marketsubject) {overflow-y: scroll; overflow-x: hidden;}'],
+    styleUrls:['tendering.component.css'],
     templateUrl: 'tendering.component.html'
 })
 export class Tendering implements OnInit{
+  // myVal: any
+
     constructor(public http: Http){
 
     }
 
     ngOnInit() {
+
   }
 
   createModalMarketSum(){
