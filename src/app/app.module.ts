@@ -1,3 +1,4 @@
+import { WindowRefService } from './Layouts/Management/manage-subject/window.service';
 import { MarketingYearsalesAreaComponent } from './Layouts/Marketing/marketing-yearsales-area/marketing-yearsales-area.component';
 import { MarketingZyhProjectComponent } from './Layouts/Marketing/marketing-zyh-project/marketing-zyh-project.component';
 import { MarketingQzyhProjectComponent } from './Layouts/Marketing/marketing-qzyh-project/marketing-qzyh-project.component';
@@ -98,7 +99,7 @@ import { LoadingComponent } from "app/components/loading/loading.component";
         DxPivotGridModule,
         AppRoutingModule
     ],
-    providers: [AuthGuard],
+    providers: [AuthGuard, WindowRefService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

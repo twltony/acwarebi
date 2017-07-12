@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
 	selector: 'Management',
-	templateUrl: 'Management.component.html',
+	templateUrl:'Management.component.html',
 	styleUrls:['Management.component.css'],
 	providers:[BaseDataService]
 })
