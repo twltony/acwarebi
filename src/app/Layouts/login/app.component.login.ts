@@ -34,13 +34,13 @@ export class LoginForm implements AfterViewChecked {
     onSubmit() {
         this.showspinner=true;
         this.submitted = true;
-        this.loginService.getAuth(this.user.userName,this.user.passWord)
+        this.loginService.getAuth(this.user._userName,this.user._passWord)
         .then(result => {
           this.result = result;
           let status = (result as any).status;
           if(status=="success"){
             //localStorage.setItem('currentUser', JSON.stringify(user));
-            localStorage.setItem('currentUser', this.user.userName);
+            localStorage.setItem('currentUser', this.user._userName);
             this.router.navigate(['/Marketing']);
           }else{
             this.errorMessage = (result as any).errMsg;

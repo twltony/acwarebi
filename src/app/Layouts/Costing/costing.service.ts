@@ -29,7 +29,7 @@ export class CostingServices {
     //项目列表
     getVnames(params): Promise<Object> {
         let hasUserInfo = new UserInfo().checkUserInfo();
-        console.log(hasUserInfo);
+        console.log(params.toString());
         return this.http.post(this.costVnamesUrl, params.toString(), { headers: this.headers })
             .toPromise()
             .then(response => {

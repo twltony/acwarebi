@@ -1,95 +1,99 @@
 import { Role } from './Role';
-export class User{
-	private _id: string;
-    private _userName: string;
-    private _passWord: string;
-    private _displayName: string;
-    private _isvalid: number;
-    private _isalive: number;
-    private _count: number;
-    private _lastLoginDate: Date;
-    private _createDate: Date;
-    private _roles: [Role];
+export class User {
+	private uId: string;
+	private username: string;
+	private password: string;
+	private vseusername: string;
+	private isvalid: any;
+	private isalive: any;
+	private count: number;
+	private lastLoginDate: Date;
+	private createDate: Date;
+	private role: Object[];
 
-	public get id(): string {
-		return this._id;
+	public get _id(): string {
+		return this.uId;
 	}
 
-	public set id(value: string) {
-		this._id = value;
-	}
-	
-	public get userName(): string {
-		return this._userName;
+	public set _id(value: string) {
+		this.uId = value;
 	}
 
-	public set userName(value: string) {
-		this._userName = value;
+	public get _userName(): string {
+		return this.username;
 	}
 
-	public get passWord(): string {
-		return this._passWord;
+	public set _userName(value: string) {
+		this.username = value;
 	}
 
-	public set passWord(value: string) {
-		this._passWord = value;
+	public get _passWord(): string {
+		return this.password;
 	}
 
-	public get roles(): [Role] {
-		return this._roles;
+	public set _passWord(value: string) {
+		this.password = value;
 	}
 
-	public set roles(value: [Role]) {
-		this._roles = value;
+	public get _roles(): Object[] {
+		return this.role;
+	}
+
+	public set _roles(value: Object[]) {
+		this.role = value;
 	}
 
 
-	public get displayName(): string {
-		return this._displayName;
+	public get _displayName(): string {
+		return this.vseusername;
 	}
 
-	public set displayName(value: string) {
-		this._displayName = value;
+	public set _displayName(value: string) {
+		this.vseusername = value;
 	}
 
-	public get isalive(): number {
-		return this._isalive;
+	public get _isalive(): number {
+		return this.isalive;
 	}
 
-	public set isalive(value: number) {
-		this._isalive = value;
+	public set _isalive(value: number) {
+		this.isalive = value;
 	}
 
-	public get isvalid(): number {
-		return this._isvalid;
+	public get _isvalid(): number {
+		if (this.isvalid == true) {
+			return this.isvalid = 1
+		} else {
+			return this.isvalid = 0;
+		}
 	}
 
-	public set isvalid(value: number) {
-		this._isvalid = value;
+	public set _isvalid(value: number) {
+		this.isvalid = value;
 	}
 
-	public get lastLoginDate(): Date {
-		return this._lastLoginDate;
+	public get _lastLoginDate(): Date {
+		return this.lastLoginDate;
 	}
 
-	public set lastLoginDate(value: Date) {
-		this._lastLoginDate = value;
+	public set _lastLoginDate(value: Date) {
+		this.lastLoginDate = value;
 	}
 
-	public get createDate(): Date {
-		return this._createDate;
+	public get _createDate(): Date {
+		return this.createDate;
 	}
 
-	public set createDate(value: Date) {
-		this._createDate = value;
+	public set _createDate(value: Date) {
+		this.createDate = value;
 	}
 
-	public get count(): number {
-		return this._count;
+	public get _count(): number {
+		return this.count;
 	}
 
-	public set count(value: number) {
-		this._count = value;
+	public set _count(value: number) {
+		this.count = value;
 	}
-    
+
 }

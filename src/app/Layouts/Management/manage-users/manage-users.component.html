@@ -1,7 +1,3 @@
-<button onclick="window.open('weixin://', '_system')">打开微信</button>
-<button onclick="window.open('kk://message', '_system')">打开KK消息</button>
-<button onclick="window.open('kk://contract', '_system')">打开KK通信录</button>
-
 <button class="btn btn-primary" (click)="modalsOpened = true">添加用户</button>
 <clr-modal [(clrModalOpen)]="modalsOpened" [clrModalClosable]="false" [clrModalSize]="lg">
     <h3 class="modal-title">添加用户</h3>
@@ -10,22 +6,25 @@
             <section class="form-block">
                 <div class="form-group">
                     <label for="userName">AD域账号：</label>
-                    <input type="text" id="userName" name="userName" [(ngModel)]="user.userName" placeholder="输入AD域账号" size="45" required>
+                    <input type="text" id="userName" name="userName" [(ngModel)]="user._userName" placeholder="输入AD域账号" size="45" required>
                 </div>
                 <div class="form-group">
                     <label for="displayName">姓名：</label>
-                    <input type="text" id="displayName" name="displayName" [(ngModel)]="user.displayName" placeholder="输入用户的姓名" size="45" required>
+                    <input type="text" id="displayName" name="displayName" [(ngModel)]="user._displayName" placeholder="输入用户的姓名" size="45" required>
                 </div>
                 <div class="form-group">
                     <label for="formGroupExampleInput">是否启用：</label>
                     <div class="toggle-switch">
-                        <input type="checkbox" id="isvalid" name="isvalid"  [(ngModel)]="user.isvalid">
+                        <input type="checkbox" id="isvalid" name="isvalid" [(ngModel)]="user._isvalid">
                         <label for="isvalid"></label>
                     </div>
                 </div>
 
+
             </section>
-            <div class="progress loop" *ngIf="isProgressShow"><progress></progress></div>
+            <div class="progress loop" *ngIf="isProgressShow">
+                <progress></progress>
+            </div>
             <button type="button" class="btn btn-outline" (click)="modalsOpened = false">取消</button>
             <button type="button" class="btn btn-primary" type="submit">保存</button>
         </form>
@@ -39,32 +38,64 @@
             <section class="form-block">
                 <div class="form-group">
                     <label for="userName">AD域账号：</label>
-                    <input type="text" id="userName" name="userName" [(ngModel)]="user.userName" placeholder="输入AD域账号" size="45" required>
+                    <input type="text" id="userName" name="userName" [(ngModel)]="user._userName" placeholder="输入AD域账号" size="45" required>
                 </div>
                 <div class="form-group">
                     <label for="displayName">姓名：</label>
-                    <input type="text" id="displayName" name="displayName" [(ngModel)]="user.displayName" placeholder="输入用户的姓名" size="45" required>
+                    <input type="text" id="displayName" name="displayName" [(ngModel)]="user._displayName" placeholder="输入用户的姓名" size="45" required>
                 </div>
                 <div class="form-group">
                     <label for="formGroupExampleInput">是否启用：</label>
                     <div class="toggle-switch">
-                        <input type="checkbox" id="isvalid" name="isvalid"  [(ngModel)]="user.isvalid">
+                        <input type="checkbox" id="isvalid" name="isvalid" [(ngModel)]="user._isvalid">
                         <label for="isvalid"></label>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="formGroupExampleInput">主题角色：</label>
+                    <a class="label label-blue clickable" *ngFor="let r of user.role" (click)="removeRole(r)">
+                        {{r?.roleName}}
+                        <span class="badge">X</span>
+                    </a>
+                </div>
+                <div class="form-group">
+                    <label for="formGroupExampleInput">未关联的主题角色：</label>
+                    <a  class="label label-blue clickable" *ngFor="let role of Roles" (click)="addRole(role)">
+                        {{role.roleName}}
+                        <span class="badge">+</span>
+                    </a>
+                </div>
 
             </section>
-            <div class="progress loop" *ngIf="isProgressShow"><progress></progress></div>
+            <div class="progress loop" *ngIf="isProgressShow">
+                <progress></progress>
+            </div>
             <button type="button" class="btn btn-outline" (click)="modalsEditOpened = false">取消</button>
             <button type="button" class="btn btn-primary" type="submit">保存</button>
         </form>
     </div>
 </clr-modal>
 
+<clr-alert [clrAlertType]="'alert-success'" *ngIf="isAlertShow">
+    <div class="alert-item">
+        <span class="alert-text">
+            {{message}}
+        </span>
+    </div>
+</clr-alert>
+<clr-alert [clrAlertType]="'alert-error'" *ngIf="isErrorAlertShow">
+    <div class="alert-item">
+        <span class="alert-text">
+            {{errormessage}}
+        </span>
+    </div>
+</clr-alert>
+
 <clr-datagrid>
     <clr-dg-column>ID</clr-dg-column>
     <clr-dg-column>名称</clr-dg-column>
     <clr-dg-column>账号</clr-dg-column>
+    <clr-dg-column>角色</clr-dg-column>
     <clr-dg-column>登录次数</clr-dg-column>
     <clr-dg-column>是否在线</clr-dg-column>
     <clr-dg-column>是否启用</clr-dg-column>
@@ -75,12 +106,14 @@
             <button class="action-item" (click)="onEdit(user)">编辑</button>
             <button class="action-item" (click)="onDelete(user)">删除</button>
         </clr-dg-action-overflow>
-        <clr-dg-cell>{{user._id}}</clr-dg-cell>
-        <clr-dg-cell>{{user._displayName}}</clr-dg-cell>
-        <clr-dg-cell>{{user._userName}}</clr-dg-cell>
-        <clr-dg-cell>{{user._count}}</clr-dg-cell>
-        <clr-dg-cell>{{user._isalive | isOrNot}}</clr-dg-cell>
-        <clr-dg-cell>{{user._isvalid | isOrNot}}</clr-dg-cell>
-        <clr-dg-cell>{{user._lastLoginDate | date: 'yyyy/MM/dd'}}</clr-dg-cell>
+        <clr-dg-cell>{{user.uId}}</clr-dg-cell>
+        <clr-dg-cell>{{user.vseusername}}</clr-dg-cell>
+        <clr-dg-cell>{{user.username}}</clr-dg-cell>
+        <clr-dg-cell><span class="label" *ngFor="let r of user.role">{{r?.roleName}}</span></clr-dg-cell>
+        <clr-dg-cell>{{user.count}}</clr-dg-cell>
+        <clr-dg-cell>{{user.isalive | isOrNot}}</clr-dg-cell>
+        <clr-dg-cell>{{user.isvalid | isOrNot}}</clr-dg-cell>
+        <clr-dg-cell>{{user.lastLoginDate | date: 'yyyy/MM/dd'}}</clr-dg-cell>
+
     </clr-dg-row>
 </clr-datagrid>

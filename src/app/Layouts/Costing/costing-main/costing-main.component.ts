@@ -99,6 +99,7 @@ export class CostingMainComponent implements OnInit {
         //主数据
         this.costingServices.getCostMain().then(response => {
             this.datas = response;
+            console.log(this.datas)
             this.setChatDatas(response);
             this.setAreaIndex(response);
         })

@@ -42,12 +42,12 @@
           'rate-green': ((card.nmnysum3-card.dtnnrpelembusinmy/10000)/card.nmnysum3)>=0 || ((card.nmnysum3-card.dtnnrpelembusinmy/10000)/card.nmnysum3)<=0.2}"
             [ngSwitch]="card.nmnysum3">
             <div *ngSwitchDefault>
-              <div>差异率 {{(card.nmnysum3-card.dtnnrpelembusinmy/10000 )/card.nmnysum3 | percent:'1.1-2'}} &nbsp; (原始版 {{ (card.cs24Orprices!=null?(card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices
+              <div>差异率 {{(card.nmnysum3-card.dtnnrpelembusinmy/10000 )/card.nmnysum3 | percent:'1.1-2'}} &nbsp; (原始版 {{ (card.nmnysum1!=null?(card.nmnysum1-card.dtnnrpelembusinmy)/card.nmnysum1
                 : 0) | percent:'1.1-2'}})
               </div>
             </div>
             <div *ngSwitchCase="0">
-              <div>差异率 - &nbsp; (原始版 {{ (card.cs24Orprices==null?0:((card.cs24Orprices-card.dtnnrpelembusinmy)/card.cs24Orprices))
+              <div>差异率 - &nbsp; (原始版 {{ (card.nmnysum1==null?0:((card.nmnysum1-card.dtnnrpelembusinmy)/card.nmnysum1))
                 | percent:'1.1-2'}})
               </div>
             </div>
