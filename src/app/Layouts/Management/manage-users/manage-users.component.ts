@@ -36,6 +36,8 @@ export class ManageUsersComponent implements OnInit {
 	onEdit(user) {
 		this.modalsEditOpened = true;
 		this.user = user;
+		this.getAllRoles();
+		
 	}
 	onDelete(user) {
 		this.baseDataService.deleteUsers(user.uId).then(Result => {
@@ -89,10 +91,15 @@ export class ManageUsersComponent implements OnInit {
 		this.baseDataService.getRoles().then(Object => {
 			this.Roles = Object
 			if (this.user._roles) {
-				for (var i in this.Roles){
-					this.Roles[i].splice(this.user._roles.indexOf('r'), 1);
+			for (var i in this.user._roles as any) {
+				for(var j in this.Roles){
+					if(this.Roles[j].rId === this.user._roles[i].rId){
+						this.Roles.splice(j, 1);
+					}
 				}
+				
 			}
+		}
 		})
 	}
 
@@ -111,13 +118,15 @@ export class ManageUsersComponent implements OnInit {
 		//添加到用户角色
 		this.user._roles.push(r);
 		//移除可用的角色
+		this.Roles.splice(this.Roles.indexOf(r), 1);
 	}
 
 	//移除角色
 	removeRole(r) {
 		//console.log(this.user._roles.indexOf(r))
 		//移除用户的角色
-		this.user._roles.splice(this.user._roles.indexOf('r'), 1);
+		this.user._roles.splice(this.user._roles.indexOf(r), 1);
 		//添加到可用角色
+		this.Roles.push(r);
 	}
 }

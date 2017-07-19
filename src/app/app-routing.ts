@@ -26,6 +26,9 @@ import { MarketingYearsalesAreaComponent } from "app/Layouts/Marketing/marketing
 import { CostingMainComponent } from "app/Layouts/Costing/costing-main/costing-main.component";
 import { CostingDtcbPorjectComponent } from "app/Layouts/Costing/costing-dtcb-porject/costing-dtcb-porject.component";
 import { CostingHttzPorjectComponent } from "app/Layouts/Costing/costing-httz-porject/costing-httz-porject.component";
+import { NorightComponent } from "app/Layouts/NoRight/noright/noright.component";
+import { HumanResourcesComponent } from "app/Layouts/HumanResources/HumanResources.component";
+import { PropertyComponent } from "app/Layouts/Property/Property.component";
 
 
 
@@ -55,6 +58,8 @@ const appRoutes: Routes = [
     ]
   },
   { path:"Tendering", component: Tendering,canActivate: [AuthGuard] },
+  { path:"HumanResources", component: HumanResourcesComponent,canActivate: [AuthGuard] },
+  { path:"Property", component: PropertyComponent,canActivate: [AuthGuard] },
   { path:"Management", component: ManagementComponent,canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'ManagementUsers', pathMatch: 'full' },
@@ -63,6 +68,7 @@ const appRoutes: Routes = [
       { path:"ManagementSubject", component: ManageSubjectComponent,canActivate: [AuthGuard] }
     ]
  },
+  { path:"NoRight", component: NorightComponent,canActivate: [AuthGuard]},
   { path:"**", redirectTo: ""}
 ];
 

@@ -7,21 +7,25 @@
       </a>
     </div>
       <div class="header-nav" [clr-nav-level]="1">
-      <a class="nav-link" routerLinkActive="active" routerLink="Marketing"><span class="nav-text">营销主题</span></a>
-      <a class="nav-link" routerLinkActive="active" routerLink="Costing"><span class="nav-text">房产成本主题</span></a>
-      <a class="nav-link" routerLinkActive="active" routerLink="Tendering"><span class="nav-text">招采主题</span></a>
-      <a class="nav-link" routerLinkActive="active" routerLink="Management"><span class="nav-text">系统设置</span></a>
+      <a class="nav-link" routerLinkActive="active" routerLink="Marketing" *ngIf="checkRightService.marketingRight" (click)="baseDataService.clickMarketing(checkRightService.userInfo._displayName)"><span class="nav-text">营销主题</span></a>
+      <a class="nav-link" routerLinkActive="active" routerLink="Costing" *ngIf="checkRightService.costingRight" (click)="baseDataService.clickCosting(checkRightService.userInfo._displayName)"><span class="nav-text">房产成本主题</span></a>
+      <a class="nav-link" routerLinkActive="active" routerLink="Tendering" *ngIf="checkRightService.tenderRight" (click)="baseDataService.clickTendering(checkRightService.userInfo._displayName)"><span class="nav-text">招采主题</span></a>
+      <a class="nav-link" routerLinkActive="active" routerLink="HumanResources" *ngIf="checkRightService.hrRight" (click)="baseDataService.clickHumanResources(checkRightService.userInfo._displayName)"><span class="nav-text">人力主题</span></a>
+      <a class="nav-link" routerLinkActive="active" routerLink="Property" *ngIf="checkRightService.propertyRight" (click)="baseDataService.clickProperty(checkRightService.userInfo._displayName)"><span class="nav-text">物业主题</span></a>
+      <a class="nav-link" routerLinkActive="active" routerLink="Management" *ngIf="checkRightService.managermentRight" (click)="baseDataService.clickManagement(checkRightService.userInfo._displayName)"><span class="nav-text">系统设置</span></a>
     </div>
     <div class="header-actions">
       <a (click)="navGoBack()" class="nav-link nav-text" style="color: #FFF899">
        <返回
       </a>
-       <clr-dropdown clrMenuPosition="bottom-right">
+       <clr-dropdown clrMenuPosition="bottom-right" *ngIf="checkRightService.userInfo">
             <button class="nav-icon" clrDropdownToggle>
                 <clr-icon shape="user"></clr-icon>
                 <clr-icon shape="caret down"></clr-icon>
             </button>
             <clr-dropdown-menu>
+               <h4 class="dropdown-header">{{checkRightService.userInfo._displayName}}</h4>
+                
                 <a [routerLink]="['']" (click)="logOut()" clrDropdownItem>注销</a>
             </clr-dropdown-menu>
         </clr-dropdown>

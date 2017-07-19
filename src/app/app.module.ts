@@ -1,3 +1,4 @@
+import {BaseDataService} from './Services/basedata.service';
 import { WindowRefService } from './Layouts/Management/manage-subject/window.service';
 import { MarketingYearsalesAreaComponent } from './Layouts/Marketing/marketing-yearsales-area/marketing-yearsales-area.component';
 import { MarketingZyhProjectComponent } from './Layouts/Marketing/marketing-zyh-project/marketing-zyh-project.component';
@@ -44,6 +45,10 @@ import {KSSwiperContainer, KSSwiperSlide,  KSSwiperModule} from 'angular2-swiper
 import { CostingDtcbPorjectComponent } from "app/Layouts/Costing/costing-dtcb-porject/costing-dtcb-porject.component";
 import { CostingHttzPorjectComponent } from "app/Layouts/Costing/costing-httz-porject/costing-httz-porject.component";
 import { LoadingComponent } from "app/components/loading/loading.component";
+import { NorightComponent } from "app/Layouts/NoRight/noright/noright.component";
+import { CheckRightService } from "app/Services/checkright.service";
+import { PropertyComponent } from "app/Layouts/Property/Property.component";
+import { HumanResourcesComponent } from "app/Layouts/HumanResources/HumanResources.component";
 
 
 @NgModule({
@@ -73,6 +78,9 @@ import { LoadingComponent } from "app/components/loading/loading.component";
             ManageUsersComponent,
             ManageRoleComponent,
             ManageSubjectComponent,
+        HumanResourcesComponent,
+        PropertyComponent,
+        NorightComponent,
         Columnchart,
         Linechart,
         Piechart,
@@ -99,7 +107,7 @@ import { LoadingComponent } from "app/components/loading/loading.component";
         DxPivotGridModule,
         AppRoutingModule
     ],
-    providers: [AuthGuard, WindowRefService],
+    providers: [AuthGuard, WindowRefService, CheckRightService,BaseDataService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

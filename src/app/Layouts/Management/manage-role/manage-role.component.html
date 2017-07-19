@@ -1,26 +1,17 @@
-<button class="btn btn-primary" (click)="modalsOpened = true">添加用户</button>
+<button class="btn btn-primary" (click)="modalsOpened = true">添加角色</button>
 <clr-modal [(clrModalOpen)]="modalsOpened" [clrModalClosable]="false" [clrModalSize]="lg">
-    <h3 class="modal-title">添加用户</h3>
+    <h3 class="modal-title">添加角色</h3>
     <div class="modal-body">
         <form (ngSubmit)="onSubmit()">
             <section class="form-block">
                 <div class="form-group">
-                    <label for="userName">AD域账号：</label>
-                    <input type="text" id="userName" name="userName" [(ngModel)]="user._userName" placeholder="输入AD域账号" size="45" required>
+                    <label for="roleName">角色名称：</label>
+                    <input type="text" id="roleName" name="roleName" [(ngModel)]="role.roleName" placeholder="输入角色名称" size="45" required>
                 </div>
                 <div class="form-group">
-                    <label for="displayName">姓名：</label>
-                    <input type="text" id="displayName" name="displayName" [(ngModel)]="user._displayName" placeholder="输入用户的姓名" size="45" required>
+                    <label for="descriptions">角色描述：</label>
+                    <input type="text" id="descriptions" name="descriptions" [(ngModel)]="role.descriptions" placeholder="输入角色的描述" size="45" required>
                 </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput">是否启用：</label>
-                    <div class="toggle-switch">
-                        <input type="checkbox" id="isvalid" name="isvalid" [(ngModel)]="user._isvalid">
-                        <label for="isvalid"></label>
-                    </div>
-                </div>
-
-
             </section>
             <div class="progress loop" *ngIf="isProgressShow">
                 <progress></progress>
@@ -32,40 +23,18 @@
 </clr-modal>
 
 <clr-modal [(clrModalOpen)]="modalsEditOpened" [clrModalClosable]="false" [clrModalSize]="lg">
-    <h3 class="modal-title">编辑用户</h3>
+    <h3 class="modal-title">编辑角色</h3>
     <div class="modal-body">
         <form (ngSubmit)="onSubmitEdit()">
             <section class="form-block">
                 <div class="form-group">
-                    <label for="userName">AD域账号：</label>
-                    <input type="text" id="userName" name="userName" [(ngModel)]="user._userName" placeholder="输入AD域账号" size="45" required>
+                    <label for="roleName">角色名称：</label>
+                    <input type="text" id="roleName" name="roleName" [(ngModel)]="role.roleName" placeholder="输入角色名称" size="45" required>
                 </div>
                 <div class="form-group">
-                    <label for="displayName">姓名：</label>
-                    <input type="text" id="displayName" name="displayName" [(ngModel)]="user._displayName" placeholder="输入用户的姓名" size="45" required>
+                    <label for="descriptions">角色描述：</label>
+                    <input type="text" id="descriptions" name="descriptions" [(ngModel)]="role.descriptions" placeholder="输入角色的描述" size="45" required>
                 </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput">是否启用：</label>
-                    <div class="toggle-switch">
-                        <input type="checkbox" id="isvalid" name="isvalid" [(ngModel)]="user._isvalid">
-                        <label for="isvalid"></label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput">主题角色：</label>
-                    <a class="label label-blue clickable" *ngFor="let r of user.role" (click)="removeRole(r)">
-                        {{r?.roleName}}
-                        <span class="badge">X</span>
-                    </a>
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput">未关联的主题角色：</label>
-                    <a  class="label label-blue clickable" *ngFor="let r of user.role" (click)="addRole(r)">
-                        {{r?.roleName}}
-                        <span class="badge">+</span>
-                    </a>
-                </div>
-
             </section>
             <div class="progress loop" *ngIf="isProgressShow">
                 <progress></progress>
@@ -93,27 +62,16 @@
 
 <clr-datagrid>
     <clr-dg-column>ID</clr-dg-column>
-    <clr-dg-column>名称</clr-dg-column>
-    <clr-dg-column>账号</clr-dg-column>
-    <clr-dg-column>角色</clr-dg-column>
-    <clr-dg-column>登录次数</clr-dg-column>
-    <clr-dg-column>是否在线</clr-dg-column>
-    <clr-dg-column>是否启用</clr-dg-column>
-    <clr-dg-column>登录时间</clr-dg-column>
+    <clr-dg-column>角色名称</clr-dg-column>
+    <clr-dg-column>描述</clr-dg-column>
 
-    <clr-dg-row *clrDgItems="let user of Users" [clrDgItem]="user">
+    <clr-dg-row *clrDgItems="let r of Roles" [clrDgItem]="r">
         <clr-dg-action-overflow>
-            <button class="action-item" (click)="onEdit(user)">编辑</button>
-            <button class="action-item" (click)="onDelete(user)">删除</button>
+            <button class="action-item" (click)="onEdit(r)">编辑</button>
+            <button class="action-item" (click)="onDelete(r)">删除</button>
         </clr-dg-action-overflow>
-        <clr-dg-cell>{{user.uId}}</clr-dg-cell>
-        <clr-dg-cell>{{user.vseusername}}</clr-dg-cell>
-        <clr-dg-cell>{{user.username}}</clr-dg-cell>
-        <clr-dg-cell><span class="label" *ngFor="let r of user.role">{{r?.roleName}}</span></clr-dg-cell>
-        <clr-dg-cell>{{user.count}}</clr-dg-cell>
-        <clr-dg-cell>{{user.isalive | isOrNot}}</clr-dg-cell>
-        <clr-dg-cell>{{user.isvalid | isOrNot}}</clr-dg-cell>
-        <clr-dg-cell>{{user.lastLoginDate | date: 'yyyy/MM/dd'}}</clr-dg-cell>
-
+        <clr-dg-cell>{{r.rId}}</clr-dg-cell>
+        <clr-dg-cell>{{r.roleName}}</clr-dg-cell>
+        <clr-dg-cell>{{r.descriptions}}</clr-dg-cell>
     </clr-dg-row>
 </clr-datagrid>

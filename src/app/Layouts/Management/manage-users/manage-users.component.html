@@ -97,8 +97,8 @@
     <clr-dg-column>账号</clr-dg-column>
     <clr-dg-column>角色</clr-dg-column>
     <clr-dg-column>登录次数</clr-dg-column>
-    <clr-dg-column>是否在线</clr-dg-column>
-    <clr-dg-column>是否启用</clr-dg-column>
+    <!--<clr-dg-column>是否在线</clr-dg-column>
+    <clr-dg-column>是否启用</clr-dg-column>-->
     <clr-dg-column>登录时间</clr-dg-column>
 
     <clr-dg-row *clrDgItems="let user of Users" [clrDgItem]="user">
@@ -111,8 +111,8 @@
         <clr-dg-cell>{{user.username}}</clr-dg-cell>
         <clr-dg-cell><span class="label" *ngFor="let r of user.role">{{r?.roleName}}</span></clr-dg-cell>
         <clr-dg-cell>{{user.count}}</clr-dg-cell>
-        <clr-dg-cell>{{user.isalive | isOrNot}}</clr-dg-cell>
-        <clr-dg-cell>{{user.isvalid | isOrNot}}</clr-dg-cell>
+        <!--<clr-dg-cell>{{user.isalive | isOrNot}}</clr-dg-cell>
+        <clr-dg-cell>{{user.isvalid | isOrNot}}</clr-dg-cell>-->
         <clr-dg-cell>{{user.lastLoginDate | date: 'yyyy/MM/dd'}}</clr-dg-cell>
 
     </clr-dg-row>
