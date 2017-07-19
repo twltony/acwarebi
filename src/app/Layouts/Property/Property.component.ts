@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CheckRightService } from "app/Services/checkright.service";
+import { BaseDataService } from "app/Services/basedata.service";
 
 @Component({
 	selector: 'Property',
@@ -8,5 +10,10 @@ import { Component, OnInit } from '@angular/core';
 
 export class PropertyComponent implements OnInit {
 
-	ngOnInit() { }
+	constructor(private baseDataService: BaseDataService,
+		private checkRightService: CheckRightService) { }
+	ngOnInit() {
+		this.baseDataService.clickProperty(localStorage.getItem('currentUser'))
+
+	}
 }

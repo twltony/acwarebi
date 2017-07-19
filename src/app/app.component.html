@@ -7,12 +7,12 @@
       </a>
     </div>
       <div class="header-nav" [clr-nav-level]="1">
-      <a class="nav-link" routerLinkActive="active" routerLink="Marketing" *ngIf="checkRightService.marketingRight" (click)="baseDataService.clickMarketing(checkRightService.userInfo._displayName)"><span class="nav-text">营销主题</span></a>
-      <a class="nav-link" routerLinkActive="active" routerLink="Costing" *ngIf="checkRightService.costingRight" (click)="baseDataService.clickCosting(checkRightService.userInfo._displayName)"><span class="nav-text">房产成本主题</span></a>
-      <a class="nav-link" routerLinkActive="active" routerLink="Tendering" *ngIf="checkRightService.tenderRight" (click)="baseDataService.clickTendering(checkRightService.userInfo._displayName)"><span class="nav-text">招采主题</span></a>
-      <a class="nav-link" routerLinkActive="active" routerLink="HumanResources" *ngIf="checkRightService.hrRight" (click)="baseDataService.clickHumanResources(checkRightService.userInfo._displayName)"><span class="nav-text">人力主题</span></a>
-      <a class="nav-link" routerLinkActive="active" routerLink="Property" *ngIf="checkRightService.propertyRight" (click)="baseDataService.clickProperty(checkRightService.userInfo._displayName)"><span class="nav-text">物业主题</span></a>
-      <a class="nav-link" routerLinkActive="active" routerLink="Management" *ngIf="checkRightService.managermentRight" (click)="baseDataService.clickManagement(checkRightService.userInfo._displayName)"><span class="nav-text">系统设置</span></a>
+      <a class="nav-link" routerLinkActive="active" routerLink="Marketing" *ngIf="checkRightService.marketingRight" ><span class="nav-text">营销主题</span></a>
+      <a class="nav-link" routerLinkActive="active" routerLink="Costing" *ngIf="checkRightService.costingRight" ><span class="nav-text">房产成本主题</span></a>
+      <a class="nav-link" routerLinkActive="active" routerLink="Tendering" *ngIf="checkRightService.tenderRight" ><span class="nav-text">招采主题</span></a>
+      <a class="nav-link" routerLinkActive="active" routerLink="HumanResources" *ngIf="checkRightService.hrRight" ><span class="nav-text">人力主题</span></a>
+      <a class="nav-link" routerLinkActive="active" routerLink="Property" *ngIf="checkRightService.propertyRight" ><span class="nav-text">物业主题</span></a>
+      <a class="nav-link" routerLinkActive="active" routerLink="Management" *ngIf="checkRightService.managermentRight" ><span class="nav-text">系统设置</span></a>
     </div>
     <div class="header-actions">
       <a (click)="navGoBack()" class="nav-link nav-text" style="color: #FFF899">

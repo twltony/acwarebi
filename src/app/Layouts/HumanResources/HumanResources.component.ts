@@ -1,4 +1,6 @@
+import { BaseDataService } from '../../Services/basedata.service';
 import { Component, OnInit } from '@angular/core';
+import { CheckRightService } from "app/Services/checkright.service";
 
 @Component({
 	selector: 'HumanResources',
@@ -7,6 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class HumanResourcesComponent implements OnInit {
+	constructor(
+		private baseDataService: BaseDataService,
+		private checkRightService: CheckRightService) { }
+	ngOnInit() {
+		this.baseDataService.clickHumanResources(localStorage.getItem('currentUser'))
 
-	ngOnInit() { }
+	}
 }

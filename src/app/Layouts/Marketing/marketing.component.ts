@@ -30,12 +30,14 @@ export class Marketing implements OnInit{
       private router: Router,
       private _el: ElementRef,
       private marketingService: MarketingService,
+      private baseDataService: BaseDataService,
       private basicService: BaseDataService
     ) {
        
     }
 
     ngOnInit() {
+      this.baseDataService.clickMarketing(localStorage.getItem('currentUser'))
       this.month = this.basicService.month;
       this.marketingService.getMarketingMainData()
         .then(marketingDatas => {

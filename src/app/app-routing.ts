@@ -29,6 +29,7 @@ import { CostingHttzPorjectComponent } from "app/Layouts/Costing/costing-httz-po
 import { NorightComponent } from "app/Layouts/NoRight/noright/noright.component";
 import { HumanResourcesComponent } from "app/Layouts/HumanResources/HumanResources.component";
 import { PropertyComponent } from "app/Layouts/Property/Property.component";
+import { AccessLoggerComponent } from "app/Layouts/Management/AccessLogger/AccessLogger.component";
 
 
 
@@ -63,6 +64,7 @@ const appRoutes: Routes = [
   { path:"Management", component: ManagementComponent,canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'ManagementUsers', pathMatch: 'full' },
+      { path:"AccessLogger", component: AccessLoggerComponent,canActivate: [AuthGuard] },
       { path:"ManagementUsers", component: ManageUsersComponent,canActivate: [AuthGuard] },
       { path:"ManagementRole", component: ManageRoleComponent,canActivate: [AuthGuard] },
       { path:"ManagementSubject", component: ManageSubjectComponent,canActivate: [AuthGuard] }

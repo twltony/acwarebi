@@ -17,7 +17,7 @@ import { isOrNotPipe } from './Pipes/isOrNot.pipe';
 import { ManageSubjectComponent } from './Layouts/Management/manage-subject/manage-subject.component';
 import { ManageRoleComponent } from './Layouts/Management/manage-role/manage-role.component';
 import { ManageUsersComponent } from './Layouts/Management/manage-users/manage-users.component';
-import {DxPivotGridModule, DxChartModule,  DxDataGridModule,  DxTemplateModule,  DxPieChartModule, DxTreeListModule} from 'devextreme-angular';
+import {DxCheckBoxModule, DxSelectBoxModule,  DxPivotGridModule,   DxChartModule,    DxDataGridModule,    DxTemplateModule,    DxPieChartModule,   DxTreeListModule} from 'devextreme-angular';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -49,6 +49,7 @@ import { NorightComponent } from "app/Layouts/NoRight/noright/noright.component"
 import { CheckRightService } from "app/Services/checkright.service";
 import { PropertyComponent } from "app/Layouts/Property/Property.component";
 import { HumanResourcesComponent } from "app/Layouts/HumanResources/HumanResources.component";
+import { AccessLoggerComponent } from "app/Layouts/Management/AccessLogger/AccessLogger.component";
 
 
 @NgModule({
@@ -78,6 +79,7 @@ import { HumanResourcesComponent } from "app/Layouts/HumanResources/HumanResourc
             ManageUsersComponent,
             ManageRoleComponent,
             ManageSubjectComponent,
+            AccessLoggerComponent,
         HumanResourcesComponent,
         PropertyComponent,
         NorightComponent,
@@ -104,7 +106,9 @@ import { HumanResourcesComponent } from "app/Layouts/HumanResources/HumanResourc
         DxChartModule,
         DxPieChartModule,
         DxTreeListModule,
-        DxPivotGridModule,
+        DxDataGridModule,
+        DxSelectBoxModule,
+        DxCheckBoxModule,
         AppRoutingModule
     ],
     providers: [AuthGuard, WindowRefService, CheckRightService,BaseDataService],

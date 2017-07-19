@@ -20,6 +20,7 @@ export class BaseDataService implements OnInit {
     private serveradd = GlobalVariable.ServerAddress
     private urlGetUsers = this.serveradd + 'user/list';
     private urlAccessLog = this.serveradd + 'user/accessLog';
+    private urlGetAccessLog = this.serveradd + 'user/listAccessLogs';
     private urlGetUserByName = this.serveradd + 'user/selectByUserName';
     private urlGetRoles = this.serveradd + 'role/list';
     private urlInsertUsers = this.serveradd + 'user/insert';
@@ -43,16 +44,16 @@ export class BaseDataService implements OnInit {
     ngOnInit() {
     }
 
-    accessLog(username,subject){
+    accessLog(username, subject) {
         var body = new URLSearchParams();
-        body.append("username",username);
-        body.append("platform",localStorage.getItem("platform"));
-        body.append("uuid",localStorage.getItem("uuid"));
-        body.append("subject",subject);
-        return this.http.post(this.urlAccessLog, body.toString(), { headers: this.headers}).toPromise()
-        .then(response => {
-             
-        })
+        body.append("username", username);
+        body.append("platform", localStorage.getItem("platform"));
+        body.append("uuid", localStorage.getItem("uuid"));
+        body.append("subject", subject);
+        return this.http.post(this.urlAccessLog, body.toString(), { headers: this.headers }).toPromise()
+            .then(response => {
+
+            })
     }
 
     getUsers(): Promise<Object> {
@@ -210,41 +211,49 @@ export class BaseDataService implements OnInit {
             .catch(this.handleError);
     }
 
+    clickMarketing(username) {
+        if (username == "管理员") {
+            return;
+        }
+        this.accessLog(username, "营销主题");
+    }
+    clickCosting(username) {
+        if (username == "管理员") {
+            return;
+        }
+        this.accessLog(username, "成本主题");
+    }
+    clickTendering(username) {
+        if (username == "管理员") {
+            return;
+        }
+        this.accessLog(username, "招标主题");
+    }
+    clickHumanResources(username) {
+        if (username == "管理员") {
+            return;
+        }
+        this.accessLog(username, "人力主题");
+    }
+    clickProperty(username) {
+        if (username == "管理员") {
+            return;
+        }
+        this.accessLog(username, "物业主题");
+    }
+    clickManagement(username) {
+        if (username == "管理员") {
+            return;
+        }
+        this.accessLog(username, "管理页面");
+    }
 
-      clickMarketing(username){
-    if(username == "管理员" ){
-      return;
+    getAccessLogs(){
+         return this.http.get(this.urlGetAccessLog)
+            .toPromise()
+            .then(response => {
+                return response.json();
+            }
+            )
     }
-    this.accessLog(username,"营销主题");
-  }
-  clickCosting(username){
-    if(username == "管理员" ){
-      return;
-    }
-    this.accessLog(username,"成本主题");
-  }
-  clickTendering(username){
-    if(username == "管理员" ){
-      return;
-    }
-    this.accessLog(username,"招标主题");
-  }
-  clickHumanResources(username){
-    if(username == "管理员" ){
-      return;
-    }
-    this.accessLog(username,"人力主题");
-  }
-  clickProperty(username){
-    if(username == "管理员" ){
-      return;
-    }
-    this.accessLog(username,"物业主题");
-  }
-  clickManagement(username){
-    if(username == "管理员" ){
-      return;
-    }
-    this.accessLog(username,"管理页面");
-  }
 }

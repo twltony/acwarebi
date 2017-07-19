@@ -1,3 +1,4 @@
+import {BaseDataService} from '../../Services/basedata.service';
 /**
  * Created by Tony on 2017/3/8.
  */
@@ -27,6 +28,7 @@ export class LoginForm implements AfterViewChecked {
     constructor(
         private router: Router,
         private loginService: LoginService,
+        private baseDataService: BaseDataService,
         private checkRightService: CheckRightService
     ) { }
 
@@ -60,15 +62,27 @@ export class LoginForm implements AfterViewChecked {
         this.checkRightService.checkUserRights(username).then(() => {
             if (this.checkRightService.marketingRight == true){
                 this.router.navigate(['/Marketing']);
+                //this.baseDataService.clickMarketing(this.checkRightService.userInfo._displayName)
                 return;
             }else if (this.checkRightService.costingRight == true){
                 this.router.navigate(['/Costing']);
+                //this.baseDataService.clickCosting(this.checkRightService.userInfo._displayName)
                 return;
             }else if (this.checkRightService.tenderRight == true){
                 this.router.navigate(['/Tendering']);
+                //this.baseDataService.clickTendering(this.checkRightService.userInfo._displayName)
+                return;
+            }else if (this.checkRightService.hrRight == true){
+                this.router.navigate(['/HumanResources']);
+                //this.baseDataService.clickHumanResources(this.checkRightService.userInfo._displayName)
+                return;
+            }else if (this.checkRightService.propertyRight == true){
+                this.router.navigate(['/Property']);
+                //this.baseDataService.clickProperty(this.checkRightService.userInfo._displayName)
                 return;
             }else if (this.checkRightService.managermentRight == true){
                 this.router.navigate(['/Management']);
+                return;
             }else{
                 this.router.navigate(['/NoRight'])
             }

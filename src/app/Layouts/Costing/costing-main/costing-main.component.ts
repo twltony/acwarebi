@@ -83,6 +83,7 @@ export class CostingMainComponent implements OnInit {
         };
     }
     ngOnInit() {
+        this.baseDataService.clickCosting(localStorage.getItem('currentUser'))
         if (window.screen.width < 737) {
             this.mode = "touch"
         }

@@ -1,0 +1,15 @@
+<dx-data-grid
+    id="gridContainer"
+    [dataSource]="data"
+    >
+    <dxi-column dataField="username" caption="用户名"></dxi-column>
+    <dxi-column dataField="subject" caption="访问主题"></dxi-column>
+    <dxi-column dataField="accesstime1" dataType="date" format='shortDateShortTime' caption="访问时间"></dxi-column>
+    <dxi-column dataField="devicename" caption="设备名/设备平台"></dxi-column>
+    <dxi-column dataField="imei" caption="设备序列号"></dxi-column>
+    <dxo-search-panel 
+        [visible]="true" 
+        [width]="240" 
+        placeholder="搜索...">
+        </dxo-search-panel>
+</dx-data-grid>
