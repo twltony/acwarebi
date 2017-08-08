@@ -62,24 +62,6 @@ export class AccessLoggerComponent   {
 		})
 	}
 
-    getOrderDay(rowData) {
-        return (new Date(rowData.OrderDate)).getDay();
-    }
 
-    orderHeaderFilter(data) {
-        data.dataSource.postProcess = (results) => {
-            results.push({
-                text: "Weekends",
-                value: [
-                    [this.getOrderDay, "=", 0],
-                    "or", [this.getOrderDay, "=", 6]
-                ]
-            });
-            return results;
-        };
-    }
 
-    clearFilter() {
-        this.dataGrid.instance.clearFilter();
-    }
 }

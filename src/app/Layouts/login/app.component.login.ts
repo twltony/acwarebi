@@ -38,6 +38,21 @@ export class LoginForm implements AfterViewChecked {
             this.loginService.setCount(localStorage.getItem('currentUser'));
         }
     }
+    handleError(error){
+        if(error.status=="0"){
+            this.errorMessage = "网络连接存在问题，请检查网络！"
+            this.loginError = true;
+            this.showspinner = false;
+        }else if(error.status.indexOf("4")==0){
+            this.errorMessage = "客户端加载故障，错误代码："+error.status;
+             this.loginError = true;
+             this.showspinner = false;
+        }else if(error.status.indexOf("5")==0){
+            this.errorMessage = "服务器故障，错误代码："+ error.status;
+             this.loginError = true;
+             this.showspinner = false;
+        }
+    }
 
     onSubmit() {
         this.showspinner = true;
@@ -56,7 +71,7 @@ export class LoginForm implements AfterViewChecked {
                     this.loginError = true;
                 }
                 this.showspinner = false;
-            })
+            }).catch(error => this.handleError(error))
     }
     getRights(username) {
         this.checkRightService.checkUserRights(username).then(() => {

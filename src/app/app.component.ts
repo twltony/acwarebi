@@ -11,6 +11,7 @@ import { CheckRightService } from "app/Services/checkright.service";
 
 declare var device;
 
+
 @Component({
   selector: 'my-app',
   templateUrl: './app.component.html',

@@ -38,9 +38,9 @@ export class CostingHttzPorjectComponent implements OnInit {
 		//房产区域列表
 		this.costingServices.getUnitNames().then(response => {
 			this.unitNames = response as any;
-			if (this.unitNames) {
-				this.unitName = this.unitNames[0];
-			}
+			// if (this.unitNames) {
+			// 	this.unitName = this.unitNames[0];
+			// }
 			//项目列表
 			this.getProjectList(this.unitName);
 		})

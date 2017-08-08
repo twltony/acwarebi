@@ -11,8 +11,8 @@
             <span>
               目标成本：原目标成本<br>
               动态成本:	<br>（已发生合同+费用成本+合同变更签证）+待发生规划余量<br>
-              差异金额:	原目标成本-项目动态成本<br>
-              差异率:	（原目标成本-项目动态成本）/ 原目标成本<br>
+              偏差额:	项目动态成本-原目标成本<br>
+              偏差率:	（项目动态成本-原目标成本）/ 原目标成本<br>
               可售单方:	动态可售单方=项目动态成本/项目可售面积<br>
               建筑单方:	动态建筑单方=项目动态成本/项目建筑面积<br>
               红绿灯：【绿灯】：动态成本正常；<br>
@@ -37,18 +37,21 @@
           <img src="images/picture_{{i}}.png" onerror="if (this.src != 'error.jpg') this.src = 'images/picture_0.png';">
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item" [ngClass]="{'rate-red': 0>(card.nmnysum3-card.dtnnrpelembusinmy/10000)/card.nmnysum3 || (card.nmnysum3-card.dtnnrpelembusinmy/10000)/card.nmnysum3>0.2,
-          'rate-yellow':card.nmnysum3 ==0,
-          'rate-green': ((card.nmnysum3-card.dtnnrpelembusinmy/10000)/card.nmnysum3)>=0 || ((card.nmnysum3-card.dtnnrpelembusinmy/10000)/card.nmnysum3)<=0.2}"
+          <li class="list-group-item" [ngClass]="{
+          'rate-red': ((card.dtnnrpelembusinmy/10000-card.nmnysum3)/card.nmnysum3>0.02 || (card.dtnnrpelembusinmy/10000-card.nmnysum3)/card.nmnysum3<-0.2) && card.nmnysum3 !=0,
+          'rate-orange':  0.02 >= (card.dtnnrpelembusinmy/10000-card.nmnysum3)/card.nmnysum3 && (card.dtnnrpelembusinmy/10000-card.nmnysum3)/card.nmnysum3 >= 0,
+          'rate-green': 0 >(card.dtnnrpelembusinmy/10000-card.nmnysum3)/card.nmnysum3 && (card.dtnnrpelembusinmy/10000-card.nmnysum3)/card.nmnysum3 >=-0.2,
+          'rate-gray':card.nmnysum3 ==0
+          }"
             [ngSwitch]="card.nmnysum3">
             <div *ngSwitchDefault>
-              <div>差异率 {{(card.nmnysum3-card.dtnnrpelembusinmy/10000 )/card.nmnysum3 | percent:'1.1-2'}} &nbsp; (原始版 {{ (card.nmnysum1!=null?(card.nmnysum1-card.dtnnrpelembusinmy)/card.nmnysum1
-                : 0) | percent:'1.1-2'}})
+              <div>偏差率 {{(card.dtnnrpelembusinmy/10000 -card.nmnysum3 )/card.nmnysum3 | percent:'1.1-2'}} &nbsp; 
+                <!--(原始版 {{ (card.nmnysum1!=null?(card.nmnysum1-card.dtnnrpelembusinmy)/card.nmnysum1 : 0) | percent:'1.1-2'}})-->
               </div>
             </div>
             <div *ngSwitchCase="0">
-              <div>差异率 - &nbsp; (原始版 {{ (card.nmnysum1==null?0:((card.nmnysum1-card.dtnnrpelembusinmy)/card.nmnysum1))
-                | percent:'1.1-2'}})
+              <div>偏差率 - &nbsp; 
+                <!--(原始版 {{ (card.nmnysum1==null?0:((card.nmnysum1-card.dtnnrpelembusinmy)/card.nmnysum1)) | percent:'1.1-2'}})-->
               </div>
             </div>
           </li>
@@ -60,8 +63,9 @@
             <div *ngSwitchDefault> 动态成本 {{card.dtnnrpelembusinmy/10000 | number:'.0-0'}} 万</div>
             <div *ngSwitchCase="0"> 动态成本 -</div>
           </li>
-          <li class="list-group-item" style="background-color:#f5f5f5">差异金额 {{card.nmnysum3 - card.dtnnrpelembusinmy/10000 | number:'.0-0'}} 万</li>
+          <li class="list-group-item" style="background-color:#f5f5f5">偏差额 {{card.nmnysum3 - card.dtnnrpelembusinmy/10000 | number:'.0-0'}} 万</li>
           <li class="list-group-item" style="background-color:#FFFFFF">可售单方 {{card.dtnnrpelembusinmy/card.nsalearea | number:'.0-0'}} 元</li>
+          <li class="list-group-item" style="background-color:#FFFFFF">装修可售单方 - 元</li>
           <li class="list-group-item" style="background-color:#f5f5f5">建筑单方 {{card.dtnnrpelembusinmy/card.nbuildarea | number:'.0-0'}} 元</li>
         </ul>
       </a>
@@ -74,7 +78,7 @@
 </div>
 <!--柱状图-->
 <dx-chart *ngIf="chartDatas" id="chart" [title]="{ 
-          text: '各项目单方对比分析',
+          text: '各项目动态成本单方对比分析',
           font: {
                 family: '微软雅黑',
                 size: 20,
@@ -177,15 +181,15 @@
           <thead>
             <tr>
               <th>费用科目</th>
-              <th>动态成本金额（万元）</th>
+              <th>动态成本金额（元）</th>
               <th>费用科目建筑单方（元）</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let data of gcfxDatas; let i = index; let isLast=last" [ngClass]="{'row-background': i%2==1,'row-last':isLast}">
-              <td>{{data.typeName2}}</td>
-              <td>{{data.dtnnrpelembusinmy | number:'1.2-2'}}</td>
-              <td>{{data.nbuildarea | number:'1.2-2'}}</td>
+              <td style="text-align:left">{{data.typeName2}}</td>
+              <td style="text-align:right">{{data.dtnnrpelembusinmy | number:'1.2-2'}}</td>
+              <td style="text-align:right">{{data.nbuildarea | number:'1.2-2'}}</td>
             </tr>
           </tbody>
         </table>

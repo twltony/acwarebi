@@ -1,9 +1,9 @@
+import { DxTreeListModule, DxTreeListComponent } from 'devextreme-angular';
 import { KSSwiperContainer, KSSwiperSlide } from 'angular2-swiper';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router'
 import { BaseDataService } from "app/Services/basedata.service";
 import { CostingServices } from "app/Layouts/Costing/costing.service";
-import { DxPivotGridModule } from 'devextreme-angular';
 
 declare var jQuery: any;
 declare var $: any;
@@ -32,6 +32,7 @@ export class CostingDtcbPorjectComponent implements OnInit {
 	vName;
 	isLoading = false;
 	@ViewChild(KSSwiperContainer) swiperContainer: KSSwiperContainer;
+	@ViewChild('treelist') treeList: DxTreeListComponent;
 	SwipeOptions: any;
 
 
@@ -63,7 +64,7 @@ export class CostingDtcbPorjectComponent implements OnInit {
 				this.unitName = (params as any).unitname
 			}
 		});
-		//this.isLoading = true;
+		this.isLoading = true;
 		this.getDatas(this.vName);
 		this.getUnits();
 	}
@@ -73,35 +74,15 @@ export class CostingDtcbPorjectComponent implements OnInit {
 		this.costingServices.getDtcb(vname).then(response => {
 			this.datas = response as any;
 			this.summary = this.datas[0].data;
-			console.log(this.datas)
+			this.isLoading = false;
 			//this.initGrid();
 		})
 	}
 
-	//获取汇总数据
-	// getSummary(res){
-	// 	for(var i in res){
-	// 		if(res[i].fathercode.indexOf("0")==0){
-	// 			this.summary = res[i];
-	// 			console.log(this.summary)
-	// 			break;
-	// 		}
-	// 	}
-	// }
-
-	//初始化动态报表
-	// initGrid() {
-	// 	setTimeout(() => {
-	// 		(jQuery(this.tree.nativeElement).treegrid())
-	// 	}, 100);
-	// 	setTimeout(() => {
-	// 		this.isLoading = false
-	// 	}, 500);
-	// }
 	//动态成本明细
 	getDetial(name, PK_CORP, PK_PROJECT, PK_ELEM) {
 		this.detailTitle = name;
-
+		this.isLoading = true;
 		this.costingServices.getDtContract(PK_CORP, PK_PROJECT, PK_ELEM).then(response => {
 			this.contractDatas = response as any;
 			this.nmnyb3Sum = 0;
@@ -116,6 +97,18 @@ export class CostingDtcbPorjectComponent implements OnInit {
 			this.isDetailShow = true;
 		})
 	}
+	customizeSizeText(e) {
+		let num = e.value;
+		if (num !== null || num !== '-') {
+			num = (num || 0).toString()
+			let result = '';
+			while (num.length > 3) {
+				result = ',' + num.slice(-3) + result;
+			}
+			if (num) { result = num + result }
+			return result;
+		}
+	}
 
 	//区域列表
 	getUnits() {
@@ -127,6 +120,7 @@ export class CostingDtcbPorjectComponent implements OnInit {
 			}
 			//项目列表
 			this.getProjectList(this.unitName);
+
 		})
 	}
 
@@ -205,4 +199,23 @@ export class CostingDtcbPorjectComponent implements OnInit {
 		}
 	}
 
+	explandnodes(node) {
+		let instance = this.treeList.instance;
+		instance.refresh();
+		let root = instance.getRootNode();
+		let rootChildren = root.children;
+		function getNode(data, theNode) {
+			for (var i in data) {
+				if (data[i].level == node) {
+					//instance.isRowExpanded(data[i].key) ? instance.collapseRow(data[i].key) : instance.expandRow(data[i].key)
+					instance.collapseRow(data[i].key)
+				} else {
+					getNode(data[i].children, node)
+				}
+			}
+		}
+		setTimeout(() => {
+			getNode(rootChildren, node);
+		},100);
+	}
 }

@@ -1,3 +1,4 @@
+import {URLSearchParams} from '@angular/http';
 import { Component, OnInit, ViewChild, AfterViewInit, OnChanges } from '@angular/core';
 import { CostingServices } from "app/Layouts/Costing/costing.service";
 import { BaseDataService } from "app/Services/basedata.service";
@@ -42,14 +43,12 @@ export class CostingMainComponent implements OnInit {
     ) {
         this.example1SwipeOptions = {
             pagination: '.swiper-pagination',
-
             grabCursor: true,
             centeredSlides: true,
             slidesPerView: 'auto',
             initialSlide: '2',
             autoplay: '2000',
             freeMode: true,
-            slideActiveClass: 'slideActive',
             onSlideChangeEnd: (slider) => {
                 this.slideActiveIndex = slider.activeIndex
                 //this.area = slider.slides[slider.activeIndex].getElementsByTagName("h2").area.innerHTML
@@ -69,9 +68,15 @@ export class CostingMainComponent implements OnInit {
             },
             paginationClickable: 'true',
             paginationBulletRender: (swiper, index, className) => {
-                // var text = swiper.slides[index].getElementsByClassName('card-block')[0].innerText.substr(0, 1);
                 var text = index + 1
-                return '<span class="' + className + '" style="width:30px;height:30px;text-align: center;line-height: 30px;font-size: 12px;color:#FFF;opacity: 1">' + text + '</span>';
+                var lightClass =swiper.container[0].children[0].children[index].children[0].children[1].children[3].children[0].className
+                var lightColor = lightClass.split(" ")[1];
+                var colorStyle;
+                if(lightColor=="rate-red"){ colorStyle = "background:#C92100"}
+                else if (lightColor=="rate-green"){ colorStyle = "background:#62A420" }
+                else if (lightColor=="rate-orange"){ colorStyle = "background:#F57600" }
+                else if (lightColor=="rate-gray"){ colorStyle = "background:#747474" }
+                return '<span class="' + className + '" style="width:30px;height:30px;text-align: center;line-height: 30px;font-size: 12px;color:#FFF;opacity: 1;'+colorStyle+'">' + text + '</span>';
             },
             coverflow: {
                 rotate: 0,
@@ -135,7 +140,7 @@ export class CostingMainComponent implements OnInit {
             this.gcfxDatas = response;
             let obj = new Array();
             for (var i in response) {
-                if (response[i].typeName2.indexOf('合计') < 0) {
+                if (response[i].typeName2 !=' 合计') {
                     obj.push(response[i]);
                 }
             }
@@ -265,7 +270,7 @@ export class CostingMainComponent implements OnInit {
 
     columnTooltip(arg: any) {
         return {
-            text: arg.seriesName + ' <br>' + arg.argument + ': ' + Math.round(arg.value) + '元'
+            text: arg.seriesName + ' <br>' + arg.argument + ': ' + Math.round(arg.value) + '元/m²'
         };
     }
     pieTooltip(arg: any) {

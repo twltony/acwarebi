@@ -3,7 +3,7 @@ import { User } from './../Models/User';
 import { Role } from './../Models/Role';
 import { GlobalVariable } from './../const';
 import { Injectable, OnInit } from '@angular/core'
-import { Headers, Http, Response } from '@angular/http'
+import {URLSearchParams, Headers,  Http,  Response} from '@angular/http';
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/toPromise';
 

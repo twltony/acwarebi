@@ -1,5 +1,5 @@
 import { GlobalVariable } from '../const';
-import { Http, Headers } from '@angular/http';
+import { URLSearchParams,  Http,   Headers} from '@angular/http';
 import { BaseDataService } from './basedata.service';
 
 import { Injectable } from "@angular/core";

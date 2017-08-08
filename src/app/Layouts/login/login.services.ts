@@ -1,6 +1,6 @@
 import { User } from './../../Models/User';
 import { Injectable, OnInit } from '@angular/core'
-import { Headers, Http, Response } from '@angular/http'
+import {URLSearchParams, Headers,  Http,  Response} from '@angular/http';
 import { GlobalVariable } from '../../const'
 
 import 'rxjs/add/operator/toPromise';
@@ -44,6 +44,7 @@ export class LoginService {
         return this.http.get(this.url+ "?username="+username+"&password="+encodeURI(password))
                     .toPromise()
                     .then(response => {
+                        console.log(response);
                         return response.json() as User
                     }
                     )

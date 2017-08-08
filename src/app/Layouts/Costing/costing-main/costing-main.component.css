@@ -1,14 +1,18 @@
 .rate-green{
-    background-color: green;
-            color: #ffffff
+    background-color: #62A420;
+            color: #000000
 }
 .rate-red{
-    background-color: red;
+    background-color: #C92100;
     color: #ffffff
 }
-.rate-yellow{
-    background-color: yellow;
+.rate-gray{
+    background-color: #747474;
     color: #000000
+}
+.rate-orange{
+    background-color: #F57600;
+    color: #ffffff
 }
 
 .card li{
