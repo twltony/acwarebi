@@ -15,6 +15,7 @@ export class ManageUsersComponent implements OnInit {
 	modalsEditOpened = false;
 	Users;
 	Roles;
+	lg ='lg';
 	user = new User();
 	message;
 	errormessage;

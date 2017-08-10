@@ -1,11 +1,9 @@
 import { DxTreeListModule, DxTreeListComponent } from 'devextreme-angular';
+import { KSSwiperContainer, KSSwiperSlide } from 'angular2-swiper';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router'
 import { BaseDataService } from "app/Services/basedata.service";
 import { CostingServices } from "app/Layouts/Costing/costing.service";
-
-import { SwiperComponent, SwiperDirective, SwiperConfigInterface } from 'ngx-swiper-wrapper';
-
 
 declare var jQuery: any;
 declare var $: any;
@@ -22,7 +20,6 @@ export class CostingDtcbPorjectComponent implements OnInit {
 	contractDatas;
 	el: ElementRef;
 	isDetailShow = false;
-	isSumDetailShow = false;
 	detailTitle;
 	dataSource: any;
 	@ViewChild('tree') tree: ElementRef;
@@ -34,17 +31,9 @@ export class CostingDtcbPorjectComponent implements OnInit {
 	vNames;
 	vName;
 	isLoading = false;
+	@ViewChild(KSSwiperContainer) swiperContainer: KSSwiperContainer;
 	@ViewChild('treelist') treeList: DxTreeListComponent;
-	@ViewChild(SwiperComponent) componentRef: SwiperComponent;
 	SwipeOptions: any;
-
-	public config: SwiperConfigInterface = {
-		slidesPerView: 1,
-		autoplay: 6000,
-		loop: true,
-		direction: 'vertical',
-		pagination: '.swiper-pagination'
-	};
 
 
 	constructor(
@@ -55,6 +44,13 @@ export class CostingDtcbPorjectComponent implements OnInit {
 		private costingServices: CostingServices
 	) {
 		this.el = el;
+		this.SwipeOptions = {
+			slidesPerView: 1,
+			autoplay: '6000',
+			loop: true,
+			direction: 'vertical',
+			pagination: '.swiper-pagination',
+		};
 	}
 
 
@@ -220,6 +216,6 @@ export class CostingDtcbPorjectComponent implements OnInit {
 		}
 		setTimeout(() => {
 			getNode(rootChildren, node);
-		}, 100);
+		},100);
 	}
 }

@@ -12,7 +12,7 @@ export class MarketingRankingComponent implements OnInit {
 
 	constructor(
 		private service:MarketingService,
-		private basicservice:BaseDataService
+		public basicservice:BaseDataService
 	) {
 	}
 	

@@ -13,7 +13,7 @@ export class MarketingMonthFeeComponent implements OnInit {
 
 	constructor(
 		private service:MarketingService,
-		private baseService:BaseDataService
+		public baseService:BaseDataService
 	) {
 	}
 	

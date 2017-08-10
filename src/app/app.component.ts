@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
     private loginService: LoginService,
     private baseDataService: BaseDataService,
     private marketingService: MarketingService,
-    private checkRightService: CheckRightService,
+    public checkRightService: CheckRightService,
     private router: Router
   ) {
     this.location = location;

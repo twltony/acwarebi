@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild, AfterViewInit, OnChanges } from '@angular
 import { CostingServices } from "app/Layouts/Costing/costing.service";
 import { BaseDataService } from "app/Services/basedata.service";
 import { Router } from '@angular/router';
+import { KSSwiperContainer, KSSwiperSlide } from 'angular2-swiper';
 import { SwiperComponent, SwiperDirective, SwiperConfigInterface } from 'ngx-swiper-wrapper';
 
 
@@ -31,28 +32,75 @@ export class CostingMainComponent implements OnInit {
     resolveOverlappingTypes = ["shift"];
     mode;
     chatHeight;
-    rolling = true;
 
     @ViewChild('colRight') colRight: String;
 
-    @ViewChild(SwiperComponent) componentRef: SwiperComponent;
-    //@ViewChild(KSSwiperContainer) swiperContainer: KSSwiperContainer;
+    @ViewChild(KSSwiperContainer) swiperContainer: KSSwiperContainer;
+    example1SwipeOptions: any;
     constructor(
         private router: Router,
         private baseDataService: BaseDataService,
         private costingServices: CostingServices
     ) {
+        this.example1SwipeOptions = {
+            pagination: '.swiper-pagination',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            initialSlide: '2',
+            autoplay: '2000',
+            freeMode: true,
+            onSlideChangeEnd: (slider) => {
+                this.slideActiveIndex = slider.activeIndex
+                for (var i = 0; i < this.slideNavDatas.length; i++) {
+                    if (!this.slideNavDatas[i].lastIndex) {
+                        this.slideNavDatas[i].lastIndex = 999
+                    }
+                    var a = this.slideNavDatas[i].startIndex;
+                    var b = this.slideActiveIndex;
+                    var c = this.slideNavDatas[i].lastIndex;
+                    if (a <= b && b < c) {
+                        this.slideNavActiveIndex = i;
+                        break;
+                    }
+
+                }
+            },
+            paginationClickable: 'true',
+            paginationBulletRender: (swiper, index, className) => {
+                var text = index + 1
+                var lightClass = swiper.container[0].children[0].children[index].children[0].children[1].children[3].children[0].className
+                var lightColor = lightClass.split(" ")[1];
+                var colorStyle;
+                if (lightColor == "rate-red") { colorStyle = "background:#C92100" }
+                else if (lightColor == "rate-green") { colorStyle = "background:#62A420" }
+                else if (lightColor == "rate-orange") { colorStyle = "background:#F57600" }
+                else if (lightColor == "rate-gray") { colorStyle = "background:#747474" }
+                return '<span class="' + className + '" style="width:30px;height:30px;text-align: center;line-height: 30px;font-size: 12px;color:#FFF;opacity: 1;' + colorStyle + '">' + text + '</span>';
+            },
+            coverflow: {
+                rotate: 0,
+                stretch: 0,
+                depth: 50,
+                modifier: 1,
+                slideShadows: false
+            }
+        };
     }
 
     public config: SwiperConfigInterface = {
-        
-        autoplayDisableOnInteraction: false,
         centeredSlides: true,
+        slidesPerView: 'auto',
         freeMode: true,
-        grabCursor: true,
         autoplay: 2000,
+        scrollbar: null,
         direction: 'horizontal',
-        onSlideChangeStart: (slider) => {
+        scrollbarHide: false,
+        keyboardControl: true,
+        mousewheelControl: false,
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        onSlideChangeEnd: (slider) => {
             this.slideActiveIndex = slider.activeIndex
             for (var i = 0; i < this.slideNavDatas.length; i++) {
                 if (!this.slideNavDatas[i].lastIndex) {
@@ -70,16 +118,14 @@ export class CostingMainComponent implements OnInit {
         },
         paginationBulletRender: (swiper, index, className) => {
             var text = index + 1
-            //var lightClass = swiper.container[0].children[0].children[index].children[0].children[1].children[3].children[0].className
-            var lightClass = swiper.container[0].children[0].children[index].children[1].children[3].children[0].className
+            var lightClass = swiper.container[0].children[0].children[index].children[0].children[1].children[3].children[0].className
             var lightColor = lightClass.split(" ")[1];
             var colorStyle;
             if (lightColor == "rate-red") { colorStyle = "background:#C92100" }
             else if (lightColor == "rate-green") { colorStyle = "background:#62A420" }
             else if (lightColor == "rate-orange") { colorStyle = "background:#F57600" }
             else if (lightColor == "rate-gray") { colorStyle = "background:#747474" }
-            return '<span class="swiper-pagination-handle" index="'+index+'"><span class="'+className+'" style="width:30px;height:30px;text-align: center;line-height: 30px;font-size: 12px;color:#FFF;opacity: 1;' + colorStyle + '">' + text + '</span></span>';
-  
+            return '<span class="' + className + '" style="width:30px;height:30px;text-align: center;line-height: 30px;font-size: 12px;color:#FFF;opacity: 1;' + colorStyle + '">' + text + '</span>';
         },
         coverflow: {
             rotate: 0,
@@ -87,9 +133,12 @@ export class CostingMainComponent implements OnInit {
             depth: 50,
             modifier: 1,
             slideShadows: false
-        },pagination: '.swiper-pagination',
-        paginationClickable: true,
+        }
+
     };
+
+    @ViewChild(SwiperComponent) componentRef: SwiperComponent;
+    @ViewChild(SwiperDirective) directiveRef: SwiperDirective;
 
     ngOnInit() {
         this.baseDataService.clickCosting(localStorage.getItem('currentUser'))
@@ -109,12 +158,14 @@ export class CostingMainComponent implements OnInit {
         //主数据
         this.costingServices.getCostMain().then(response => {
             this.datas = response;
+            console.log(this.datas)
             this.setChatDatas(response);
             this.setAreaIndex(response);
         })
     }
     ngAfterViewInit() {
         setTimeout(() => {
+            console.log((this.colRight as any).nativeElement.clientHeight)
             this.chatHeight = (this.colRight as any).nativeElement.clientHeight;
         }, 2000);
     }
@@ -147,6 +198,8 @@ export class CostingMainComponent implements OnInit {
                 }
             }
             this.gcfxPieDatas = obj;
+            // this.chatHeight = 500;
+            //  this.chatHeight = (this.colRight as any).nativeElement.clientHeight;
         })
     }
 
@@ -179,8 +232,9 @@ export class CostingMainComponent implements OnInit {
     //点击柱状图
     columnClick(e) {
         this.typeName = e.target.argument;
-        this.vName = e.target.argument;
+        console.log(this.typeName);
         this.getGcfx(e.target.argument);
+        this.vName = e.target.argument;
     }
 
     //构成分析改变板块
@@ -193,6 +247,8 @@ export class CostingMainComponent implements OnInit {
         this.vName = vName;
         this.getGcfx(vName);
     }
+
+
 
     //穿透到动态成本报表
     goDtTable(unitname, projectname) {
@@ -282,15 +338,7 @@ export class CostingMainComponent implements OnInit {
 
     //滚动窗事件
     moveTo(index) {
-        //this.swiperWapper.swiper.slideTo(index);
-        this.componentRef.setIndex(index);
-    }
-
-    //滚动卡片
-    changeRolling(){
-        this.rolling == true ? this.componentRef.stopAutoplay() : this.componentRef.startAutoplay();
-        this.rolling == true ? this.rolling = false : this.rolling = true;
-       
+        this.swiperContainer.swiper.slideTo(index);
     }
 
 }

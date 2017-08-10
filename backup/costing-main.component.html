@@ -22,15 +22,11 @@
           </clr-tooltip-content>
         </clr-tooltip>
       </li>
-      <li style="margin-left: 15px;">
-        <button class="btn btn-primary btn-sm" *ngIf="rolling" (click)="changeRolling()">停止滚动</button>
-        <button class="btn btn-sm" *ngIf="!rolling" (click)="changeRolling()">开始滚动</button>
-      </li>
     </ul>
   </nav>
 
-  <swiper [config]="config" [(index)]="index">
-    <div class="col-md-3" *ngFor="let card of datas; let i=index" style="padding-bottom:60px;padding-top:0px;margin-top:0px;">
+  <ks-swiper-container [options]="example1SwipeOptions" class="cb-slide">
+    <ks-swiper-slide class="col-md-3" *ngFor="let card of datas; let i=index" style="padding-bottom:60px;padding-top:0px;margin-top:0px;">
       <h2 name="area" style="display:none;">{{card.area}}</h2>
       <a class="card clickable" style="margin-bottom: 20px;" (click)="goDtTable(card.unitname,card.vname)">
         <div class="card-block ">
@@ -68,10 +64,53 @@
           </li>
           <li class="list-group-item" style="background-color:#f5f5f5">偏差额 {{card.nmnysum3 - card.dtnnrpelembusinmy/10000 | number:'.0-0'}} 万</li>
           <li class="list-group-item" style="background-color:#FFFFFF">可售单方 {{card.dtnnrpelembusinmy/card.nsalearea | number:'.0-0'}} 元</li>
-          <li class="list-group-item" style="background-color:#FFFFFF" [ngSwitch]="card.zxdf">
-            <div *ngSwitchDefault> 装修单方 {{card.zxdf | number:'.0-0'}} 元</div>
-            <div *ngSwitchCase="0"> 装修单方 -</div>
-            </li>
+          <li class="list-group-item" style="background-color:#FFFFFF">装修可售单方 - 元</li>
+          <li class="list-group-item" style="background-color:#f5f5f5">建筑单方 {{card.dtnnrpelembusinmy/card.nbuildarea | number:'.0-0'}} 元</li>
+        </ul>
+      </a>
+    </ks-swiper-slide>
+  </ks-swiper-container>
+
+  <swiper [config]="config" [(index)]="index">
+    <div class="col-md-3" *ngFor="let card of datas; let i=index" style="padding-bottom:60px;padding-top:0px;margin-top:0px;">
+   <h2 name="area" style="display:none;">{{card.area}}</h2>
+      <a class="card clickable" style="margin-bottom: 20px;" (click)="goDtTable(card.unitname,card.vname)">
+        <div class="card-block ">
+          {{card.vname}}
+        </div>
+        <div style="text-align:center;width:100%">{{card.unitname}}</div>
+        <div class="card-img">
+          <img src="images/picture_{{i}}.png" onerror="if (this.src != 'error.jpg') this.src = 'images/picture_0.png';">
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" [ngClass]="{
+          'rate-red': ((card.dtnnrpelembusinmy/10000-card.nmnysum3)/card.nmnysum3>0.02 || (card.dtnnrpelembusinmy/10000-card.nmnysum3)/card.nmnysum3<-0.2) && card.nmnysum3 !=0,
+          'rate-orange':  0.02 >= (card.dtnnrpelembusinmy/10000-card.nmnysum3)/card.nmnysum3 && (card.dtnnrpelembusinmy/10000-card.nmnysum3)/card.nmnysum3 >= 0,
+          'rate-green': 0 >(card.dtnnrpelembusinmy/10000-card.nmnysum3)/card.nmnysum3 && (card.dtnnrpelembusinmy/10000-card.nmnysum3)/card.nmnysum3 >=-0.2,
+          'rate-gray':card.nmnysum3 ==0
+          }" [ngSwitch]="card.nmnysum3">
+            <div *ngSwitchDefault>
+              <div>偏差率 {{(card.dtnnrpelembusinmy/10000 -card.nmnysum3 )/card.nmnysum3 | percent:'1.1-2'}} &nbsp;
+                <!--(原始版 {{ (card.nmnysum1!=null?(card.nmnysum1-card.dtnnrpelembusinmy)/card.nmnysum1 : 0) | percent:'1.1-2'}})-->
+              </div>
+            </div>
+            <div *ngSwitchCase="0">
+              <div>偏差率 - &nbsp;
+                <!--(原始版 {{ (card.nmnysum1==null?0:((card.nmnysum1-card.dtnnrpelembusinmy)/card.nmnysum1)) | percent:'1.1-2'}})-->
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item" style="background-color:#f5f5f5" [ngSwitch]="card.nmnysum3">
+            <div *ngSwitchDefault>目标成本 {{card.nmnysum3 | number:'.0-0'}} 万</div>
+            <div *ngSwitchCase="0">目标成本 -</div>
+          </li>
+          <li class="list-group-item" style="background-color:#FFFFFF" [ngSwitch]="card.dtnnrpelembusinmy">
+            <div *ngSwitchDefault> 动态成本 {{card.dtnnrpelembusinmy/10000 | number:'.0-0'}} 万</div>
+            <div *ngSwitchCase="0"> 动态成本 -</div>
+          </li>
+          <li class="list-group-item" style="background-color:#f5f5f5">偏差额 {{card.nmnysum3 - card.dtnnrpelembusinmy/10000 | number:'.0-0'}} 万</li>
+          <li class="list-group-item" style="background-color:#FFFFFF">可售单方 {{card.dtnnrpelembusinmy/card.nsalearea | number:'.0-0'}} 元</li>
+          <li class="list-group-item" style="background-color:#FFFFFF">装修可售单方 - 元</li>
           <li class="list-group-item" style="background-color:#f5f5f5">建筑单方 {{card.dtnnrpelembusinmy/card.nbuildarea | number:'.0-0'}} 元</li>
         </ul>
       </a>
@@ -161,10 +200,10 @@
   </div>
   <div class="col-sm-6" #colRight>
     <!--饼图-->
-    <div class="row" *ngIf="gcfxPieDatas">
+    <div class="row">
       <div class="col-sm-12">
         <dx-pie-chart id="pie" pathModified="ture" palette="bright" [dataSource]="gcfxPieDatas" (onPointClick)="piePointClick($event)"
-          [resolveLabelOverlapping]="resolveOverlappingTypes[0]" style="height:40vh">
+          [resolveLabelOverlapping]="resolveOverlappingTypes[0]" *ngIf="gcfxDatas" style="height:40vh">
           <dxo-title text="{{vName}}动态成本构成分析">
             <dxo-font size="20" weight="400" family="微软雅黑"></dxo-font>
           </dxo-title>

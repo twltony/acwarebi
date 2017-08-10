@@ -41,7 +41,6 @@ import { LoginForm } from "app/Layouts/login/app.component.login";
 import { MarketingDayProjectComponent } from "app/Layouts/Marketing/marketing-day-project/marketing-day-project.component";
 import { MarketingAreaBackComponent } from "app/Layouts/Marketing/marketing-area-back/marketing-area-back.component";
 import { CostingMainComponent } from "app/Layouts/Costing/costing-main/costing-main.component";
-import { KSSwiperModule} from 'angular2-swiper';
 import { CostingDtcbPorjectComponent } from "app/Layouts/Costing/costing-dtcb-porject/costing-dtcb-porject.component";
 import { CostingHttzPorjectComponent } from "app/Layouts/Costing/costing-httz-porject/costing-httz-porject.component";
 import { LoadingComponent } from "app/components/loading/loading.component";
@@ -51,6 +50,15 @@ import { PropertyComponent } from "app/Layouts/Property/Property.component";
 import { HumanResourcesComponent } from "app/Layouts/HumanResources/HumanResources.component";
 import { AccessLoggerComponent } from "app/Layouts/Management/AccessLogger/AccessLogger.component";
 
+import { SwiperModule } from 'ngx-swiper-wrapper';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { CostingWhtfytzProjectComponent } from "app/Layouts/Costing/costing-whtfytz-project/costing-whtfytz-project.component";
+
+const SWIPER_CONFIG: SwiperConfigInterface = {
+  direction: 'horizontal',
+  slidesPerView: 'auto',
+  keyboardControl: true
+};
 
 @NgModule({
     declarations: [
@@ -74,6 +82,7 @@ import { AccessLoggerComponent } from "app/Layouts/Management/AccessLogger/Acces
             CostingMainComponent,
             CostingDtcbPorjectComponent,
             CostingHttzPorjectComponent,
+            CostingWhtfytzProjectComponent,
         Tendering,
         ManagementComponent,
             ManageUsersComponent,
@@ -108,7 +117,7 @@ import { AccessLoggerComponent } from "app/Layouts/Management/AccessLogger/Acces
         DxDataGridModule,
         DxSelectBoxModule,
         DxCheckBoxModule,
-        KSSwiperModule,
+        SwiperModule.forRoot(SWIPER_CONFIG),
         AppRoutingModule
     ],
     providers: [AuthGuard, WindowRefService, CheckRightService,BaseDataService],

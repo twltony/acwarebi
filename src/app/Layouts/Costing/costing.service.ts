@@ -13,6 +13,8 @@ export class CostingServices {
     private costDtcbUrl = GlobalVariable.ServerAddress + 'costing/getDtcb';//动态成本数据
     private costDtcbContractUrl = GlobalVariable.ServerAddress + 'costing/getDtcbContract';//动态成本数据
     private costHttzUrl = GlobalVariable.ServerAddress + 'costing/getHttz';//合同台账
+    private costNoncontfeeUrl = GlobalVariable.ServerAddress + 'costing/getNoncontfee';//无合同费用台账
+    private costZxcbUrl = GlobalVariable.ServerAddress + 'costing/getZxcb';//装修成本
 
     private handleError(error: any): Promise<any> {
         console.error("CosttingService服务错误:", error);
@@ -107,6 +109,27 @@ export class CostingServices {
     //合同台账
     getHttz(vname): Promise<Object> {
         return this.http.get(this.costHttzUrl + "?vname=" + vname)
+            .toPromise()
+            .then(response => {
+                return response.json() as Object
+            }
+            )
+            .catch(this.handleError);
+    }
+    //无合同费用
+    getWhtfy(vname): Promise<Object> {
+        return this.http.get(this.costNoncontfeeUrl + "?projectName=" + vname)
+            .toPromise()
+            .then(response => {
+                return response.json() as Object
+            }
+            )
+            .catch(this.handleError);
+    }
+
+    //装修成本
+    getZxcb(): Promise<Object> {
+        return this.http.get(this.costZxcbUrl)
             .toPromise()
             .then(response => {
                 return response.json() as Object

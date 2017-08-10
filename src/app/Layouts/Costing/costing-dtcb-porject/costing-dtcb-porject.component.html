@@ -14,6 +14,9 @@
     <li class="nav-item">
       <a class="nav-link" routerLinkActive="active" routerLink="/Costing/CostingHttz/{{unitName}}/{{vName}}">合同台账表</a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLinkActive="active" routerLink="/Costing/CostingWhtfytz/{{unitName}}/{{vName}}">无合同费用台账表</a>
+    </li>
     <div>
       <clr-dropdown [clrMenuPosition]="'bottom-right'">
         <button class="dropdown-toggle btn btn-link" clrDropdownToggle>
@@ -47,8 +50,12 @@
     </h4>
   </div>
   <div class="col-sm-9 summary" (click)="isSumDetailShow = true">
-    <ks-swiper-container [options]="SwipeOptions" style="height:100px" *ngIf="summary">
-      <div class="swiper-slide">
+    <!--偏差率= （目标成本 - 动态陈本） / 目标成本-->
+    <!-- <ks-swiper-container [options]="SwipeOptions" style="height:100px" *ngIf="summary">
+     
+    </ks-swiper-container> -->
+    <swiper [config]="config" style="height:100px">
+      <div class="swiper-slide" *ngIf="summary">
         <table class="table table-compact table-noborder">
           <thead class="header-table">
             <tr>
@@ -58,7 +65,6 @@
               </th>
               <th>可售面积</th>
               <th>偏差率</th>
-              <!--偏差率= （目标成本 - 动态陈本） / 目标成本-->
             </tr>
           </thead>
           <tbody>
@@ -75,7 +81,7 @@
           </tbody>
         </table>
       </div>
-      <div class="swiper-slide">
+      <div class="swiper-slide" *ngIf="summary">
         <table class="table table-compact table-noborder">
           <thead class="header-table">
             <tr>
@@ -95,19 +101,39 @@
           </tbody>
         </table>
       </div>
-    </ks-swiper-container>
+    </swiper>
   </div>
 </div>
 <div class="row">
   <div class="col-2">　</div>
   <div class="col-3">展现科目层级：</div>
   <div class="col-7 btn-group btn-outline-primary btn-sm">
-    <button class="btn" (click)="explandnodes(0)">层级1</button>
-    <button class="btn" (click)="explandnodes(1)">层级2</button>
-    <button class="btn" (click)="explandnodes(2)">层级3</button>
-    <button class="btn" (click)="explandnodes(3)">层级4</button>
-    <button class="btn" (click)="explandnodes(4)">层级5</button>
-    <button class="btn" (click)="explandnodes(5)">层级6</button>
+    <div class="btn-group">
+      <div class="radio btn" (click)="explandnodes(0)">
+        <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-1">
+        <label for="btn-demo-radio-1">层级1</label>
+      </div>
+      <div class="radio btn" (click)="explandnodes(1)">
+        <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-2">
+        <label for="btn-demo-radio-2">层级2</label>
+      </div>
+      <div class="radio btn" (click)="explandnodes(2)">
+        <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-3">
+        <label for="btn-demo-radio-3">层级3</label>
+      </div>
+      <div class="radio btn" (click)="explandnodes(3)">
+        <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-4">
+        <label for="btn-demo-radio-4">层级4</label>
+      </div>
+      <div class="radio btn" (click)="explandnodes(4)">
+        <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-5">
+        <label for="btn-demo-radio-5">层级5</label>
+      </div>
+      <div class="radio btn" (click)="explandnodes(5)">
+        <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-6">
+        <label for="btn-demo-radio-6">层级6</label>
+      </div>
+    </div>
   </div>
 </div>
 <dx-tree-list #treelist id="datas" [dataSource]="datas" itemsExpr="children" dataStructure="tree" autoExpandAll="true" [showRowLines]="true"
@@ -234,7 +260,6 @@
 <clr-modal [(clrModalOpen)]="isDetailShow" [clrModalSize]="'xl'">
   <h3 class="modal-title">{{detailTitle}}项目动态合同</h3>
   <div class="modal-body" style="overflow:scroll">
-
     <table class="table" style="width:100%">
       <thead>
         <tr class="gtid-th">

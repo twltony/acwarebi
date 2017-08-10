@@ -18,7 +18,7 @@ let salesColumnChartData = new ColumnChartData();
 })
 
 export class MarketDaySell implements OnInit, AfterViewChecked {
-    datas: Object[];
+    datas: any;
     ser = new Series;
     sera = new Object;
     isDataAvailable = false;

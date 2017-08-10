@@ -30,6 +30,7 @@ import { NorightComponent } from "app/Layouts/NoRight/noright/noright.component"
 import { HumanResourcesComponent } from "app/Layouts/HumanResources/HumanResources.component";
 import { PropertyComponent } from "app/Layouts/Property/Property.component";
 import { AccessLoggerComponent } from "app/Layouts/Management/AccessLogger/AccessLogger.component";
+import { CostingWhtfytzProjectComponent } from "app/Layouts/Costing/costing-whtfytz-project/costing-whtfytz-project.component";
 
 
 
@@ -56,6 +57,7 @@ const appRoutes: Routes = [
       { path:"CostingMain", component: CostingMainComponent ,canActivate: [AuthGuard] },
       { path:"CostingDtcbPorject/:unitname/:vname", component: CostingDtcbPorjectComponent, canActivate: [AuthGuard] },
       { path:"CostingHttz/:unitname/:vname", component: CostingHttzPorjectComponent, canActivate: [AuthGuard] },
+      { path:"CostingWhtfytz/:unitname/:vname", component: CostingWhtfytzProjectComponent, canActivate: [AuthGuard] },
     ]
   },
   { path:"Tendering", component: Tendering,canActivate: [AuthGuard] },

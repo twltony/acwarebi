@@ -1,12 +1,12 @@
 import {User} from "./User"
 export class Role{
-    private rId : string;
+    public rId : string;
 
-    private roleName : string;
+    public roleName : string;
 
-    private descriptions : string;
+    public descriptions : string;
 
-    private user: [User];
+    public user: [User];
  
 
 	public get $rId(): string {

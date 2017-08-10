@@ -1,15 +1,15 @@
 import { Role } from './Role';
 export class User {
-	private uId: string;
-	private username: string;
-	private password: string;
-	private vseusername: string;
-	private isvalid: any;
-	private isalive: any;
-	private count: number;
-	private lastLoginDate: Date;
-	private createDate: Date;
-	private role: Object[];
+	public uId: string;
+	public username: string;
+	public password: string;
+	public vseusername: string;
+	public isvalid: any;
+	public isalive: any;
+	public count: number;
+	public lastLoginDate: Date;
+	public createDate: Date;
+	public role: Object[];
 
 	public get _id(): string {
 		return this.uId;

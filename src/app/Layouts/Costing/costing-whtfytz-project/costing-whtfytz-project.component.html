@@ -1,0 +1,79 @@
+<loading *ngIf="isLoading"></loading>
+<nav class="subnav">
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" routerLink="/Costing/CostingDtcbPorject/{{unitName}}/{{vName}}">项目动态报表</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" routerLink="/Costing/CostingHttz/{{unitName}}/{{vName}}">合同台账表</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" routerLink="/Costing/CostingWhtfytz/{{unitName}}/{{vName}}">无合同费用台账表</a>
+        </li>
+        <div>
+            <clr-dropdown [clrMenuPosition]="'bottom-right'">
+                <button class="dropdown-toggle btn btn-link" clrDropdownToggle>
+           <label>板块：</label>{{unitName}}
+            <clr-icon shape="caret down"></clr-icon>
+          </button>
+                <div class="dropdown-menu">
+                    <a clrDropdownItem *ngFor="let unitname of unitNames; let i = index" (click)="onSelectUnit(unitname)">{{i+1}}:{{unitname}}</a>
+                </div>
+            </clr-dropdown>
+        </div>
+        <div>
+            <clr-dropdown [clrMenuPosition]="'bottom-right'">
+                <button class="dropdown-toggle btn btn-link" clrDropdownToggle>
+              <label>项目：</label>{{vName}}
+            <clr-icon shape="caret down"></clr-icon>
+          </button>
+                <div class="dropdown-menu">
+                    <a clrDropdownItem *ngFor="let vname of vNames; let i = index" (click)="onSelectProject(vname)">{{i+1}}:{{vname}}</a>
+                </div>
+            </clr-dropdown>
+        </div>
+    </ul>
+</nav>
+
+<h3 style="text-align:center">{{vName}}</h3>
+<table class="table table-noborder summary">
+    <tbody>
+        <tr>
+            <td style="text-align:right;width:15%">无合同费用总金额</td>
+            <td class="num-button" style="text-align:left;width:15%">{{summary?.nsumapplybasemny/10000 | number:'.0-2'}}万元</td>
+            <td style="text-align:right;width:15%">累计已付款</td>
+            <td class="num-button" style="text-align:left;width:15%">{{summary?.npaidbasemny/10000 | number:'.0-2'}}万元</td>
+            <td style="text-align:right;width:15%">累计未付款</td>
+            <td class="num-button" style="text-align:left;width:15%" *ngIf="ljwfSum">{{ljwfSum /10000 | number:'.0-2' }}万元</td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th style="max-width:50px">费用类型</th>
+      <th>收费单位</th>
+      <th>责任部门</th>
+      <th>单据日期</th>
+      <th>申请金额/元</th>
+      <th>已付金额/元</th>
+      <th>实际付款时间</th>
+      <th>拆分成本科目</th>
+    </tr>
+  </thead>
+ <tbody *ngFor="let data of whtfy;let j=index">
+    <tr style="max-width:50px" [ngClass]="{'firstcol-background': j%2==1,'seccol-background':j%2!=1}">
+      <td [attr.rowspan]="data?.list?.length+1" style=" vertical-align: middle;">{{data?.name}}</td>
+    </tr>
+    <tr *ngFor="let row of data?.list;trackBy: trackByIndex" [ngClass]="{'row-background': row.index%2==1}">
+      <td style="text-align:left">{{row.custname}}</td>
+      <td style="text-align:left">{{row.deptname}}</td>
+      <td style="text-align:left">{{row.dbilldate}}</td>
+      <td style="text-align:right">{{row.nsumapplybasemny | number:'.2'}}</td>
+      <td style="text-align:right">{{row.npaidbasemny | number:'.2'}}</td>
+      <td style="text-align:left">{{row.setlledate}}</td>
+      <td style="text-align:left">{{row.velemname}}</td>
+    </tr>
+  </tbody>
+</table>

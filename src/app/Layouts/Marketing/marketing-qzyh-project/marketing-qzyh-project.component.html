@@ -27,7 +27,7 @@
 <h2 class="center">{{area}}　{{yhType}}　已取证余货情况统计表</h2>
 <dx-data-grid [dataSource]="datas" style="height:76vh" id="gridContainer" [showColumnLines]="true" [showRowLines]="true"
     [showBorders]="true" [rowAlternationEnabled]="true" [allowColumnReordering]="false" [allowColumnResizing]="false" [wordWrapEnabled]="true"
-    [columnAutoWidth]="true" (onRowClick)="goProject($event)" rowTemplate="zyhTemplate" [scrolling]="{mode: 'virtual',useNative: true}">
+    [columnAutoWidth]="true" rowTemplate="zyhTemplate" [scrolling]="{mode: 'virtual',useNative: true}">
     <dxi-column caption="项目" dataField="vProjectname"></dxi-column>
     <dxi-column caption="类型" dataField="vType"></dxi-column>
     <dxi-column caption="已推未售">

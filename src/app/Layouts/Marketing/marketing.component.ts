@@ -19,7 +19,7 @@ import { DxChartModule } from 'devextreme-angular';
 
 })
 export class Marketing implements OnInit{
- marketingDatas : MarketingDatas[];
+ marketingDatas : any;
  chartData;
  piechartData;
  selectedYear;
@@ -31,7 +31,7 @@ export class Marketing implements OnInit{
       private _el: ElementRef,
       private marketingService: MarketingService,
       private baseDataService: BaseDataService,
-      private basicService: BaseDataService
+      public basicService: BaseDataService
     ) {
        
     }

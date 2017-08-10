@@ -14,10 +14,12 @@ export class ManageRoleComponent implements OnInit {
     modalsOpened = false;
     isProgressShow = false;
     isAlertShow = false;
+    isErrorAlertShow = false;
     message;
+    lg ='lg';
 
     constructor(
-        private baseDataService: BaseDataService
+        public baseDataService: BaseDataService
     ) { }
 
     ngOnInit() {

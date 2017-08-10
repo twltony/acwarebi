@@ -14,7 +14,7 @@ export class MarketingDayProjectComponent implements OnInit {
 
 	constructor(
 		private service:MarketingService,
-		private baseservice:BaseDataService,
+		public baseservice:BaseDataService,
 		private route: ActivatedRoute
 	) {
 	}
