@@ -8,6 +8,7 @@ export class CostingServices {
     private costVnamesUrl = GlobalVariable.ServerAddress + 'costing/getVnames';//项目名称
     private costUnitNamesUrl = GlobalVariable.ServerAddress + 'costing/getUnitNames';//区域名称
     private costMainUrl = GlobalVariable.ServerAddress + 'costing/getCostMain';//成本首页数据
+    private costDtcbDfdbUrl = GlobalVariable.ServerAddress + 'costing/getCostDtcbDfdb';//成本首页数据
     private costGcfxUrl = GlobalVariable.ServerAddress + 'costing/getGcfx';//构成分析数据
     private costJzdfUrl = GlobalVariable.ServerAddress + 'costing/getJzdf';//建筑单方数据
     private costDtcbUrl = GlobalVariable.ServerAddress + 'costing/getDtcb';//动态成本数据
@@ -55,6 +56,17 @@ export class CostingServices {
     //首页数据
     getCostMain(): Promise<Object> {
         return this.http.get(this.costMainUrl)
+            .toPromise()
+            .then(response => {
+                return response.json() as Object
+            }
+            )
+            .catch(this.handleError);
+    }
+
+    //动态成本单方对比
+    getCostDtcbDfdb(vdef5): Promise<Object> {
+        return this.http.get(this.costDtcbDfdbUrl+ "?vdef5=" + vdef5)
             .toPromise()
             .then(response => {
                 return response.json() as Object

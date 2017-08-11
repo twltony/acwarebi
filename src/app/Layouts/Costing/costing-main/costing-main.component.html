@@ -71,7 +71,7 @@
           <li class="list-group-item" style="background-color:#FFFFFF" [ngSwitch]="card.zxdf">
             <div *ngSwitchDefault> 装修单方 {{card.zxdf | number:'.0-0'}} 元</div>
             <div *ngSwitchCase="0"> 装修单方 -</div>
-            </li>
+          </li>
           <li class="list-group-item" style="background-color:#f5f5f5">建筑单方 {{card.dtnnrpelembusinmy/card.nbuildarea | number:'.0-0'}} 元</li>
         </ul>
       </a>
@@ -83,6 +83,19 @@
   <div>　</div>
 </div>
 <!--柱状图-->
+<div class="row">
+  <div class="col-3"style="margin-left:20px !important;">业态类型：</div>
+  <div class="col-9 btn-group">
+    <div class="radio btn btn-sm">
+      <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-1" (click)="changeYtype('住宅')" checked>
+      <label for="btn-demo-radio-1">住宅</label>
+    </div>
+    <div class="radio btn btn-sm">
+      <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-2" (click)="changeYtype('商业')">
+      <label for="btn-demo-radio-2">商业</label>
+    </div>
+  </div>
+</div>
 <dx-chart *ngIf="chartDatas" id="chart" [title]="{ 
           text: '各项目动态成本单方对比分析',
           font: {
@@ -91,7 +104,7 @@
                 weight: 400
             }
          }" [dataSource]="chartDatas" pathModified="ture" [scrollingMode]="mode" [zoomingMode]="mode" (onPointClick)="columnClick($event)"
-  style="height:90vh">
+  style="height:60vh">
   <dxi-series valueField="salse" name="可售单方(元)"></dxi-series>
   <dxi-series valueField="build" name="建筑单方(元)"></dxi-series>
   <dxo-tooltip [enabled]="true" [customizeTooltip]="columnTooltip">

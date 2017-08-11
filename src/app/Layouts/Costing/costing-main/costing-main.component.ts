@@ -32,6 +32,7 @@ export class CostingMainComponent implements OnInit {
     mode;
     chatHeight;
     rolling = true;
+    yTypes = '住宅';
 
     @ViewChild('colRight') colRight: String;
 
@@ -109,7 +110,7 @@ export class CostingMainComponent implements OnInit {
         //主数据
         this.costingServices.getCostMain().then(response => {
             this.datas = response;
-            this.setChatDatas(response);
+            this.setChatDatas();
             this.setAreaIndex(response);
         })
     }
@@ -158,8 +159,9 @@ export class CostingMainComponent implements OnInit {
     }
 
     //柱状图
-    setChatDatas(args) {
-        let array = new Array();
+    setChatDatas() {
+        this.costingServices.getCostDtcbDfdb(this.yTypes).then(args =>{
+                    let array = new Array();
         for (var i in args) {
             let obj = new Object as any;
             obj.vname = args[i].vname;
@@ -168,6 +170,14 @@ export class CostingMainComponent implements OnInit {
             array.push(obj);
         }
         this.chartDatas = array;
+        })
+
+    }
+
+    //设置业态类型
+    changeYtype(yTypes){
+        this.yTypes = yTypes;
+        this.setChatDatas()
     }
 
     //点击饼图
