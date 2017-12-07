@@ -26,10 +26,29 @@
         <button class="btn btn-primary btn-sm" *ngIf="rolling" (click)="changeRolling()">停止滚动</button>
         <button class="btn btn-sm" *ngIf="!rolling" (click)="changeRolling()">开始滚动</button>
       </li>
+
     </ul>
   </nav>
 
+  <div style="float:right;margin-right:20px">
+    <span style="margin-left:15px;color:#747474">●目标成本未审</span>
+  </div>
+  <div style="float:right;">
+    <span style="margin-left: 15px;color:#62A420">●-20%≤偏差率≤0%</span>
+  </div>
+  <div style="float:right;">
+    <span style="margin-left: 15px;color:#F57600">●偏差率＜-20%/0%＜偏差率≤2%</span>
+  </div>
+  <div style="float:right;">
+    <span style="margin-left: 15px;color:#C92100">●偏差率＞2% </span>
+  </div>
+  <div style="float:right;">
+    <span style="margin-left: 15px;">警灯说明：</span>
+  </div>
+
+
   <swiper [config]="config" [(index)]="index">
+
     <div class="col-md-3" *ngFor="let card of datas; let i=index" style="padding-bottom:60px;padding-top:0px;margin-top:0px;">
       <h2 name="area" style="display:none;">{{card.area}}</h2>
       <a class="card clickable" style="margin-bottom: 20px;" (click)="goDtTable(card.unitname,card.vname)">
@@ -43,8 +62,8 @@
         <ul class="list-group list-group-flush">
           <li class="list-group-item" [ngClass]="{
           'rate-red': ((card.dtnnrpelembusinmy/10000-card.nmnysum3)/card.nmnysum3>0.02 || (card.dtnnrpelembusinmy/10000-card.nmnysum3)/card.nmnysum3<-0.2) && card.nmnysum3 !=0,
-          'rate-orange':  0.02 >= (card.dtnnrpelembusinmy/10000-card.nmnysum3)/card.nmnysum3 && (card.dtnnrpelembusinmy/10000-card.nmnysum3)/card.nmnysum3 >= 0,
-          'rate-green': 0 >(card.dtnnrpelembusinmy/10000-card.nmnysum3)/card.nmnysum3 && (card.dtnnrpelembusinmy/10000-card.nmnysum3)/card.nmnysum3 >=-0.2,
+          'rate-orange':  0.02 >= (card.dtnnrpelembusinmy/10000-card.nmnysum3)/card.nmnysum3 && (card.dtnnrpelembusinmy/10000-card.nmnysum3)/card.nmnysum3 > 0,
+          'rate-green': 0 >=(card.dtnnrpelembusinmy/10000-card.nmnysum3)/card.nmnysum3 && (card.dtnnrpelembusinmy/10000-card.nmnysum3)/card.nmnysum3 >=-0.2,
           'rate-gray':card.nmnysum3 ==0
           }" [ngSwitch]="card.nmnysum3">
             <div *ngSwitchDefault>
@@ -66,13 +85,13 @@
             <div *ngSwitchDefault> 动态成本 {{card.dtnnrpelembusinmy/10000 | number:'.0-0'}} 万</div>
             <div *ngSwitchCase="0"> 动态成本 -</div>
           </li>
-          <li class="list-group-item" style="background-color:#f5f5f5">偏差额 {{card.nmnysum3 - card.dtnnrpelembusinmy/10000 | number:'.0-0'}} 万</li>
+          <li class="list-group-item" style="background-color:#f5f5f5">偏差额 {{card.dtnnrpelembusinmy/10000 - card.nmnysum3 | number:'.0-0'}} 万</li>
           <li class="list-group-item" style="background-color:#FFFFFF">可售单方 {{card.dtnnrpelembusinmy/card.nsalearea | number:'.0-0'}} 元</li>
-          <li class="list-group-item" style="background-color:#FFFFFF" [ngSwitch]="card.zxdf">
+          <li class="list-group-item" style="background-color:#f5f5f5" [ngSwitch]="card.zxdf">
             <div *ngSwitchDefault> 装修单方 {{card.zxdf | number:'.0-0'}} 元</div>
             <div *ngSwitchCase="0"> 装修单方 -</div>
           </li>
-          <li class="list-group-item" style="background-color:#f5f5f5">建筑单方 {{card.dtnnrpelembusinmy/card.nbuildarea | number:'.0-0'}} 元</li>
+          <li class="list-group-item" style="background-color:#FFFFFF">建筑单方 {{card.dtnnrpelembusinmy/card.nbuildarea | number:'.0-0'}} 元</li>
         </ul>
       </a>
     </div>
@@ -84,7 +103,7 @@
 </div>
 <!--柱状图-->
 <div class="row">
-  <div class="col-3"style="margin-left:20px !important;">业态类型：</div>
+  <div class="col-3" style="margin-left:20px !important;">业态类型：</div>
   <div class="col-9 btn-group">
     <div class="radio btn btn-sm">
       <input type="radio" name="btn-group-demo-radios" id="btn-demo-radio-1" (click)="changeYtype('住宅')" checked>

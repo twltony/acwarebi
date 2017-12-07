@@ -140,11 +140,11 @@
   [wordWrapEnabled]="true" [columnAutoWidth]="true" (onCellPrepared)="cellPrepared($event)" (onCellClick)="cellClick($event)"
   height="75vh">
   <dxi-column dataField="velemcode" caption="成本科目编码" sortOrder="asc" [minWidth]="100"></dxi-column>
-  <dxi-column dataField="velemname" caption="成本科目名称" [minWidth]="100"></dxi-column>
+  <dxi-column dataField="velemname" caption="成本科目名称" [width]="80"></dxi-column>
   <dxi-column dataField="nmnysum1" caption="原始目标成本" alignment="right" dataType="number" [format]="{ type: 'fixedPoint', precision: '2'}"></dxi-column>
   <dxi-column dataField="nmnysum3" caption="执行版目标成本" alignment="right" dataType="number" [format]="{ type: 'fixedPoint', precision: '2'}"></dxi-column>
-  <dxi-column dataField="zxbksdf" caption="执行版可售单方" alignment="right" dataType="number" [format]="{ type: 'fixedPoint', precision: '2'}"></dxi-column>
   <dxi-column dataField="zxbjzdf" caption="执行版建筑单方" alignment="right" dataType="number" [format]="{ type: 'fixedPoint', precision: '2'}"></dxi-column>
+  <dxi-column dataField="zxbksdf" caption="执行版可售单方" alignment="right" dataType="number" [format]="{ type: 'fixedPoint', precision: '2'}"></dxi-column>
   <dxi-column dataField="nmnyb3" caption="已发生合同成本" alignment="right" dataType="number" [format]="{ type: 'fixedPoint', precision: '2'}"></dxi-column>
   <dxi-column dataField="nmnya3" caption="已发生费用成本" alignment="right" dataType="number" [format]="{ type: 'fixedPoint', precision: '2'}"></dxi-column>
   <!--<dxi-column dataField="qzcontactcosttol" caption="合同变更签证成本汇总"></dxi-column>-->
@@ -193,10 +193,10 @@
       </thead>
       <tbody>
         <tr>
-          <td>{{summary.nmnysum3/10000 | number:'.0-1' }}万元</td>
-          <td>{{summary.dtnnrpelembusinmy/10000 | number:'.0-1' }}万元</td>
-          <td>{{summary.nbuildarea | number:'.0-1' }}m²</td>
-          <td>{{summary.nsalearea | number:'.0-1' }}m²</td>
+          <td>{{summary.nmnysum3/10000 | number:'.0-2' }}万元</td>
+          <td>{{summary.dtnnrpelembusinmy/10000 | number:'.0-2' }}万元</td>
+          <td>{{summary.nbuildarea | number:'.0-2' }}m²</td>
+          <td>{{summary.nsalearea | number:'.0-2' }}m²</td>
           <td [ngSwitch]="summary.nmnysum3">
             <div *ngSwitchCase="0">-</div>
             <div *ngSwitchDefault>{{(summary.dtnnrpelembusinmy - summary.nmnysum3)/summary.nmnysum3 | percent:'1.0-2'}}</div>
@@ -243,10 +243,10 @@
       </thead>
       <tbody>
         <tr>
-          <td>{{summary.nmnysum3/summary.nbuildarea | round}}元</td>
-          <td>{{summary.nmnysum3/summary.nsalearea | round}}元</td>
-          <td>{{summary.dtnnrpelembusinmy/summary.nbuildarea | round}}元</td>
-          <td>{{summary.dtnnrpelembusinmy/summary.nsalearea | round}}元</td>
+          <td>{{summary.nmnysum3/summary.nbuildarea | number:'.0-2'}}元</td>
+          <td>{{summary.nmnysum3/summary.nsalearea |  number:'.0-2'}}元</td>
+          <td>{{summary.dtnnrpelembusinmy/summary.nbuildarea |  number:'.0-2'}}元</td>
+          <td>{{summary.dtnnrpelembusinmy/summary.nsalearea |  number:'.0-2'}}元</td>
         </tr>
       </tbody>
     </table>
@@ -279,7 +279,7 @@
           <td>{{detail.vbillnoandname}}</td>
           <td>{{detail.vcusname}}</td>
           <td>{{detail.dsigndate}}</td>
-          <td>{{detail.cs24Orprices | number:'.0-2'}}</td>
+          <td>{{detail.nmnysum1 | number:'.0-2'}}</td>
           <td>{{detail.nmnyb3 | number:'.0-2'}}</td>
           <td>{{detail.nrpelembusinmy | number:'.0-2'}}</td>
           <td>{{detail.nmnya3 | number:'.0-2' }}</td>
@@ -297,132 +297,3 @@
     <button type="button" class="btn btn-outline" (click)="isDetailShow = false">关闭</button>
   </div>
 </clr-modal>
-
-
-
-
-
-<!--
-  <div class="row" style="overflow: scroll;">
-    <div class="col-sm-12" style="padding:0;">
-      <table class="tree table" #tree style="display:block; overflow:scroll">
-        <thead style="display: inline-block;">
-          <tr class="treegrid-0 gtid-th">
-            <td rowspan="2" style="text-align:left;">成本科目编码
-            </td>
-            <td rowspan="2" style="width: 100%;">成本科目名称
-            </td>
-            <td colspan="4" style="text-align:center; ">详细目标成本（元）
-            </td>
-            <td colspan="3" style="text-align:center; ">已发生费用成本（元）
-              <clr-tooltip [clrTooltipDirection]="'bottom-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
-                <clr-icon shape="info-standard" size="18"></clr-icon>
-                <clr-tooltip-content><span>项目已发生无合同费用金额</span></clr-tooltip-content>
-              </clr-tooltip>
-            </td>
-            <td style="text-align:center; ">待发生成本（元）
-
-            </td>
-            <td rowspan="2">动态成本
-            </td>
-            <td rowspan="2">建筑单方（元）
-            </td>
-            <td rowspan="2">可售单方（元）
-            </td>
-            <td rowspan="2">节余
-              <clr-tooltip [clrTooltipDirection]="'bottom-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
-                <clr-icon shape="info-standard" size="18"></clr-icon>
-                <clr-tooltip-content><span>（执行版目标成本-项目动态成本</span></clr-tooltip-content>
-              </clr-tooltip>
-            </td>
-            <td rowspan="2">节余率
-              <clr-tooltip [clrTooltipDirection]="'bottom-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
-                <clr-icon shape="info-standard" size="18"></clr-icon>
-                <clr-tooltip-content><span>（执行版目标成本-项目动态成本）/执行版目标成本</span></clr-tooltip-content>
-              </clr-tooltip>
-            </td>
-          </tr>
-          <tr class="gtid-th">
-            <td>原始目标成本
-              <clr-tooltip [clrTooltipDirection]="'bottom-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
-                <clr-icon shape="info-standard" size="18"></clr-icon>
-                <clr-tooltip-content><span>审批通过定案版目标成本</span></clr-tooltip-content>
-              </clr-tooltip>
-            </td>
-            <td>执行版目标成本
-              <clr-tooltip [clrTooltipDirection]="'bottom-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
-                <clr-icon shape="info-standard" size="18"></clr-icon>
-                <clr-tooltip-content><span>执行版目标成本（原目标成本+目标成本调整）</span></clr-tooltip-content>
-              </clr-tooltip>
-            </td>
-            <td>执行版可售单方
-              <clr-tooltip [clrTooltipDirection]="'bottom-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
-                <clr-icon shape="info-standard" size="18"></clr-icon>
-                <clr-tooltip-content><span>执行版可售单方=执行版目标成本/项目可售面积</span></clr-tooltip-content>
-              </clr-tooltip>
-            </td>
-            <td>执行版建筑单方
-              <clr-tooltip [clrTooltipDirection]="'bottom-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
-                <clr-icon shape="info-standard" size="18"></clr-icon>
-                <clr-tooltip-content><span>执行版建筑单方=执行版目标成本/项目建筑面积</span></clr-tooltip-content>
-              </clr-tooltip>
-            </td>
-            <td>已发生合同成本
-              <clr-tooltip [clrTooltipDirection]="'bottom-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
-                <clr-icon shape="info-standard" size="18"></clr-icon>
-                <clr-tooltip-content><span>项目已发生合同签订金额</span></clr-tooltip-content>
-              </clr-tooltip>
-            </td>
-            <td>已发生费用成本
-              <clr-tooltip [clrTooltipDirection]="'bottom-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
-                <clr-icon shape="info-standard" size="18"></clr-icon>
-                <clr-tooltip-content><span>项目已发生无合同费用金额</span></clr-tooltip-content>
-              </clr-tooltip>
-            </td>
-            <td>合同变更签证成本汇总
-              <clr-tooltip [clrTooltipDirection]="'bottom-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
-                <clr-icon shape="info-standard" size="18"></clr-icon>
-                <clr-tooltip-content><span>项目已发生的合同变更签证金额</span></clr-tooltip-content>
-              </clr-tooltip>
-            </td>
-            <td>待发生合同费用
-              <clr-tooltip [clrTooltipDirection]="'bottom-right'" aria-haspopup="true" [clrTooltipSize]="'md'">
-                <clr-icon shape="info-standard" size="18"></clr-icon>
-                <clr-tooltip-content><span>待发生合约规划余量</span></clr-tooltip-content>
-              </clr-tooltip>
-            </td>
-          </tr>
-        </thead>
-        <tbody class="tablebody" *ngIf="datas">
-          <tr *ngFor="let data of datas; let i = index; let isLast=last;trackBy: trackByIndex" [ngClass]="{'row-background': i%2==1,'background-blue': data.nmnysum3!=0&&(data.dtnnrpelembusinmy - data.nmnysum3)/data.nmnysum3 >0.2,'background-red': ((data.dtnnrpelembusinmy - data.nmnysum3)/data.nmnysum3==0&&data.dtnnrpelembusinmy!=0&&data.nmnysum3==0)||(data.dtnnrpelembusinmy - data.nmnysum3)/data.nmnysum3<0}"
-            class="treegrid-{{data.velemcode}} treegrid-parent-{{data.fathercode}}">
-            <td style="text-align:left; ;font-size:7pt">{{data.velemcode}}</td>
-            <td style="text-align:left;width: 100%; " *ngIf="data.lastChildDetail" class="num-button" (click)="isLoading=true" (click)="getDetial(data.velemname,data.pkCorp,data.pkProject1,data.pkElem)">
-              <clr-icon shape="plus-circle" size="12"></clr-icon>
-              {{data.velemname}}
-            </td>
-            <td style="text-align:left;width: 100%;" *ngIf="!(data.lastChildDetail )" class="">
-              {{data.velemname}}
-            </td>
-            <td>{{data.cs24Orprices | number:'.0-1' }}</td>
-            <td>{{data.nmnysum3 | number:'.0-1' }}</td>
-            <td style=" ">{{data.nmnysum3/data.nsalearea | number:'.0-1'}}</td>
-            <td style=" ">{{data.nmnysum3/data.nbuildarea | number:'.0-1'}}</td>
-            <td>{{data.nmnyb3 | number:'.0-1'}}</td>
-            <td>{{data.nmnya3 | number:'.0-1'}}</td>
-            <td>{{data.qzcontactcosttol | number:'.0-1'}}</td>
-            <td>{{data.nrpelembusinmy | number:'.0-1' }}</td>
-            <td>{{data.dtnnrpelembusinmy | number:'.0-1'}}</td>
-            <td style=" ">{{data.dtnnrpelembusinmy/data.nbuildarea | number:'.0-1'}}</td>
-            <td style=" ">{{data.dtnnrpelembusinmy/data.nsalearea | number:'.0-1'}}</td>
-            <td>{{data.dtnnrpelembusinmy - data.nmnysum3 | number:'.0-1'}}</td>
-            <td style=" " [ngSwitch]="data.nmnysum3">
-              <div *ngSwitchDefault>{{(data.dtnnrpelembusinmy - data.nmnysum3)/data.nmnysum3 | percent:'1.0-2'}}</div>
-              <div *ngSwitchCase="0">-</div>
-            </td>
-          </tr>
-        </tbody>
-
-      </table>
-    </div>
--->

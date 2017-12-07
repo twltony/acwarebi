@@ -53,6 +53,7 @@ import { AccessLoggerComponent } from "app/Layouts/Management/AccessLogger/Acces
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { CostingWhtfytzProjectComponent } from "app/Layouts/Costing/costing-whtfytz-project/costing-whtfytz-project.component";
+import { ThirdpartySignOnComponent } from 'app/Layouts/thirdparty-sign-on/thirdparty-sign-on.component';
 
 const SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -101,7 +102,9 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
         isOrNotPipe,
         SafePipe,
         LoadingComponent,
-        ratePipe
+        ratePipe,
+        ThirdpartySignOnComponent
+        
     ],
     imports: [
         BrowserAnimationsModule,

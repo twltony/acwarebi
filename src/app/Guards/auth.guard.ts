@@ -1,5 +1,6 @@
+import { URLSearchParams } from '@angular/http';
 import { Injectable } from '@angular/core';
-import { Router,ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
+import { Router, ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, Params } from '@angular/router';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -9,7 +10,7 @@ export class AuthGuard implements CanActivate {
         //已经登录
         if (localStorage.getItem('currentUser')) {
           return true;
-        }
+        } 
          //没有登录跳转到登录页面
         this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
         return false;

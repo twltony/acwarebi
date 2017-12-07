@@ -13,10 +13,9 @@ export class BaseDataService implements OnInit {
     public months = ["01月", "02月", "03月", "04月", "05月", "06月", "07月", "08月", "09月", "10月", "11月", "12月"]
     public yhTypes = ["别墅", "车位", "公寓", "商铺", "洋房", "全部"]
     date = new Date();
-    debugger
     public year = this.date.getFullYear();
     public month = this.date.getMonth() + 1 < 10 ? "0" + String(this.date.getMonth() + 1) + "月" : String(this.date.getMonth() + 1);
-    public day = this.date.getDay();
+    public day = this.date.getDate();
     private serveradd = GlobalVariable.ServerAddress
     private urlGetUsers = this.serveradd + 'user/list';
     private urlAccessLog = this.serveradd + 'user/accessLog';

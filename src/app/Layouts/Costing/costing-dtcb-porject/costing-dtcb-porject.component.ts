@@ -178,16 +178,13 @@ export class CostingDtcbPorjectComponent implements OnInit {
 				if (e.rowIndex % 2 == 1) {
 					e.cellElement[0].parentElement.style.backgroundColor = "#f5f5f5";
 				}
-				//低于目标成本20%时，显示蓝色
-				if (e.data.nmnysum3 != 0 && e.data.jyl > 0.2) {
-					e.cellElement[0].parentElement.style.backgroundColor = "#89CBDF"
+				//0.02>=节余率>0，显示橙色
+				if (e.data.nmnysum3 != 0 && e.data.jyl >0 && e.data.jyl <=0.02 ) {
+					e.cellElement[0].parentElement.style.backgroundColor = "#F57600"
 				}
 				//	当动态成本超出目标成本时，显示红色
-				if ((((e.data.dtnnrpelembusinmy - e.data.nmnysum3) / e.data.nmnysum3) == 0
-					&& e.data.dtnnrpelembusinmy != 0
-					&& e.data.nmnysum3 == 0)
-					|| ((e.data.dtnnrpelembusinmy - e.data.nmnysum3) / e.data.nmnysum3) < 0) {
-					e.cellElement[0].parentElement.style.backgroundColor = "#EBAFA6"
+				if (e.data.nmnysum3 != 0 && e.data.jyl >0.02 || e.data.jyl < -0.2) {
+					e.cellElement[0].parentElement.style.backgroundColor = "#C92100"
 				}
 			}
 			if (e.columnIndex == 1 && e.data.data && e.data.data.lastChildDetail == true) {

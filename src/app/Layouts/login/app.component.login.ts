@@ -16,7 +16,7 @@ import { CheckRightService } from "app/Services/checkright.service";
     providers: [LoginService]
 })
 export class LoginForm implements AfterViewChecked {
-    user = new User()
+    user = new User();
     submitted = false;
     result;
     showspinner = false;

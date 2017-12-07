@@ -31,11 +31,12 @@ import { HumanResourcesComponent } from "app/Layouts/HumanResources/HumanResourc
 import { PropertyComponent } from "app/Layouts/Property/Property.component";
 import { AccessLoggerComponent } from "app/Layouts/Management/AccessLogger/AccessLogger.component";
 import { CostingWhtfytzProjectComponent } from "app/Layouts/Costing/costing-whtfytz-project/costing-whtfytz-project.component";
+import { ThirdpartySignOnComponent } from 'app/Layouts/thirdparty-sign-on/thirdparty-sign-on.component';
 
 
 
 const appRoutes: Routes = [
-  { path:"", component: LoginForm },
+  { path:"", component:LoginForm  },
   { path:"Marketing", component: Marketing, canActivate: [AuthGuard] },
         { path:"MarketDaySell", component: MarketDaySell, canActivate: [AuthGuard] },
         { path:"MarketingYearsalesArea/:area", component: MarketingYearsalesAreaComponent, canActivate: [AuthGuard] },
@@ -73,6 +74,7 @@ const appRoutes: Routes = [
     ]
  },
   { path:"NoRight", component: NorightComponent,canActivate: [AuthGuard]},
+  { path:"SSO/:username", component: ThirdpartySignOnComponent },
   { path:"**", redirectTo: ""}
 ];
 

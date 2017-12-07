@@ -1,0 +1,62 @@
+<svg width="142px" height="142px" viewBox="0 0 142 142" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="71" cy="71" r="71"></circle>
+        <circle id="path-3" cx="94" cy="18" r="5"></circle>
+        <circle id="path-4" cx="114" cy="60" r="5"></circle>
+        <circle id="path-5" cx="30" cy="60" r="5"></circle>
+        <circle id="path-6" cx="94" cy="102" r="5"></circle>
+        <circle id="path-7" cx="50" cy="18" r="5"></circle>
+        <circle id="path-8" cx="50" cy="102" r="5"></circle>
+    </defs>
+    <g id="临摹第一组" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="B">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Oval-82" fill="#4A245A" xlink:href="#path-1"></use>
+            <g id="内部电路图" mask="url(#mask-2)">
+                <g transform="translate(-1.000000, 11.000000)">
+                    <path d="M93.381966,17 L50.618034,17 L29.118034,60 L50.618034,103 L72,103 L93.381966,103 L114.881966,60 L93.381966,17 Z" id="Rectangle-150" stroke="#6F507C" stroke-width="2"></path>
+                    <path d="M47.5,15.5 L32.9913819,0.991381884" id="Line" stroke="#6F507C" stroke-width="2" stroke-linecap="square"></path>
+                    <path d="M111.5,118.5 L96.9913819,103.991382" id="Line-2" stroke="#6F507C" stroke-width="2" stroke-linecap="square"></path>
+                    <path d="M118,59.5 L145,59.5" id="Path-35" stroke="#6F507C" stroke-width="2"></path>
+                    <path d="M26.5,60 L0.495192752,60" id="Path-36" stroke="#6F507C" stroke-width="2"></path>
+                    <path d="M97,15.5 L111.853451,0.646549222" id="Path-37" stroke="#6F507C" stroke-width="2"></path>
+                    <path d="M32,119.5 L46.8534508,104.646549" id="Path-38" stroke="#6F507C" stroke-width="2"></path>
+                    <g id="Oval-83" stroke="none">
+                        <use fill="#4A245A" fill-rule="evenodd" xlink:href="#path-3"></use>
+                        <circle stroke="#6F507C" stroke-width="2" cx="94" cy="18" r="4"></circle>
+                    </g>
+                    <g id="Oval-87" stroke="none">
+                        <use fill="#4A245A" fill-rule="evenodd" xlink:href="#path-4"></use>
+                        <circle stroke="#6F507C" stroke-width="2" cx="114" cy="60" r="4"></circle>
+                    </g>
+                    <g id="Oval-88" stroke="none">
+                        <use fill="#4A245A" fill-rule="evenodd" xlink:href="#path-5"></use>
+                        <circle stroke="#6F507C" stroke-width="2" cx="30" cy="60" r="4"></circle>
+                    </g>
+                    <g id="Oval-86" stroke="none">
+                        <use fill="#4A245A" fill-rule="evenodd" xlink:href="#path-6"></use>
+                        <circle stroke="#6F507C" stroke-width="2" cx="94" cy="102" r="4"></circle>
+                    </g>
+                    <g id="Oval-84" stroke="none">
+                        <use fill="#4A245A" fill-rule="evenodd" xlink:href="#path-7"></use>
+                        <circle stroke="#6F507C" stroke-width="2" cx="50" cy="18" r="4"></circle>
+                    </g>
+                    <g id="Oval-85" stroke="none">
+                        <use fill="#4A245A" fill-rule="evenodd" xlink:href="#path-8"></use>
+                        <circle stroke="#6F507C" stroke-width="2" cx="50" cy="102" r="4"></circle>
+                    </g>
+                </g>
+            </g>
+            <text id="BI" mask="url(#mask-2)" font-family="CharcoalCY, Charcoal CY" font-size="80" font-weight="normal" fill="#FFFFFF">
+                <tspan x="30" y="90">BI</tspan>
+            </text>
+            <text id="Nimble" mask="url(#mask-2)" font-family="CharcoalCY, Charcoal CY" font-size="20" font-weight="normal" line-spacing="29" text-decoration="underline" fill="#FFFFFF">
+                <tspan x="37" y="107">Nimble</tspan>
+            </text>
+        </g>
+    </g>
+</svg>
